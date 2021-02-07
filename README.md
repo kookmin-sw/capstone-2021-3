@@ -1,7 +1,7 @@
 [![Work in Repl.it](https://classroom.github.com/assets/work-in-replit-14baed9a392b3a25080506f3b7b6d57f295ec2978f6f33ec97e36a161684cbe9.svg)](https://classroom.github.com/online_ide?assignment_repo_id=350606&assignment_repo_type=GroupAssignmentRepo)
 # Welcome to GitHub
 
-캡스톤 팀 생성을 축하합니다.
+캡스톤 팀 생성을 축하합니다!
 
 ## 팀소개 및 페이지를 꾸며주세요.
 
@@ -13,7 +13,7 @@
   - 프로젝트 소개 및 팀원 소개
   - index.md 예시보고 수정.
 
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
+- GitHub Pages 리파지토리 Settings > Options > GitHub Pages
   - Source를 marster branch
   - Theme Chooser에서 태마선택
   - 수정후 팀페이지 확인하여 점검.
