@@ -41,8 +41,15 @@
 
 ### 4. 사용법
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
+**Python 환경 설정**
+- Python 3.7 Virtual Environments 설정
+- 프로젝트 루트에서 `pip install -r requirements.txt` 실행
 
+**데이터 준비**
+- `cd deep_learning/recycle_dataset` 실행
+- `tfds build` 실행
+- `python recycle_dataset_test.py` 실행으로 데이터 테스트
+- "data_example.ipynb" 으로 데이터 사용예제 확인
 ### 5. 기타
 
 추가적인 내용은 자유롭게 작성하세요.
