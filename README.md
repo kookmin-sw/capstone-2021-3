@@ -41,11 +41,11 @@
 
 ### 4. 사용법
 
-**Python 환경 설정**
+#### **Python 환경 설정**
 - Python 3.7 Virtual Environments 설정
 - 프로젝트 루트에서 `pip install -r requirements.txt` 실행
 
-**데이터 준비**
+#### **데이터 준비**
 - `cd deep_learning/recycle_dataset` 실행
 - `tfds build` 실행
 - `python recycle_dataset_test.py` 실행으로 데이터 테스트
