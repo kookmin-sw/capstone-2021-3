@@ -1,0 +1,16 @@
+pre-push:
+  parallel: true
+  commands:
+    # 테스트 사용 시 주석 해제
+    # app-tests:
+    #   glob: '*.dart'
+    #   run: flutter test
+    app-linter:
+      glob: '*.dart'
+      run: flutter analyze
+
+pre-commit:
+  commands:
+    app-pretty:
+      glob: '*.dart'
+      run: flutter format {staged_files} && git add {staged_files}
