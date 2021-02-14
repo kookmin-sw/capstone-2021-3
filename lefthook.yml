@@ -6,11 +6,11 @@ pre-push:
     #   glob: '*.dart'
     #   run: flutter test
     app-linter:
-      glob: '*.dart'
+      glob: "*.dart"
       run: flutter analyze
 
 pre-commit:
   commands:
     app-pretty:
-      glob: '*.dart'
+      glob: "*.dart"
       run: flutter format {staged_files} && git add {staged_files}
