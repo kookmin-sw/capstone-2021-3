@@ -55,7 +55,6 @@ Github : [@ParkJeongseop](https://github.com/ParkJeongseop)
 
 ```
 
-
 ```
 
 허민호
@@ -79,6 +78,13 @@ Github : [@minoring](https://github.com/minoring)
 - `tfds build` 실행
 - `python recycle_dataset_test.py` 실행으로 데이터 테스트
 - "data_example.ipynb" 으로 데이터 사용예제 확인
+
+#### Application 개발
++ lefthook 설치
+  + [설치 가이드](https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md)
+  + Windows10을 사용하는 경우
+    + [release 링크](https://github.com/Arkweid/lefthook/releases)로 접속해서 .exe 파일을 받고 환경변수로 해당 파일 지정하면 바로 사용 가능.
+  + 설치 완료 후 root 폴더에서 `lefthook install` 실행
 
 ## 5. 기타
 
