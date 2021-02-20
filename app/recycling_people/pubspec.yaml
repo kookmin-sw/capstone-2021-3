@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  camera: ^0.7.0+2 #camera.dart 
+  camera: 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,7 +53,7 @@ flutter:
     - assets/recyleTypeImage/캔류.jpg
     - assets/recyleTypeImage/페트.jpg
     - assets/recyleTypeImage/플라스틱.jpg
-
+    
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

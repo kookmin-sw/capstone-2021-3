@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import 'package:recycling_people/buttons/button_text.dart';
+
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
 
@@ -48,6 +50,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 // 다른 방법으로 해결하기. (e.g. 로고를 보여준다던가...)
                 return Center(child: CircularProgressIndicator());
               }
-            }));
+            }),
+        floatingActionButton: RecycleTypeButton(4),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }
