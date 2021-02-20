@@ -16,7 +16,8 @@ It should also contain any processing which has been applied (if any),
 _CITATION = """
 """
 
-_PATH = "" # 로컬에 있는 recycle_dataset 경로.
+# 로컬에 있는 recycle_dataset 경로.
+_PATH = ""
 
 
 class RecycleDataset(tfds.core.GeneratorBasedBuilder):
