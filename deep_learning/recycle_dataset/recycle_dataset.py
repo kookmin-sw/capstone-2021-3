@@ -1,5 +1,6 @@
 """recycle_dataset dataset."""
 import itertools
+from pathlib import Path
 
 import tensorflow_datasets as tfds
 
@@ -15,7 +16,8 @@ It should also contain any processing which has been applied (if any),
 _CITATION = """
 """
 
-_URL = 'https://storage.googleapis.com/recycle_dataset/recycle_dataset.zip'
+# 로컬에 있는 recycle_dataset 경로.
+_PATH = ""
 
 
 class RecycleDataset(tfds.core.GeneratorBasedBuilder):
@@ -52,12 +54,12 @@ class RecycleDataset(tfds.core.GeneratorBasedBuilder):
   def _split_generators(self, dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     # Downloads the data and defines the splits
-    path = dl_manager.download_and_extract(_URL)
+    path = Path(_PATH)
 
     # Returns the Dict[split names, Iterator[Key, Example]]
     return {
-        'train': self._generate_examples(path / 'recycle_dataset' / 'train'),
-        'test': self._generate_examples(path / 'recycle_dataset' / 'test')
+        'train': self._generate_examples(path / 'train'),
+        'test': self._generate_examples(path / 'test')
     }
 
   def _generate_examples(self, path):
