@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
@@ -17,9 +16,6 @@ class _AnimationRecyleState extends State<AnimationRecyle> {
   String _typeNameK; // 한국어로된 소재 명칭
   String _typeNameE; // 영어로된 소재 명칭
   int _animationNum = 1;
-
-  List _animationTextList = [];
-  List<Widget> _textButtonList = [];
 
   RiveAnimationController _controller;
   Artboard _riveArtboard;
@@ -78,34 +74,26 @@ class _AnimationRecyleState extends State<AnimationRecyle> {
       ),
       body: Column(
         children: [
-          Positioned(
-              left: 0,
-              child: TextButton(
-                  onPressed: () {
-                    onPress(1);
-                  },
-                  child: Text('Play1'))),
-          Positioned(
-              left: 50,
-              child: TextButton(
-                  onPressed: () {
-                    onPress(2);
-                  },
-                  child: Text('Play2'))),
-          Positioned(
-              left: 100,
-              child: TextButton(
-                  onPressed: () {
-                    onPress(3);
-                  },
-                  child: Text('Play3'))),
-          Positioned(
-              left: 150,
-              child: TextButton(
-                  onPressed: () {
-                    onPress(4);
-                  },
-                  child: Text('Play4'))),
+          TextButton(
+              onPressed: () {
+                onPress(1);
+              },
+              child: Text('Play1')),
+          TextButton(
+              onPressed: () {
+                onPress(2);
+              },
+              child: Text('Play2')),
+          TextButton(
+              onPressed: () {
+                onPress(3);
+              },
+              child: Text('Play3')),
+          TextButton(
+              onPressed: () {
+                onPress(4);
+              },
+              child: Text('Play4')),
           Container(
               height: MediaQuery.of(context).size.height * 0.5,
               child: _riveArtboard == null
