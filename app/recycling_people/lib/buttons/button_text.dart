@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:recycling_people/animation/animation_page.dart';
 
 // 분류 모델 8가지
 // 캔류, 종이, 플라스틱, 유리, 페트, 비닐류, 종이팩, 스티로폼
 
 class RecycleTypeButton extends StatefulWidget {
-  int typeIndex; //버튼 작동 여부 확인을 위한 임의 값
+  final int typeIndex; //버튼 작동 여부 확인을 위한 임의 값
   RecycleTypeButton(this.typeIndex);
 
   _RecycleTypeButton createState() => _RecycleTypeButton(this.typeIndex);
 }
 
 class _RecycleTypeButton extends State<RecycleTypeButton> {
-  String blanck = '          ';
+  final String blanck = '          ';
 
   // type 값을 가져온다.
   _RecycleTypeButton(this.typeIndex);
@@ -83,9 +84,14 @@ class _RecycleTypeButton extends State<RecycleTypeButton> {
                 ]),
           )),
       TextButton(
-        // 애니메이션을 보여주는 페이지로 이동을 위한 임의 버튼
-        child: Text('Animation'),
-      )
+          child: Text('Animation'),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        AnimationRecyle(typeList[typeIndex])));
+          })
     ]);
   }
 }
