@@ -4,6 +4,9 @@ import 'page/google_map_page.dart';
 import 'page/qr_scan_page.dart';
 import 'page/rank_page.dart';
 
+import 'page/item1.dart';
+import 'page/item2.dart';
+
 void main() {
   runApp(InuobusApp());
 }
@@ -30,15 +33,21 @@ class Frame extends StatefulWidget {
 }
 
 class _Frame extends State<Frame> {
-  int _selectedIndex = 1;
+  int selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
-  final List<Widget> _children = [QRScan(), GoogleMap(), Rank()];
+  final List<Widget> bodyCenter = [
+    QRScan(),
+    GoogleMap(),
+    Rank(),
+    Item1(),
+    Item2()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +56,16 @@ class _Frame extends State<Frame> {
           title: Text(widget.title),
         ),
         body: Center(
-          child: _children[_selectedIndex],
+          child: bodyCenter[selectedIndex],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.blue,
+          selectedFontSize: 15,
+          unselectedFontSize: 12,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withOpacity(.60),
+          currentIndex: selectedIndex,
+          onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.camera_alt),
@@ -64,9 +80,36 @@ class _Frame extends State<Frame> {
               label: 'Rank',
             ),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue[800],
-          onTap: _onItemTapped,
-        ));
+        ),
+        endDrawer: Drawer(
+            child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+          SizedBox(
+            height: 95,
+            child: DrawerHeader(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text("Somthing data want")],
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                margin: EdgeInsets.all(0.0),
+                padding: EdgeInsets.all(0.0)),
+          ),
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Item1()));
+            },
+          ),
+          ListTile(
+            title: Text('Item 2'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Item2()));
+            },
+          ),
+        ])));
   }
 }
