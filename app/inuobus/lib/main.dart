@@ -51,17 +51,21 @@ class _Frame extends State<Frame> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
+        // 앱바
         appBar: AppBar(
           title: Text(widget.title),
         ),
+        // 내용
         body: Center(
           child: bodyCenter[selectedIndex],
         ),
+        // 네비게이션 바
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.blue,
-          selectedFontSize: 15,
-          unselectedFontSize: 12,
+          selectedFontSize: mediaQuery.size.width * 0.05,
+          unselectedFontSize: mediaQuery.size.width * 0.03,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.60),
           currentIndex: selectedIndex,
@@ -81,33 +85,34 @@ class _Frame extends State<Frame> {
             ),
           ],
         ),
+        // 메뉴
         endDrawer: Drawer(
             child: ListView(padding: EdgeInsets.zero, children: <Widget>[
           SizedBox(
-            height: 95,
+            height: mediaQuery.size.height * 0.2,
             child: DrawerHeader(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [Text("Somthing data want")],
                 ),
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
                 margin: EdgeInsets.all(0.0),
-                padding: EdgeInsets.all(0.0)),
+                padding: EdgeInsets.all(mediaQuery.size.width * 0.035)),
           ),
           ListTile(
             title: Text('Item 1'),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Item1()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => bodyCenter[3]));
             },
           ),
           ListTile(
             title: Text('Item 2'),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Item2()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => bodyCenter[4]));
             },
           ),
         ])));
