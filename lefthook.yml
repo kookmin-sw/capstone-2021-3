@@ -12,5 +12,17 @@ pre-push:
 pre-commit:
   commands:
     app-pretty:
+      root: "app/"
       glob: "*.dart"
       run: flutter format {staged_files} && git add {staged_files}
+    backend-lint:
+      black:
+      tags: backend
+      root: "backend/"
+      glob: "*.py"
+      run: black {staged_files}
+    backend-isort:
+      tags: backend
+      root: "backend/"
+      glob: "*.py"
+      run: isort {staged_files}
