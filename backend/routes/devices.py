@@ -21,5 +21,5 @@ async def deivce_list():
     response_model=List[Device],
     description="사용자 근처 쓰샘 리스트 반환",
 )
-async def device_nearby_list():
+async def device_nearby_list(latitude: float, longitude: float):
     pass
