@@ -1,4 +1,4 @@
-# inuobus
+# inobus
 
 A new Flutter project.
 

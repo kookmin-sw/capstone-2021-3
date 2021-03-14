@@ -1,4 +1,4 @@
-package com.example.inuobus
+package com.example.inobus
 
 import io.flutter.embedding.android.FlutterActivity
 
