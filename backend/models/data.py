@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from utils.datetime import get_current_datetime_str
 from utils.pyobjectid import ObjectId, PyObjectId
 
 
@@ -26,6 +27,7 @@ class PointData(BaseModel):
                 "user": "1",
                 "team": "소융대18",
                 "point": 40,
+                "date": get_current_datetime_str(),
             }
         }
 
@@ -50,6 +52,6 @@ class CapacityData(BaseModel):
                 "sensor": "plastic",
                 "percentage": 10.3,
                 "state": "ON",
-                "date": "2020-10-15 3:59:09 PM",
+                "date": get_current_datetime_str(),
             }
         }
