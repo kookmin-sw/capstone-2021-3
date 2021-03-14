@@ -28,7 +28,7 @@
 
 Student ID : 20181708
 E-Mail : gjdigj145@kookmin.ac.kr
-Role : 팀장, 
+Role : 팀장,
 Github : [@Aqudi](https://github.com/Aqudi)
 
 ```
@@ -39,7 +39,7 @@ Github : [@Aqudi](https://github.com/Aqudi)
 
 Student ID : 20171618
 E-Mail : dsawt98@kookmin.ac.kr
-Role : 
+Role :
 Github : [@gychoics](https://github.com/gychoics)
 
 ```
@@ -50,7 +50,7 @@ Github : [@gychoics](https://github.com/gychoics)
 
 Student ID : 20181616
 E-Mail : parkjeongseop@kookmin.ac.kr
-Role : 
+Role :
 Github : [@ParkJeongseop](https://github.com/ParkJeongseop)
 
 ```
@@ -61,7 +61,7 @@ Github : [@ParkJeongseop](https://github.com/ParkJeongseop)
 
 Student ID : 20143115
 E-Mail : gjalsgh1234@kookmin.ac.kr
-Role : 
+Role :
 Github : [@minoring](https://github.com/minoring)
 
 ```
