@@ -6,13 +6,19 @@ from utils.pyobjectid import ObjectId, PyObjectId
 
 
 class User(BaseModel):
+    """
+    User Base 모델
+    """
+
     id: Optional[PyObjectId] = Field(alias="_id")
     device_id: str = Field(description="기기별 사용자 식별 id")
     team: str = Field(description="사용자가 속한 팀 (닉네임)")
 
 
 class UserIn(User):
-    point: int = Field(description="유저의 누적 포인트")
+    """
+    User DB 모델
+    """
 
     class Config:
         json_encoders = {ObjectId: str}
@@ -26,6 +32,12 @@ class UserIn(User):
 
 
 class UserOut(User):
+    """
+    User Response 모델
+    """
+
+    point: int = Field(description="유저의 누적 포인트")
+
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
