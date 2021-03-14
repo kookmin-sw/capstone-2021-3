@@ -69,17 +69,15 @@ Github : [@minoring](https://github.com/minoring)
 
 ## 4. 사용법
 
-#### **Python 환경 설정**
-- Python 3.7 Virtual Environments 설정
-- 프로젝트 루트에서 `pip install -r requirements.txt` 실행
+### Deep Learning 환경 설정
+- Python 3.8 Virtual Environments 설정
+- "deep_learning/" 폴더에서 `pip install -r requirements.txt` 실행
+- #### 데이터 준비
+  - "deep_learning/recycle_dataset/" 폴더에서 `tfds build` 실행
+  - `python recycle_dataset_test.py` 실행으로 데이터 테스트
+  - "data_example.ipynb" 으로 데이터 사용예제 확인
 
-#### **데이터 준비**
-- `cd deep_learning/recycle_dataset` 실행
-- `tfds build` 실행
-- `python recycle_dataset_test.py` 실행으로 데이터 테스트
-- "data_example.ipynb" 으로 데이터 사용예제 확인
-
-#### Application 개발
+### Application 개발
 + lefthook 설치
   + [설치 가이드](https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md)
   + Windows10을 사용하는 경우
