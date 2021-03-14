@@ -26,3 +26,7 @@ pre-commit:
       root: "backend/"
       glob: "*.py"
       run: isort {staged_files}
+  scripts:
+    "export_docs.py":
+      tags: backend
+      runner: python
