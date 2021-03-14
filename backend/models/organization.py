@@ -6,9 +6,7 @@ from utils.pyobjectid import ObjectId, PyObjectId
 
 
 class Organization(BaseModel):
-    """
-    쓰샘 기기의 포인트 데이터 모델
-    """
+    """쓰샘 기기의 포인트 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str = Field(description="기관명")

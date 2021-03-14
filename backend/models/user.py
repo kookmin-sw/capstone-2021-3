@@ -6,9 +6,7 @@ from utils.pyobjectid import ObjectId, PyObjectId
 
 
 class User(BaseModel):
-    """
-    User Base 모델
-    """
+    """User Base 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
     device_id: str = Field(description="기기별 사용자 식별 id")
@@ -16,9 +14,7 @@ class User(BaseModel):
 
 
 class UserIn(User):
-    """
-    User DB 모델
-    """
+    """User DB 모델"""
 
     class Config:
         json_encoders = {ObjectId: str}
@@ -32,9 +28,7 @@ class UserIn(User):
 
 
 class UserOut(User):
-    """
-    User Response 모델
-    """
+    """User Response 모델"""
 
     point: int = Field(description="유저의 누적 포인트")
 

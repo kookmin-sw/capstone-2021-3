@@ -8,9 +8,7 @@ from utils.pyobjectid import ObjectId, PyObjectId
 
 
 class PointData(BaseModel):
-    """
-    쓰샘 기기의 포인트 데이터 모델
-    """
+    """쓰샘 기기의 포인트 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
     organization: PyObjectId = Field(description="데이터의 디바이스 id")
@@ -33,9 +31,7 @@ class PointData(BaseModel):
 
 
 class CapacityData(BaseModel):
-    """
-    쓰샘 기기의 적재량 데이터 모델
-    """
+    """쓰샘 기기의 적재량 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
     device: PyObjectId = Field(description="데이터의 디바이스 id")

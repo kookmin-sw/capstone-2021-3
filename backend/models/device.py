@@ -9,9 +9,7 @@ from utils.pyobjectid import ObjectId, PyObjectId
 
 
 class Device(BaseModel):
-    """
-    쓰샘 기기의 포인트 데이터 모델
-    """
+    """쓰샘 기기의 포인트 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str
