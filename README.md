@@ -72,10 +72,23 @@ Github : [@minoring](https://github.com/minoring)
 ### Deep Learning 환경 설정
 - Python 3.8 Virtual Environments 설정
 - "deep_learning/" 폴더에서 `pip install -r requirements.txt` 실행
+```shell
+# Example
+cd deep_learning
+python3 -m venv <venv_name> 
+source <venv_path>/bin/activate
+pip3 install -r requirements.txt
+```
 - #### 데이터 준비
   - "deep_learning/recycle_dataset/" 폴더에서 `tfds build` 실행
   - `python recycle_dataset_test.py` 실행으로 데이터 테스트
   - "data_example.ipynb" 으로 데이터 사용예제 확인
+```shell
+# Example
+cd deep_learning/recycle_dataset/
+tfds build # 데이터 다운로드, 준비
+jupyter lab # 예제 노트북 확인
+```
 
 ### Application 개발
 + lefthook 설치
