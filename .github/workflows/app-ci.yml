@@ -12,7 +12,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./app/inuobus
+    working-directory: ./app/inobus
 
 jobs:
   build:
@@ -49,4 +49,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: release-apk
-          path: ./app/inuobus/build/app/outputs/flutter-apk/app-release.apk
+          path: ./app/inobus/build/app/outputs/flutter-apk/app-release.apk

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.inuobus">
+    package="com.example.inobus">
    <application
-        android:label="inuobus"
+        android:label="inobus"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
