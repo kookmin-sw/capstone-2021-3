@@ -2,7 +2,7 @@
 
 이미지 resize하면 PET 글씨가 너무 작아져서 안보일까 테스트 할때 씀.
 사용 예제:
-python tools/image_size_viewer.py --image_dir="path/to/image/dir" --image_size=224
+python tools/image_resize_viewer.py --image_dir="path/to/image/dir" --image_size=224
 """
 from pathlib import Path
 import itertools
