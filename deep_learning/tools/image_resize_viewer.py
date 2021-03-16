@@ -36,12 +36,12 @@ def main(_):
     print(f"No such directory {dir_path}")
     exit(1)
 
+  new_size = (flags.FLAGS.image_size, flags.FLAGS.image_size)
   # jpg, jpeg 이미지들만 보여줌. png등 다른포멧은 지원안함.
   paths = itertools.chain((dir_path.rglob("*.jpeg")), dir_path.rglob("*.jpg"))
   for path in paths:
-    img = Image.open(path)
-    new_size = (flags.FLAGS.image_size, flags.FLAGS.image_size)
-    imshow_wait_input(img.resize(new_size))
+    with Image.open(path) as img
+      imshow_wait_input(img.resize(new_size))
 
     if closed:
       break
