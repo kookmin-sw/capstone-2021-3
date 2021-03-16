@@ -17,9 +17,33 @@ class HomeFrame extends StatefulWidget {
 }
 
 class _HomeFrame extends State<HomeFrame> {
-  int selectedIndex = 0;
+  int selectedIndex;
+  PageController pagecontroller;
 
-  void _onItemTapped(int index) {
+  void initState() {
+    super.initState();
+    this.selectedIndex = 0;
+    this.pagecontroller = PageController(
+      initialPage: this.selectedIndex,
+    );
+  }
+
+  void dispose() {
+    pagecontroller.dispose();
+    super.dispose();
+  }
+
+  // 네비게이션 버튼을 눌렀을 때
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+      pagecontroller.animateToPage(selectedIndex,
+          duration: Duration(milliseconds: 100), curve: Curves.linear);
+    });
+  }
+
+  // 손으로 페이지를 넘겼을 때
+  void pageChanged(int index) {
     setState(() {
       selectedIndex = index;
     });
@@ -36,8 +60,12 @@ class _HomeFrame extends State<HomeFrame> {
         title: Text(widget.title),
       ),
       // 내용
-      body: Center(
-        child: bodyCenter[selectedIndex],
+      body: PageView(
+        controller: pagecontroller,
+        children: bodyCenter,
+        onPageChanged: (index) {
+          pageChanged(index);
+        },
       ),
       // 네비게이션 바
       bottomNavigationBar: BottomNavigationBar(
@@ -46,7 +74,7 @@ class _HomeFrame extends State<HomeFrame> {
         selectedItemColor: widget.pointColor,
         unselectedItemColor: widget.pointColor.withOpacity(.60),
         currentIndex: selectedIndex,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
