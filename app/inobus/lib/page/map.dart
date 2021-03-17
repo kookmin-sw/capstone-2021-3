@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPage extends State<MapPage> {
+  final Completer<GoogleMapController> mapController = Completer();
   bool loading = true;
-  Completer<GoogleMapController> mapController = Completer();
   Position currentPosition;
   CameraPosition cameraPosition;
   LatLng companyLocation = LatLng(37.60698991689425, 126.9314847979407);
@@ -24,8 +25,8 @@ class _MapPage extends State<MapPage> {
     try {
       currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print("current locationLatitude: ${currentPosition.latitude}");
-      print("current locationLongitude: ${currentPosition.longitude}");
+      developer.log("current latitude: ${currentPosition.latitude}");
+      developer.log("current longitude: ${currentPosition.longitude}");
       setState(() {
         loading = false;
         cameraPosition = CameraPosition(
@@ -34,8 +35,8 @@ class _MapPage extends State<MapPage> {
       });
     } on Exception {
       currentPosition = null;
-      print("company locationLatitude: ${companyLocation.latitude}");
-      print("company locationLongitude: ${companyLocation.longitude}");
+      developer.log("companyLocation latitude: ${companyLocation.latitude}");
+      developer.log("companyLocation longitude: ${companyLocation.longitude}");
       setState(() {
         loading = false;
         cameraPosition = CameraPosition(target: companyLocation, zoom: 15);
