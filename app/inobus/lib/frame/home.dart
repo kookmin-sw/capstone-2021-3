@@ -20,6 +20,7 @@ class _HomeFrame extends State<HomeFrame> {
   int selectedIndex;
   PageController pagecontroller;
 
+  @override
   void initState() {
     super.initState();
     this.selectedIndex = 0;
@@ -28,6 +29,7 @@ class _HomeFrame extends State<HomeFrame> {
     );
   }
 
+  @override
   void dispose() {
     pagecontroller.dispose();
     super.dispose();
