@@ -4,6 +4,9 @@
    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <!--for geolocator.dart-->
+   <!--for qrscan.dart-->
+   <uses-permission android:name="android.permission.CAMERA" />
+   <!--for qrscan.dart-->
    <application
         android:label="inobus"
         android:icon="@mipmap/ic_launcher">
