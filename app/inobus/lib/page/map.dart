@@ -14,6 +14,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPage extends State<MapPage> {
+  bool loading = true;
   Completer<GoogleMapController> mapController = Completer();
   Position currentPosition;
   CameraPosition cameraPosition;
@@ -26,6 +27,7 @@ class _MapPage extends State<MapPage> {
       print("current locationLatitude: ${currentPosition.latitude}");
       print("current locationLongitude: ${currentPosition.longitude}");
       setState(() {
+        loading = false;
         cameraPosition = CameraPosition(
             target: LatLng(currentPosition.latitude, currentPosition.longitude),
             zoom: 15);
@@ -35,6 +37,7 @@ class _MapPage extends State<MapPage> {
       print("company locationLatitude: ${companyLocation.latitude}");
       print("company locationLongitude: ${companyLocation.longitude}");
       setState(() {
+        loading = false;
         cameraPosition = CameraPosition(target: companyLocation, zoom: 15);
       });
     }
@@ -51,14 +54,14 @@ class _MapPage extends State<MapPage> {
     // 반응형으로 만들기 위한 변수
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-        body: currentPosition != null
+        body: loading == false
             ? Center(
                 child: SizedBox(
                     width: mediaQuery.size.width * 0.9,
                     height: mediaQuery.size.height * 0.7,
                     child: GoogleMap(
                       mapType: MapType.normal,
-                      myLocationEnabled: true,
+                      myLocationEnabled: currentPosition != null ? true : false,
                       zoomGesturesEnabled: true,
                       zoomControlsEnabled: true,
                       initialCameraPosition: cameraPosition,
