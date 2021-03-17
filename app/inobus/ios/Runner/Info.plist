@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!--for geolocator.dart-->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자 분의 위치 정보가 필요합니다.</string>
+	<!-- <key>NSLocationAlwaysUsageDescription</key>
+	<string>앱이 백그라운드에서 실행될때도 위치 정보가 필요합니다.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>앱이 백그라운드에서 실행될때도 위치 정보가 필요합니다.</string> -->
+	<!-- <key>io.flutter.embedded_views_preview</key>
+	<string>YES</string> -->
+	<!--for geolocator.dart-->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
