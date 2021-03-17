@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -63,6 +65,13 @@ class _MapPage extends State<MapPage> {
                       onMapCreated: (GoogleMapController controller) {
                         mapController.complete(controller);
                       },
+                      // pageView 가로 제스쳐 겹지치 않게 만들기
+                      gestureRecognizers:
+                          <Factory<OneSequenceGestureRecognizer>>[
+                        new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                        ),
+                      ].toSet(),
                     )))
             : LoadingPage());
   }
