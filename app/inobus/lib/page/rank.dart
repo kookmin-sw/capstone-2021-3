@@ -56,6 +56,7 @@ class _RankPage extends State<RankPage> {
   }
 }
 
+// 아이콘으로 등수 표현
 class RankIcon extends StatelessWidget {
   final double rankSize;
   final String rankText;
@@ -85,6 +86,7 @@ class RankIcon extends StatelessWidget {
   }
 }
 
+// 텍스트로 등수 표현
 class RankText extends StatelessWidget {
   final double bottomHeight;
   final String rankeText;
