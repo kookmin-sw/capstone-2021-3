@@ -6,6 +6,7 @@ import tensorflow_datasets as tfds
 
 # TODO(inobus_pet_v1): Markdown description  that will appear on the catalog page.
 _DESCRIPTION = """
+Shape: (224, 224, 3)
 - train
     - yes_pet: 1.pet + 3.pet(pete): 592장
     - no_pet: 5.pla: 438장
@@ -37,7 +38,7 @@ class InobusPetV1(tfds.core.GeneratorBasedBuilder):
         description=_DESCRIPTION,
         features=tfds.features.FeaturesDict({
             # These are the features of your dataset like images, labels ...
-            'image': tfds.features.Image(shape=(None, None, 3)),
+            'image': tfds.features.Image(shape=(224, 224, 3)),
             'label': tfds.features.ClassLabel(names=['no_pet', 'yes_pet']),
         }),
         # If there's a common (input, target) tuple from the
