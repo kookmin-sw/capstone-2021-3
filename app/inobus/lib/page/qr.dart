@@ -20,15 +20,13 @@ class _QRPage extends State<QRPage> {
         result = qrResult;
       });
     } on PlatformException catch (ex) {
-      if (ex.code == BarcodeScanner.cameraAccessDenied) {
-        setState(() {
+      setState(() {
+        if (ex.code == BarcodeScanner.cameraAccessDenied) {
           result = "Camera was denied";
-        });
-      } else {
-        setState(() {
+        } else {
           result = "Unknown Error $ex";
-        });
-      }
+        }
+      });
     } on FormatException {
       setState(() {
         result = "You pressed the back button before scanning anything";
