@@ -6,7 +6,6 @@ from pathlib import Path
 backend_root = Path(__name__).parent.absolute() / "backend"
 sys.path.append(str(backend_root.resolve()))
 sys.path.append(str((backend_root / "venv/lib/site-packages").resolve()))
-print(sys.path)
 
 from main import app
 
