@@ -1,21 +1,17 @@
 """이미지 디렉토리, 출력 디렉토리, resize 하고싶은 이미지 사이즈 주어지면 이미지들 resize해서 저장.
 
-사용 예제:
-python tools/image_resizer.py --image_dir="path/to/image/dir" \
+사용 예제: tools 폴더에서,
+python image_resizer.py --image_dir="path/to/image/dir" \
   --out_dir="path/to/resized/out/dir" --image_size=224
 """
 import os
-import itertools
 from pathlib import Path
 
 from PIL import Image
 from absl import app
 from absl import flags
 
-
-def glob_jpeg_alike(dir_path):
-  return itertools.chain((dir_path.glob("*.jpeg")), dir_path.glob("*.jpg"),
-                         dir_path.glob("*.JPG"))
+from utils import glob_jpeg_alike
 
 
 def main(_):
@@ -27,7 +23,6 @@ def main(_):
   out_dir = Path(flags.FLAGS.out_dir)
   out_dir.mkdir(parents=True, exist_ok=True)
 
-  # jpg, jpeg 이미지들만 가져옴. png등 다른포멧 고려하지 않음.
   paths = glob_jpeg_alike(image_dir)
   new_size = (flags.FLAGS.image_size, flags.FLAGS.image_size)
 

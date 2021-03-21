@@ -1,16 +1,17 @@
 """이미지 디렉토리, 원하는 이미지 사이즈를 입력값으로 주면 resize된 이미지들을 보여주는 툴.
 
 이미지 resize하면 PET 글씨가 너무 작아져서 안보일까 테스트 할때 씀.
-사용 예제:
-python tools/image_resize_viewer.py --image_dir="path/to/image/dir" --image_size=224
+사용 예제: tools 폴더에서,
+python image_resize_viewer.py --image_dir="path/to/image/dir" --image_size=224
 """
 from pathlib import Path
-import itertools
 
 import matplotlib.pyplot as plt
 from PIL import Image
 from absl import app
 from absl import flags
+
+from utils import rglob_jpeg_alike
 
 
 def handle_close(_):
@@ -37,8 +38,8 @@ def main(_):
     exit(1)
 
   new_size = (flags.FLAGS.image_size, flags.FLAGS.image_size)
-  # jpg, jpeg 이미지들만 보여줌. png등 다른포멧은 지원안함.
-  paths = itertools.chain((dir_path.rglob("*.jpeg")), dir_path.rglob("*.jpg"))
+
+  paths = rglob_jpeg_alike(dir_path)
   for path in paths:
     with Image.open(path) as img
       imshow_wait_input(img.resize(new_size))
