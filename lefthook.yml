@@ -20,12 +20,12 @@ pre-commit:
       tags: backend
       root: "backend/"
       glob: "*.py"
-      run: black {staged_files}
+      run: black --check {staged_files}
     backend-isort:
       tags: backend
       root: "backend/"
       glob: "*.py"
-      run: isort {staged_files}
+      run: isort {staged_files} -c
   scripts:
     "export_docs.py":
       tags: backend
