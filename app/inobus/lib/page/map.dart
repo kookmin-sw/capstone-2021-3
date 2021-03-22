@@ -21,6 +21,8 @@ class _MapPage extends State<MapPage> {
   CameraPosition cameraPosition;
   LatLng companyLocation = LatLng(37.60698991689425, 126.9314847979407);
 
+  List<Marker> allMarkers = [];
+
   void locatePosition() async {
     try {
       currentPosition = await Geolocator.getCurrentPosition(
@@ -48,6 +50,13 @@ class _MapPage extends State<MapPage> {
   void initState() {
     locatePosition();
     super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('myMarker'),
+        draggable: false,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(37.60698991689425, 126.9314847979407)));
   }
 
   @override
@@ -66,6 +75,7 @@ class _MapPage extends State<MapPage> {
                       zoomGesturesEnabled: true,
                       zoomControlsEnabled: true,
                       initialCameraPosition: cameraPosition,
+                      markers: Set.from(allMarkers),
                       onMapCreated: (GoogleMapController controller) {
                         mapController.complete(controller);
                       },
