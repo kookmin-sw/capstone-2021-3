@@ -1,8 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inobus">
+   <!--for geolocator.dart-->
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   <!--for geolocator.dart-->
+   <!--for qrscan.dart-->
+   <uses-permission android:name="android.permission.CAMERA" />
+   <!--for qrscan.dart-->
    <application
         android:label="inobus"
         android:icon="@mipmap/ic_launcher">
+        <!--for google_maps_flutter.dart.dart-->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDpXYarqo_dhCwzfKmKT5ZmLVNHSmfiDfo"/>
+        <!--for google_maps_flutter.dart.dart-->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

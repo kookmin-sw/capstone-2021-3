@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!--for google map-->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>지도를 보기 위해 사용자의 위치 정보가 필요합니다.</string>
+	<!--for google map-->
+	<!--for qrscan-->
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+    <string>QR코드를 스켄하기 위해 카메라 접근이 허용되어야 합니다.</string>
+	<!--for qrscan-->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
