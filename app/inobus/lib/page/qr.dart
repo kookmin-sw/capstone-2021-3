@@ -15,27 +15,19 @@ class _QRPage extends State<QRPage> {
   Future scanQR() async {
     try {
       ScanResult qrScanResult = await BarcodeScanner.scan();
-      String qrResult = qrScanResult.rawContent;
-      setState(() {
-        result = qrResult;
-      });
+      result = qrScanResult.rawContent;
     } on PlatformException catch (ex) {
-      setState(() {
-        if (ex.code == BarcodeScanner.cameraAccessDenied) {
-          result = "Camera was denied";
-        } else {
-          result = "Unknown Error $ex";
-        }
-      });
-    } on FormatException {
-      setState(() {
-        result = "You pressed the back button before scanning anything";
-      });
-    } catch (ex) {
-      setState(() {
+      if (ex.code == BarcodeScanner.cameraAccessDenied) {
+        result = "Camera was denied";
+      } else {
         result = "Unknown Error $ex";
-      });
+      }
+    } on FormatException {
+      result = "You pressed the back button before scanning anything";
+    } catch (ex) {
+      result = "Unknown Error $ex";
     }
+    setState(() {});
   }
 
   @override
