@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
+from database import db
 from routes import devices, organizations, users
 
 app = FastAPI(
@@ -9,9 +10,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-router = APIRouter(
-    prefix="/api/v1"
-)
+router = APIRouter(prefix="/api/v1")
 
 router.include_router(
     router=organizations.router,
@@ -31,4 +30,4 @@ router.include_router(
     tags=["users"],
 )
 
-app.include_router(router);
+app.include_router(router)
