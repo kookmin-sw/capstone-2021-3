@@ -29,7 +29,6 @@
 ├── requirements              # 필요한 패키지들을 정의한 파일들을 모아둔 폴더
 ├── routes                    # API router 들을 정의한 폴더
 ├── utils                     # util 모음 폴더
-├── database.py               # db 사용을 위한 파이썬 스크립트
 ├── docker-compose.dev.yaml   # 개발용 docker-compose 파일
 ├── docker-compose.prod.yaml  # 배포용 docker-compose 파일
 ├── docs.html                 # 호스팅용 API 문서 파일
