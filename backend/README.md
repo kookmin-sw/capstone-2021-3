@@ -14,7 +14,8 @@
       - [Docker 이미지 배포](#docker-이미지-배포)
       - [개발용 서버 실행](#개발용-서버-실행-1)
       - [배포용 서버 실행](#배포용-서버-실행)
-  - [Swagger 접속](#swagger-접속)
+  - [API 문서 링크 (개발)](#api-문서-링크-개발)
+  - [Git hook 설정](#git-hook-설정)
 
 ## 폴더 및 파일 구조
 
@@ -105,12 +106,27 @@ docker run --name api-dev -p 80:80 -v ${pwd}:/app <이미지 이름:태그> /sta
 - `--restart unless-stopped`: container stop 하기 전까지 항상 재시작하는 정책 사용
 
 ```shell
-docker run -d  --name api-deploy -p 80:8080 --restart unless-stopped ghcr.io/aqudi/capstone_inobus_backend:latest
-
-# 컨테이너 로그 확인
-# docker logs api-deploy -f
+# --reload 는 개발할 때 사용
+uvicorn main:app --reload
 ```
 
-## Swagger 접속
+## API 문서 링크 (개발)
 
-http://localhost:8000/docs
+- [Swagger](http://localhost:8000/docs)
+- [Redoc](http://localhost:8000/redoc)
+
+## Git hook 설정
+
+- lefthook 설치
+  - [lefthook 설치 가이드](https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md)
+  - Windows 10은 [release](https://github.com/Arkweid/lefthook/releases)에서 다운 받은 후 환경변수에 지정
+  - lefthook.yml 있는 폴더에서 `lefthook install` 실행
+- lefthook-local.yml 파일 작성
+  ```yml
+  pre-push:
+    exclude_tags:
+      - app
+  pre-commit:
+    exclude_tags:
+      - app
+  ```
