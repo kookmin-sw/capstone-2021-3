@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    env_file:
+      - envs/.env.local
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app
+  api:
+    extends:
+      file: docker-compose.prod.yaml
+      service: api
+    env_file:
+      - envs/.env.local
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+    networks:
+      - app
+    volumes:
+      - .:/app
+    command: "/start-reload.sh"
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  mongodb:
