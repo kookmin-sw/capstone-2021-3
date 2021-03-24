@@ -9,24 +9,12 @@ class RankPage extends StatefulWidget {
 
 class _RankPage extends State<RankPage> {
   List<String> rankList;
-  List<RankText> rankText = [];
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
     setState(() {
       rankList = requestOrganizationList;
     });
-  }
-
-  List getRankText(mediaQuery) {
-    setState(() {
-      for (var j = 3; j < rankList.length; j++) {
-        rankText.add(RankText(
-            bottomHeight: mediaQuery.size.height * 0.05,
-            rankeText: "${j + 1}등 : ${rankList[j]}"));
-      }
-    });
-    return rankText;
   }
 
   @override
@@ -43,39 +31,45 @@ class _RankPage extends State<RankPage> {
         body: rankList != null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: mediaQuery.size.width * 0.1,
-                        bottom: mediaQuery.size.width * 0.1,
-                      ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RankIcon(
-                                rankColor: Colors.grey,
-                                rankSize: mediaQuery.size.width * 0.2,
-                                rankText: rankList[1]),
-                            RankIcon(
-                                rankColor: Colors.yellow,
-                                rankSize: mediaQuery.size.width * 0.25,
-                                rankText: rankList[0]),
-                            RankIcon(
-                                rankColor: Colors.brown,
-                                rankSize: mediaQuery.size.width * 0.15,
-                                rankText: rankList[2]),
-                          ]),
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        RankIcon(
+                            rankColor: Colors.grey,
+                            rankSize: mediaQuery.size.width * 0.2,
+                            rankText: rankList[1]),
+                        RankIcon(
+                            rankColor: Colors.yellow,
+                            rankSize: mediaQuery.size.width * 0.25,
+                            rankText: rankList[0]),
+                        RankIcon(
+                            rankColor: Colors.brown,
+                            rankSize: mediaQuery.size.width * 0.15,
+                            rankText: rankList[2]),
+                      ]),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: mediaQuery.size.width * 0.1,
                     ),
-                    Expanded(
-                        //스크롤 가능하게
-                        child: ListView(
-                      padding: EdgeInsets.only(
-                        left: mediaQuery.size.width * 0.1,
-                      ),
-                      children: getRankText(mediaQuery),
-                    ))
-                  ])
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RankText(
+                            bottomHeight: mediaQuery.size.height * 0.05,
+                            rankeText: "4등 : ${rankList[3]}"),
+                        RankText(
+                            bottomHeight: mediaQuery.size.height * 0.05,
+                            rankeText: "5등 : ${rankList[4]}"),
+                        RankText(
+                            bottomHeight: mediaQuery.size.height * 0.05,
+                            rankeText: "6등 : ${rankList[5]}")
+                      ],
+                    ),
+                  )
+                ],
+              )
             : Text("Loading"));
   }
 }
