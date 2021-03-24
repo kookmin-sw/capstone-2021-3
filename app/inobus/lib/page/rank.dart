@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../api/json.dart';
 
 class RankPage extends StatefulWidget {
   RankPage();
@@ -8,69 +7,52 @@ class RankPage extends StatefulWidget {
 }
 
 class _RankPage extends State<RankPage> {
-  List<String> rankList;
-
-  void getOrganizationRank() async {
-    var requestOrganizationList = await requestOrganization();
-    setState(() {
-      rankList = requestOrganizationList;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getOrganizationRank();
-  }
-
   @override
   Widget build(BuildContext context) {
     // 반응형으로 만들기 위한 변수
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-        body: rankList != null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        RankIcon(
-                            rankColor: Colors.grey,
-                            rankSize: mediaQuery.size.width * 0.2,
-                            rankText: rankList[1]),
-                        RankIcon(
-                            rankColor: Colors.yellow,
-                            rankSize: mediaQuery.size.width * 0.25,
-                            rankText: rankList[0]),
-                        RankIcon(
-                            rankColor: Colors.brown,
-                            rankSize: mediaQuery.size.width * 0.15,
-                            rankText: rankList[2]),
-                      ]),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: mediaQuery.size.width * 0.1,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "4등 : ${rankList[3]}"),
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "5등 : ${rankList[4]}"),
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "6등 : ${rankList[5]}")
-                      ],
-                    ),
-                  )
-                ],
-              )
-            : Text("Loading"));
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              RankIcon(
+                  rankColor: Colors.grey,
+                  rankSize: mediaQuery.size.width * 0.2,
+                  rankText: "222222222222"),
+              RankIcon(
+                  rankColor: Colors.yellow,
+                  rankSize: mediaQuery.size.width * 0.25,
+                  rankText: "11111111111"),
+              RankIcon(
+                  rankColor: Colors.brown,
+                  rankSize: mediaQuery.size.width * 0.15,
+                  rankText: "33333333333"),
+            ]),
+        Padding(
+          padding: EdgeInsets.only(
+            left: mediaQuery.size.width * 0.1,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RankText(
+                  bottomHeight: mediaQuery.size.height * 0.05,
+                  rankeText: "4등 : 444444444444"),
+              RankText(
+                  bottomHeight: mediaQuery.size.height * 0.05,
+                  rankeText: "5등 : 5555555555555"),
+              RankText(
+                  bottomHeight: mediaQuery.size.height * 0.05,
+                  rankeText: "6등 : 6666666666666")
+            ],
+          ),
+        )
+      ],
+    ));
   }
 }
 
