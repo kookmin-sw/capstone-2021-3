@@ -12,13 +12,12 @@
     - [Docker compose를 이용한 실행](#docker-compose를-이용한-실행)
       - [Docker 이미지 빌드](#docker-이미지-빌드)
       - [Docker 이미지 배포](#docker-이미지-배포)
-      - [개발용 서버 실행 (docker-compose up)](#개발용-서버-실행-docker-compose-up)
-      - [배포용 서버 실행 (docker-compose up)](#배포용-서버-실행-docker-compose-up)
-  - [중지/제거 (docker-compose stop/down)](#중지제거-docker-compose-stopdown)
+      - [개발용 서버 실행](#개발용-서버-실행-1)
+      - [배포용 서버 실행](#배포용-서버-실행)
+  - [중지/제거](#중지제거)
     - [중지 - 컨테이너 내부 상태는 유지 (파일들)](#중지---컨테이너-내부-상태는-유지-파일들)
     - [삭제 - 컨테이너 내부 상태까지 초기화](#삭제---컨테이너-내부-상태까지-초기화)
-  - [API 문서 링크 (개발)](#api-문서-링크-개발)
-  - [Git hook 설정](#git-hook-설정)
+  - [Swagger 접속](#swagger-접속)
 
 ## 폴더 및 파일 구조
 
@@ -90,7 +89,7 @@ docker-compose -f docker-compose.prod.yaml build
 #### Docker 이미지 배포
 
 - Docker 이미지는 github packages에 배포한다.
-  - [Docker 저장소 주소](https://github.com/users/Aqudi/packages/container/package/capstone_inobus_backend)
+  - [Docker 저장소 주소](https://hub.docker.com/repository/docker/taejung/ino_api)
 - packages 이용을 위한 Github token 만들기
   - 접속: https://github.com/settings/tokens
   - Generate new token 클릭
@@ -112,10 +111,10 @@ docker-compose -f docker-compose.prod.yaml build
   ```
 
 - Github actions를 이용한 배포
-  - Actions 파일 : [publish-backend-image.yml](../.github/workflows/publish-backend-image.yml)
+  - Actions 파일 : [publish-backend-image.yml](.github\workflows\publish-backend-image.yml)
   - [참고링크1](https://docs.github.com/en/actions/guides/publishing-docker-images#publishing-images-to-github-packages), [참고링크2](https://docs.github.com/en/packages/guides/migrating-to-github-container-registry-for-docker-images#updating-your-github-actions-workflow)
 
-#### 개발용 서버 실행 (docker-compose up)
+#### 개발용 서버 실행
 
 - [docker-compose.dev.yaml 참고](./docker-compose.dev.yaml)
 - 파일을 수정하면 수정사항이 바로 반영된다.
@@ -126,7 +125,7 @@ docker-compose -f docker-compose.prod.yaml build
 docker-compose -f docker-compose.dev.yaml up [--build]
 ```
 
-#### 배포용 서버 실행 (docker-compose up)
+#### 배포용 서버 실행
 
 - [docker-compose.prod.yaml 참고](./docker-compose.prod.yaml)
 - [envs/.env.local][.env.local]을 참고하여 [envs/.env][.env]를 먼저 작성한다.
@@ -146,7 +145,7 @@ docker-compose -f docker-compose.prod.yaml up [--build]
 docker-compose -f docker-compose.dev.yaml up mongodb
 ```
 
-## 중지/제거 (docker-compose stop/down)
+## 중지/제거
 
 ### 중지 - 컨테이너 내부 상태는 유지 (파일들)
 
@@ -165,26 +164,9 @@ docker-compose -f docker-compose.dev.yaml down [-v]
 docker-compose -f docker-compose.prod.yaml down [-v]
 ```
 
-## API 문서 링크 (개발)
+## Swagger 접속
 
-- [Swagger](http://localhost:8000/docs)
-- [Redoc](http://localhost:8000/redoc)
-
-## Git hook 설정
-
-- lefthook 설치
-  - [lefthook 설치 가이드](https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md)
-  - Windows 10은 [release](https://github.com/Arkweid/lefthook/releases)에서 다운 받은 후 환경변수에 지정
-  - lefthook.yml 있는 폴더에서 `lefthook install` 실행
-- lefthook-local.yml 파일 작성
-  ```yml
-  pre-push:
-    exclude_tags:
-      - app
-  pre-commit:
-    exclude_tags:
-      - app
-  ```
+http://localhost:8000/docs
 
 [.env.local]: envs/.env.local
 [.env]: envs/.env.local
