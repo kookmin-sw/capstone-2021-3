@@ -1,4 +1,9 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10
+# ---- Runtime ----
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10 AS runtime
+
+# DB 시작을 기다리기 위한 툴
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+RUN chmod +x /wait
 
 # Guniocorn 설정 파일
 ENV GUNICORN_CONF="/app/gunicorn_conf.py"
@@ -11,7 +16,12 @@ ENV ACCESS_LOG="-"
 ENV ERROR_LOG="-"
 ENV LOG_LEVEL="warning"
 
-# 파일 복사 및 패키지 설치
-COPY . /app
+# App 폴더 생성
 WORKDIR /app
-RUN pip install --no-cache-dir -r requirements/deployment.txt
+COPY ./requirements/deployment.txt ./requirements.txt
+
+# 패키지 설치
+RUN pip install -r requirements.txt
+
+# 소스 복사
+COPY . /app

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
+from database import db
 from routes import devices, organizations, users
 
 app = FastAPI(
