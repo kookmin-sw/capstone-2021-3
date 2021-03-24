@@ -7,6 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'loading.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class MapPage extends StatefulWidget {
   MapPage();
@@ -22,6 +24,26 @@ class _MapPage extends State<MapPage> {
   LatLng companyLocation = LatLng(37.60698991689425, 126.9314847979407);
 
   List<Marker> allMarkers = [];
+
+  void getLocation() async {
+    var jsonText = await rootBundle.loadString('assets/test/location.json');
+    var locationList = json.decode(jsonText);
+    for (var i = 0; i < locationList.length; i++) {
+      String markerId = '${locationList[i]["name"]}';
+      String tapString = '${locationList[i]["organization"]}';
+      double lat = double.parse('${locationList[i]["latitude"]}');
+      double long = double.parse('${locationList[i]["longitude"]}');
+
+      allMarkers.add(Marker(
+          markerId: MarkerId(markerId),
+          draggable: false,
+          onTap: () {
+            print(tapString);
+          },
+          position: LatLng(lat, long)));
+    }
+    setState(() {});
+  }
 
   void locatePosition() async {
     try {
@@ -49,14 +71,8 @@ class _MapPage extends State<MapPage> {
   @override
   void initState() {
     locatePosition();
+    getLocation();
     super.initState();
-    allMarkers.add(Marker(
-        markerId: MarkerId('myMarker'),
-        draggable: false,
-        onTap: () {
-          print('Marker Tapped');
-        },
-        position: LatLng(37.60698991689425, 126.9314847979407)));
   }
 
   @override
