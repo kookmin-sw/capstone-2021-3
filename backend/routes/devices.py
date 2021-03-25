@@ -3,6 +3,7 @@ from typing import List
 from fastapi import APIRouter
 
 from models.device import Device
+from utils.database import db
 
 router = APIRouter()
 
@@ -13,7 +14,7 @@ router = APIRouter()
     description="모든 쓰샘 기기의 리스트 조회",
 )
 async def deivce_list():
-    pass
+    return [Device(**i) for i in db.devices.find()]
 
 
 @router.get(
