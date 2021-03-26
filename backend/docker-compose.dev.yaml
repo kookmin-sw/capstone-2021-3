@@ -2,9 +2,13 @@ version: "3.8"
 
 services:
   mongodb:
-    image: mongo
-    env_file:
-      - envs/.env.local
+    extends:
+      file: common.yaml
+      service: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME="admin"
+      - MONGO_INITDB_ROOT_PASSWORD="admin1234!"
+      - MONGO_INITDB_DATABASE="next_generation"
     volumes:
       - mongodb:/data/db
     ports:
@@ -13,10 +17,10 @@ services:
       - app
   api:
     extends:
-      file: docker-compose.prod.yaml
+      file: common.yaml
       service: api
     env_file:
-      - envs/.env.local
+      - envs/.env.api.local
     depends_on:
       - mongodb
     ports:
