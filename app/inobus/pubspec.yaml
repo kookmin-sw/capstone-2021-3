@@ -59,6 +59,8 @@ flutter:
     - assets/introduce/introduce2_3.jpg
     - assets/introduce/introduce2_4.jpg
     - assets/introduce/introduce2_5.jpg
+    - assets/test/location.json
+    - assets/test/organizations.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
