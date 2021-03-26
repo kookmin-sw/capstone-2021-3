@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -37,6 +38,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 """
 
 if __name__ == "__main__":
+    # Docs 생성을 할 때는 In memory mongodb 연결을 만든다.
+    # database.py 참고
+    os.environ.setdefault("DOCS", "True")
+
     try:
         with open(f"backend/docs.html", "w") as fd:
             print(HTML_TEMPLATE % json.dumps(app.openapi()), file=fd)
