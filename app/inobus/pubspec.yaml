@@ -54,11 +54,10 @@ flutter:
   assets:
     - assets/introduce/introduce1.jpg
     - assets/introduce/introduce2.jpg
-    - assets/introduce/introduce2_1.jpg
-    - assets/introduce/introduce2_2.jpg
-    - assets/introduce/introduce2_3.jpg
-    - assets/introduce/introduce2_4.jpg
-    - assets/introduce/introduce2_5.jpg
+    - assets/introduce/introduce.PNG
+    - assets/introduce/introduce1.PNG
+    - assets/introduce/introduce2.PNG
+    
     - assets/test/location.json
     - assets/test/organizations.json
   #   - images/a_dot_burr.jpeg
