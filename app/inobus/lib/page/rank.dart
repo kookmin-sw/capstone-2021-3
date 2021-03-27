@@ -21,9 +21,13 @@ class _RankPage extends State<RankPage> {
   List getRankText(mediaQuery) {
     setState(() {
       for (var j = 3; j < rankList.length; j++) {
-        rankText.add(RankText(
+        rankText.add(
+          RankText(
             bottomHeight: mediaQuery.size.height * 0.05,
-            rankeText: "${j + 1}등 : ${rankList[j]}"));
+            rankeText: rankList[j],
+            rank: j + 1,
+          ),
+        );
       }
     });
     return rankText;
@@ -93,7 +97,10 @@ class RankIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(rankText),
+        Text(
+          rankText,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Icon(
           Icons.emoji_events,
           color: rankColor,
@@ -112,18 +119,22 @@ class RankIcon extends StatelessWidget {
 
 // 텍스트로 등수 표현
 class RankText extends StatelessWidget {
+  final int rank;
   final double bottomHeight;
   final String rankeText;
 
-  RankText({Key key, this.bottomHeight, this.rankeText}) : super(key: key);
+  RankText({Key key, this.bottomHeight, this.rankeText, this.rank})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomHeight),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [Text(rankeText)]),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Text(rank.toString() + "등 : ",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(rankeText)
+      ]),
     );
   }
 }

@@ -14,23 +14,27 @@ class InobusApp extends StatefulWidget {
 
 class _InobusApp extends State<InobusApp> {
   bool checking = false;
+  Color representativeColor = Color(0xffF04C18);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'INOBUS application',
-      home: checking
-          ? HomeFrame(
-              title: 'INOBUS',
-              backgroundColor: Colors.orange,
-              pointColor: Colors.white,
-            )
-          : IntroduceFrame(
-              onPressButton: () {
-                setState(() {
-                  checking = true;
-                });
-              },
-            ),
-    );
+        title: 'INOBUS application',
+        home: checking
+            ? HomeFrame(
+                title: 'INOBUS',
+                backgroundColor: representativeColor,
+                pointColor: Colors.white,
+              )
+            : IntroduceFrame(
+                onPressButton: () {
+                  setState(() {
+                    checking = true;
+                  });
+                },
+              ),
+        theme: ThemeData(
+          // overscroll color
+          accentColor: representativeColor,
+        ));
   }
 }
