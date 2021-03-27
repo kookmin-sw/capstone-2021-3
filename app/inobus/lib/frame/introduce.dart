@@ -82,13 +82,12 @@ class _IntroduceFrame extends State<IntroduceFrame> {
               top: mediaQuery.size.height * 0.3,
               left: mediaQuery.size.width * 0.02,
               child: SmoothPageIndicator(
-                  controller: pagecontroller, // PageController
+                  controller: pagecontroller,
                   count: imgList.length,
                   axisDirection: Axis.vertical,
                   effect: WormEffect(
-                      // paintStyle: PaintingStyle.stroke,
                       dotColor: Colors.grey.withOpacity(.60),
-                      activeDotColor: Colors.blue), // your preferred effect
+                      activeDotColor: Colors.blue),
                   onDotClicked: (index) {}))
         ],
       ),
@@ -98,11 +97,6 @@ class _IntroduceFrame extends State<IntroduceFrame> {
   }
 }
 
-// IntroducePage(
-//   namePNG: "introduce1",
-//   text: "test1",
-//   number: 1,
-//   baseColor: widget.backgroundColor));
 class IntroducePage extends StatelessWidget {
   final String namePNG;
   final String text;
