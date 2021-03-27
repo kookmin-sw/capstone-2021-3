@@ -33,7 +33,7 @@ class _InobusApp extends State<InobusApp> {
                 },
               ),
         theme: ThemeData(
-          // overscroll color
+          // 테마 색상 설정
           accentColor: representativeColor,
         ));
   }
