@@ -12,6 +12,17 @@ services:
       - DB_URL
       - DB_USERNAME
       - PORT
+    depends_on:
+      - rabbitmq
+    networks:
+      - app
+  rabbitmq:
+    extends:
+      file: common.yaml
+      service: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
     networks:
       - app
 

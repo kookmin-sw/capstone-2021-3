@@ -12,3 +12,12 @@ services:
     image: ghcr.io/aqudi/capstone_inobus_api
     ports:
       - "80:8080"
+  rabbitmq:
+    build:
+      dockerfile: docker/Dockerfile.rabbitmq
+      context: .
+    image: ghcr.io/aqudi/capstone_inobus_rabbitmq
+    ports:
+      - 15672:15672 # For management
+      - 5672:5672   # For AMQP
+      - 18820:18820 # For MQTT

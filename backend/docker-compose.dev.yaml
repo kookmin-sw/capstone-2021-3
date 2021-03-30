@@ -23,6 +23,7 @@ services:
       - envs/.env.api.local
     depends_on:
       - mongodb
+      - rabbitmq
     ports:
       - "8000:8000"
     networks:
@@ -30,6 +31,15 @@ services:
     volumes:
       - .:/app
     command: "/start-reload.sh"
+  rabbitmq:
+    extends:
+      file: common.yaml
+      service: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin1234!
+    networks:
+      - app
 
 networks:
   app:
