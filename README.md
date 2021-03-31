@@ -20,15 +20,24 @@
 
 ## 1. 프로젝트 소개
 
-**폐플라스틱 선순환 생태계 조성 프로젝트**
+**플라스틱 컵 재활용 선순환 생태계 조성 프로젝트**
 
-[Inobus 의 쓰샘](https://www.inobus.co.kr/story)은 '환경부 분리배출 4대 원칙 (비운다, 헹군다, 분리한다, 분류한다)`을 준수한 플라스틱 컵 수거함이다. 위에서 언급한 4대 원칙이 지켜지지 않는다면 재가공하기 어렵기 때문에 현재 일회용 플라스틱의 단 5%만이 재활용되고 있다. 이를 해결하기 위해 쓰샘은 한 자리에서 간편하게 4가지 방법을 모두 지킬 수 있는 환경을 제공해준다.
+이번 프로젝트의 목표는 [Inobus 쓰샘](https://www.inobus.co.kr/story) 기기에 우리가 개발한 소프트웨어를 융합해 플라스틱 컵 재활용 선순환 생태계를 조성하는 것이다.
 
-하지만 이렇게 깨끗하게 세척된 컵들을 모은다고 하더라고 같은 재질별로 분류를 해야만 제대로 재활용을 할 수 있다. 이런 이유 때문에 현재는 수거된 플라스틱 컵들을 분류하기 위한 인력이 따로 필요한 상황이다.
+![ssam image](resources/SS_SAM.png)
+플라스틱 컵에는 다양한 재질이 있다 (PET, PP, PLA). 플라스틱 컵이 제대로 재활용 하기 위해서는 재질별로 분류되어야 한다. 하지만 사람의 노동력은 비용이 높다. 이번 캡스톤 프로젝트에서 우리는 컴퓨터 비전을 활용한 자동화된 플라스틱 컵 재질 선별기를 개발한다.
 
-이번 캡스톤 프로젝트에서는 위의 문제를 해결하기 위한 컵 재질 선별기와 딥러닝 모델 개발한다.
+또한, 기존 쓰샘 기기에 IOT 기기와 디스플레이를 장착해, 리워딩과 기부 시스템을 추가하여 컵 수거함을 이용하는 시민들의 참여를 유도한다.
 
-또한 컵 수거함을 이용하는 시민들의 참여를 독려할 리워딩(기부 또는 재활용 제품, 텀블러 등) 시스템과 서비스 이용을 편리하게 해줄 애플리케이션 또한 함께 개발을 진행한다.
+마지막으로 쓰샘 기기의 위치찾기, 리워딩 등 다양한 서비스 이용을 편리하게 해줄 모바일 애플리케이션을 개발한다.
+
+The goal of this project is to construct a recycling system by integrating our software to [Inobus's SS_SAM](https://www.inobus.co.kr/story).
+
+To be recycled properly, plastic cups have to be classified by material (PET, PP, PLA). However, because of the high cost, It is hard to assign human resources to this job. In this capstone project, we develop an automated material classifier of plastic cups.
+
+Moreover, we develop a rewarding and donating system by installing IOT and display to SS_SAM to encourage users’ participation.
+
+Lastly, we develop a mobile application which provides services like finding the location of SS_SAM and checking reward points for user convenience.
 
 ## 2. 소개
 
