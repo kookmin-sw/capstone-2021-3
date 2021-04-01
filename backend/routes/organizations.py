@@ -47,4 +47,8 @@ async def organization_user_list(organization_name: str):
     description="기관에 속한 특정 개인의 정보 조회",
 )
 async def organization_user_detail(organization_name: str, user_name: str):
-    pass
+    res = list(db.users.find({"organization_name": organization_name, "user_name": user_name}))
+    if len(res) == 1:
+        return res[0]
+    elif len(res) == 0:
+        raise HTTPException(status_code=404)

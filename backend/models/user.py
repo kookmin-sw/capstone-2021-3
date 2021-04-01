@@ -9,7 +9,7 @@ class User(BaseModel):
     """User Base 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    nickname: str = Field(description="사용자의 닉네임")
+    user_name: str = Field(description="사용자의 닉네임")
 
 
 class UserIn(User):
@@ -20,7 +20,7 @@ class UserIn(User):
         schema_extra = {
             "example": {
                 "id": "1",
-                "nickname": "우주최강개발자 박정섭",
+                "user_name": "우주최강개발자 박정섭",
             }
         }
 
@@ -35,7 +35,7 @@ class UserOut(User):
         schema_extra = {
             "example": {
                 "id": "1",
-                "nickname": "우주최강개발자 박정섭",
+                "user_name": "우주최강개발자 박정섭",
                 "point": 0,
             }
         }
