@@ -12,7 +12,7 @@ get_dot_env()
 
 
 my_client = None
-if os.getenv("TEST", "True").lower() in ["true", "1"]:
+if os.getenv("DOCS", "False").lower() in ["true", "1"]:
     my_client = MongoClient()
 else:
     mongo_server = os.getenv("DB_URL")
