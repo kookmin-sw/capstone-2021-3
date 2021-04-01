@@ -6,9 +6,9 @@ services:
       file: common.yaml
       service: mongodb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME="admin"
-      - MONGO_INITDB_ROOT_PASSWORD="admin1234!"
-      - MONGO_INITDB_DATABASE="next_generation"
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin1234!
+      - MONGO_INITDB_DATABASE=next_generation
     volumes:
       - mongodb:/data/db
     ports:
