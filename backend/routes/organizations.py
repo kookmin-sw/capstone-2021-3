@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 
 from models.organization import Organization
-from models.team import Team
+from models.user import UserOut
 
 router = APIRouter()
 
@@ -27,18 +27,18 @@ async def organization_detail(organization_name: str):
 
 
 @router.get(
-    "/{organization_name}/teams",
-    response_model=List[Team],
-    description="기관에 속한 팀의 리스트 조회",
+    "/{organization_name}/users",
+    response_model=List[UserOut],
+    description="기관에 속한 개인의 리스트 조회",
 )
-async def organization_team_list(organization_name: str):
+async def organization_user_list(organization_name: str):
     pass
 
 
 @router.get(
-    "/{organization_name}/teams/{team_name}",
-    response_model=Team,
-    description="기관에 속한 팀의 정보 조회",
+    "/{organization_name}/users/{user_name}",
+    response_model=UserOut,
+    description="기관에 속한 특정 개인의 정보 조회",
 )
-async def organization_team_detail(organization_name: str, team_name: str):
+async def organization_user_detail(organization_name: str, user_name: str):
     pass
