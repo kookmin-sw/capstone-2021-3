@@ -11,20 +11,19 @@ class PointData(BaseModel):
     """쓰샘 기기의 포인트 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    organization: PyObjectId = Field(description="데이터의 디바이스 id")
-    user: Optional[PyObjectId] = Field(description="포인트를 쌓은 유저 id")
-    team: Optional[str] = Field(description="포인트를 쌓은 팀의 이름")
-    point: int = Field(default=0, description="포인트")
+    device_name: Optional[str] = Field(description="데이터의 디바이스 id")
+    organization_name: Optional[str] = Field(description="데이터를 쌓은 organization 이름")
+    user: Optional[str] = Field(description="포인트를 쌓은 유저의 username")
+    point: Optional[int] = Field(description="포인트")
     date: datetime = Field(description="데이터 날짜")
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "organization": "1",
-                "user": "1",
-                "team": "소융대18",
-                "point": 40,
+                "device_name": "kookmin1",
+                "organization_name": "kookmin",
+                "user": "TaejungHeo",
                 "date": get_current_datetime_str(),
             }
         }
@@ -34,7 +33,8 @@ class CapacityData(BaseModel):
     """쓰샘 기기의 적재량 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    device: PyObjectId = Field(description="데이터의 디바이스 id")
+    device_name: Optional[str] = Field(description="데이터의 디바이스 id")
+    organization_name: Optional[str] = Field(description="데이터를 쌓은 organization 이름")
     sensor: str = Field(description="센서 타입 plastic/water")
     percentage: float = Field(description="적재량")
     state: str = Field(description="알림 상태 ON/OFF")
@@ -44,7 +44,8 @@ class CapacityData(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "device": "1",
+                "device_name": "kookmin1",
+                "organization_name": "kookmin",
                 "sensor": "plastic",
                 "percentage": 10.3,
                 "state": "ON",
