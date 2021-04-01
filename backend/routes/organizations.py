@@ -2,11 +2,11 @@ from typing import List
 
 from fastapi import APIRouter
 
+from database import db
 from models.organization import Organization
 from models.user import UserOut
 
 router = APIRouter()
-
 
 @router.get(
     "/",
@@ -14,7 +14,7 @@ router = APIRouter()
     description="쓰샘이 설치된 기관의 포인트로 내림차순으로 정렬된 리스트 조회",
 )
 async def organization_list():
-    pass
+    return [Organization(**i) for i in db.organizations.find().sort("point", -1)]
 
 
 @router.get(
