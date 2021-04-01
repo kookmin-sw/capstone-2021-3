@@ -38,8 +38,8 @@ async def organization_detail(organization_name: str):
     description="기관에 속한 개인의 리스트 조회",
 )
 async def organization_user_list(organization_name: str):
-    pass
-
+    print(db.users.find({"organization_name": organization_name}).sort("point", -1))
+    return [UserOut(**i) for i in db.users.find({"organization_name": organization_name}).sort("point", -1)]
 
 @router.get(
     "/{organization_name}/users/{user_name}",
