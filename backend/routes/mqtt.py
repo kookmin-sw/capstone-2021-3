@@ -81,12 +81,12 @@ async def handle_data_topics(client, topic, payload, qos, properties):
             # 데이터 validation
             CapacityData.validate(json_data)
             # Capacity data 삽입
-            db.capacities.insert_one(json.loads(payload))
+            db.capacities.insert_one(json_data)
         elif topic_list[1] in TOPIC_POINT:
             # 데이터 validation
             PointData.validate(json_data)
             # Point data 삽입
-            db.points.insert_one(json.loads(payload))
+            db.points.insert_one(json_data)
             # Organization의 Point + 1
             db.organizations.update(
                 {"name": organization_name},
