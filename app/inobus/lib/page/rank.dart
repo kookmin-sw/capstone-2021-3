@@ -9,7 +9,7 @@ class RankPage extends StatefulWidget {
 
 class _RankPage extends State<RankPage> {
   List<String> rankList;
-  List<RankText> rankText = [];
+  final List<RankText> rankText = [];
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
