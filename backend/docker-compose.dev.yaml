@@ -2,9 +2,13 @@ version: "3.8"
 
 services:
   mongodb:
-    image: mongo
-    env_file:
-      - envs/.env.local
+    extends:
+      file: common.yaml
+      service: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME="admin"
+      - MONGO_INITDB_ROOT_PASSWORD="admin1234!"
+      - MONGO_INITDB_DATABASE="next_generation"
     volumes:
       - mongodb:/data/db
     ports:
@@ -13,12 +17,13 @@ services:
       - app
   api:
     extends:
-      file: docker-compose.prod.yaml
+      file: common.yaml
       service: api
     env_file:
-      - envs/.env.local
+      - envs/.env.api.local
     depends_on:
       - mongodb
+      - rabbitmq
     ports:
       - "8000:8000"
     networks:
@@ -26,6 +31,15 @@ services:
     volumes:
       - .:/app
     command: "/start-reload.sh"
+  rabbitmq:
+    extends:
+      file: common.yaml
+      service: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin1234!
+    networks:
+      - app
 
 networks:
   app:

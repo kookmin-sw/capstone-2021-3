@@ -23,7 +23,7 @@ class _HomeFrame extends State<HomeFrame> {
   @override
   void initState() {
     super.initState();
-    this.selectedIndex = 0;
+    this.selectedIndex = 2;
     this.pagecontroller = PageController(
       initialPage: this.selectedIndex,
     );
@@ -55,13 +55,28 @@ class _HomeFrame extends State<HomeFrame> {
 
   @override
   Widget build(BuildContext context) {
+    // 상단 앱바 높이, 길이
+    var appBarHeight = AppBar().preferredSize.height;
+    var mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
-      // 앱바
+      // 상단 앱바 구성
       appBar: AppBar(
         backgroundColor: widget.backgroundColor,
-        title: Text(widget.title),
+        title: Row(children: [
+          Container(
+            height: appBarHeight * 0.9,
+            child: Image.asset('assets/image/logo_just_image.png'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: mediaQuery.size.width * 0.05),
+            child: Text(widget.title,
+                style: TextStyle(fontSize: appBarHeight * 0.6)),
+          )
+        ]),
       ),
-      // 내용
+
+      // 페이지 구성
       body: PageView(
         controller: pagecontroller,
         children: bodyCenter,
@@ -69,7 +84,8 @@ class _HomeFrame extends State<HomeFrame> {
           pageChanged(index);
         },
       ),
-      // 네비게이션 바
+
+      // 하단 네비게이션 바
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: widget.backgroundColor,
@@ -80,19 +96,19 @@ class _HomeFrame extends State<HomeFrame> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: 'Map',
+            label: '지도',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'QR Scan',
+            icon: Icon(Icons.qr_code),
+            label: 'QR 코드',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emoji_events),
-            label: 'Rank',
+            label: '순위',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: 'Menu',
+            label: '메뉴',
           ),
         ],
       ),

@@ -2,14 +2,27 @@ version: "3.8"
 
 services:
   api:
-    build:
-      dockerfile: docker/Dockerfile
-      context: .
-    image: ghcr.io/aqudi/capstone_inobus_backend
-    ports:
-      - "80:8080"
-    env_file:
-      - envs/.env
+    extends:
+      file: common.yaml
+      service: api
+    environment:
+      - DOT_ENV=FALSE
+      - DB_NAME
+      - DB_PASSWORD
+      - DB_URL
+      - DB_USERNAME
+      - PORT
+    depends_on:
+      - rabbitmq
+    networks:
+      - app
+  rabbitmq:
+    extends:
+      file: common.yaml
+      service: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
     networks:
       - app
 

@@ -62,9 +62,16 @@ flutter:
     - assets/introduce/img2.jpg
     - assets/introduce/img3.jpg
     - assets/introduce/img4.jpg
-    
+
     - assets/test/location.json
     - assets/test/organizations.json
+
+    - assets/image/logo_horizontal_black.png
+    - assets/image/logo_horizontal_white.png
+    - assets/image/logo_vertical_black.png
+    - assets/image/logo_vertical_white.png
+    - assets/image/logo_just_image.png
+    - assets/image/device_image.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

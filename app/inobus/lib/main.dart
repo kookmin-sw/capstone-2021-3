@@ -28,7 +28,7 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   bool checking = false;
   final Color representativeColor = Color(0xffE8551A);
-
+  
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
