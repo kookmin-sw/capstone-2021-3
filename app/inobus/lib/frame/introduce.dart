@@ -46,7 +46,7 @@ class _IntroduceFrame extends State<IntroduceFrame> {
                   baseColor: widget.backgroundColor),
               Explanation(
                   imgName: "img2.jpg",
-                  text: "남은 음료를 버려줍니다",
+                  text: " 남은 음료를 버려줍니다",
                   number: 2,
                   screenHeight: widget.screenHeight,
                   screenWidth: widget.screenWidth,
