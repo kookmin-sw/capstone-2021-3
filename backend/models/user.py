@@ -9,8 +9,7 @@ class User(BaseModel):
     """User Base 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    device_id: str = Field(description="기기별 사용자 식별 id")
-    team: str = Field(description="사용자가 속한 팀 (닉네임)")
+    user_name: str = Field(description="사용자의 닉네임")
 
 
 class UserIn(User):
@@ -21,8 +20,7 @@ class UserIn(User):
         schema_extra = {
             "example": {
                 "id": "1",
-                "device_id": "9C287922-EE26-4501-94B5-DDE6F83E1475",
-                "team": "소융대18",
+                "user_name": "우주최강개발자 박정섭",
             }
         }
 
@@ -37,8 +35,7 @@ class UserOut(User):
         schema_extra = {
             "example": {
                 "id": "1",
-                "device_id": "9C287922-EE26-4501-94B5-DDE6F83E1475",
-                "team": "소융대18",
+                "user_name": "우주최강개발자 박정섭",
                 "point": 0,
             }
         }

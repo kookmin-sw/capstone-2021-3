@@ -9,12 +9,28 @@ class RankPage extends StatefulWidget {
 
 class _RankPage extends State<RankPage> {
   List<String> rankList;
+  final List<RankText> rankText = [];
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
     setState(() {
       rankList = requestOrganizationList;
     });
+  }
+
+  List getRankText(mediaQuery) {
+    setState(() {
+      for (var j = 3; j < rankList.length; j++) {
+        rankText.add(
+          RankText(
+            bottomHeight: mediaQuery.size.height * 0.05,
+            rankeText: rankList[j],
+            rank: j + 1,
+          ),
+        );
+      }
+    });
+    return rankText;
   }
 
   @override
@@ -31,45 +47,39 @@ class _RankPage extends State<RankPage> {
         body: rankList != null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        RankIcon(
-                            rankColor: Colors.grey,
-                            rankSize: mediaQuery.size.width * 0.2,
-                            rankText: rankList[1]),
-                        RankIcon(
-                            rankColor: Colors.yellow,
-                            rankSize: mediaQuery.size.width * 0.25,
-                            rankText: rankList[0]),
-                        RankIcon(
-                            rankColor: Colors.brown,
-                            rankSize: mediaQuery.size.width * 0.15,
-                            rankText: rankList[2]),
-                      ]),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: mediaQuery.size.width * 0.1,
+                children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: mediaQuery.size.width * 0.1,
+                        bottom: mediaQuery.size.width * 0.1,
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RankIcon(
+                                rankColor: Colors.grey,
+                                rankSize: mediaQuery.size.width * 0.2,
+                                rankText: rankList[1]),
+                            RankIcon(
+                                rankColor: Colors.yellow,
+                                rankSize: mediaQuery.size.width * 0.25,
+                                rankText: rankList[0]),
+                            RankIcon(
+                                rankColor: Colors.brown,
+                                rankSize: mediaQuery.size.width * 0.15,
+                                rankText: rankList[2]),
+                          ]),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "4등 : ${rankList[3]}"),
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "5등 : ${rankList[4]}"),
-                        RankText(
-                            bottomHeight: mediaQuery.size.height * 0.05,
-                            rankeText: "6등 : ${rankList[5]}")
-                      ],
-                    ),
-                  )
-                ],
-              )
+                    Expanded(
+                        //스크롤 가능하게
+                        child: ListView(
+                      padding: EdgeInsets.only(
+                        left: mediaQuery.size.width * 0.1,
+                      ),
+                      children: getRankText(mediaQuery),
+                    ))
+                  ])
             : Text("Loading"));
   }
 }
@@ -87,7 +97,10 @@ class RankIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(rankText),
+        Text(
+          rankText,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Icon(
           Icons.emoji_events,
           color: rankColor,
@@ -106,18 +119,22 @@ class RankIcon extends StatelessWidget {
 
 // 텍스트로 등수 표현
 class RankText extends StatelessWidget {
+  final int rank;
   final double bottomHeight;
   final String rankeText;
 
-  RankText({Key key, this.bottomHeight, this.rankeText}) : super(key: key);
+  RankText({Key key, this.bottomHeight, this.rankeText, this.rank})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomHeight),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [Text(rankeText)]),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Text(rank.toString() + "등 : ",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(rankeText)
+      ]),
     );
   }
 }
