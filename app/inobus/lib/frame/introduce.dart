@@ -131,7 +131,7 @@ class _IntroduceFrame extends State<IntroduceFrame> {
   }
 }
 
-// 소개 페이지 중 기기 사용법 설명 배경 설정 widget
+/// 소개 페이지 중 기기 사용법 설명 배경 설정 widget
 class IntroducePage extends StatelessWidget {
   final String imgName;
   final explanation;
@@ -152,7 +152,7 @@ class IntroducePage extends StatelessWidget {
   }
 }
 
-// 쓰샘 기기 사용법 설명 widget
+/// 쓰샘 기기 사용법 설명 widget
 class Explanation extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
