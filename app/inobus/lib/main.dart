@@ -13,10 +13,27 @@ class InobusApp extends StatefulWidget {
 }
 
 class _InobusApp extends State<InobusApp> {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MainPage(),
+    );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  @override
+  _MainPage createState() => _MainPage();
+}
+
+class _MainPage extends State<MainPage> {
   bool checking = false;
-  Color representativeColor = Color(0xffF04C18);
+  final Color representativeColor = Color(0xffE8551A);
+
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var screenWidth = screenSize.width;
+    var screenHeight = screenSize.height;
     return MaterialApp(
         title: 'INOBUS application',
         home: checking
@@ -26,6 +43,8 @@ class _InobusApp extends State<InobusApp> {
                 pointColor: Colors.white,
               )
             : IntroduceFrame(
+                screenHeight: screenHeight,
+                screenWidth: screenWidth,
                 backgroundColor: representativeColor,
                 onPressButton: () {
                   setState(() {
