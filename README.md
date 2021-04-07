@@ -131,3 +131,5 @@ Github : [@minoring](https://github.com/minoring)
 ### [API 문서](backend/docs.html)
 
 ### [Deep Learning 문서](deep_learning/)
+
+### [중간발표 영상](https://www.youtube.com/watch?v=s_GYntMXemY)
