@@ -6,7 +6,8 @@ Python 3.8 Virtual Environments 설정
 # Example
 python3 -m venv <venv_name>
 source <venv_path>/bin/activate
-pip3 install -r requirements.txt
+python -m pip install -–upgrade pip
+pip install -r requirements.txt
 ```
 
 ## 데이터 준비 (Internal)
