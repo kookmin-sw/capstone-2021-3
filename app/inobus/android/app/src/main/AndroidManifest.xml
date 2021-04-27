@@ -7,6 +7,9 @@
    <!--for qrscan.dart-->
    <uses-permission android:name="android.permission.CAMERA" />
    <!--for qrscan.dart-->
+   <!--url_launcher-->
+   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+   <!--url_launcher-->
    <application
         android:label="inobus"
         android:icon="@mipmap/ic_launcher">

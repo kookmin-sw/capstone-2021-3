@@ -25,6 +25,7 @@ dependencies:
   geolocator:
   barcode_scan:
   smooth_page_indicator: 
+  url_launcher:
   flutter:
     sdk: flutter
 
