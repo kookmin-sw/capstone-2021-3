@@ -54,14 +54,13 @@ flutter:
   assets:
     - assets/introduce/introduce1.jpg
     - assets/introduce/introduce2.jpg
-    - assets/introduce/introduce3.jpg
-    - assets/introduce/introduce4.jpg
-    - assets/introduce/introduce_backimg1.PNG
-    - assets/introduce/introduce_backimg2.PNG
-    - assets/introduce/img1.jpg
-    - assets/introduce/img2.jpg
-    - assets/introduce/img3.jpg
-    - assets/introduce/img4.jpg
+    - assets/introduce/backimg.png
+    - assets/introduce/backimg1.png
+    - assets/introduce/backimg2.png
+    - assets/introduce/img1.png
+    - assets/introduce/img2.png
+    - assets/introduce/img3.png
+    - assets/introduce/img4.png
     
     - assets/test/location.json
     - assets/test/organizations.json
