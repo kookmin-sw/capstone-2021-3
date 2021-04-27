@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "3688960405",
+    "project_id": "inobusapp",
+    "storage_bucket": "inobusapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3688960405:android:1a41c59d3e5beb75e4669c",
+        "android_client_info": {
+          "package_name": "com.example.inobus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3688960405-uu05b7tb58nqh7r250qg6fsg8ce1tl60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS7g7LDKEDVDV6tWtxyfRZCo0dI9eQxRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3688960405-uu05b7tb58nqh7r250qg6fsg8ce1tl60.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "3688960405-k5v775qpm7qkgpqs9lskc6bkc5oae6ll.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.inobus.InobusApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

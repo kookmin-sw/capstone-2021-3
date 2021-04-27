@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services' //google_login
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -37,6 +38,7 @@ android {
         applicationId "com.example.inobus"
         minSdkVersion 21 //16
         targetSdkVersion 30
+        multiDexEnabled true //google_login
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -56,4 +58,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //implementation 'com.android.support:multidex:1.0.3' //google_login
+    implementation platform('com.google.firebase:firebase-bom:27.1.0') //google_login
+    implementation 'com.google.firebase:firebase-analytics' //google_login
 }

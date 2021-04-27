@@ -26,6 +26,8 @@ dependencies:
   barcode_scan:
   smooth_page_indicator: 
   url_launcher:
+  google_sign_in:
+  font_awesome_flutter:
   flutter:
     sdk: flutter
 
