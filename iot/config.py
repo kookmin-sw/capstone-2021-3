@@ -4,8 +4,6 @@ from pydantic import BaseSettings
 class DeviceSettings(BaseSettings):
     device_name: str
     organization_name: str
-    host: str
-    port: int
 
     class Config:
         env_file = ".env"
