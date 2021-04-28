@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../frame/loginbutton.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage();
@@ -11,14 +11,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   bool _isLoggedIn = false;
   GoogleSignInAccount _userObj;
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignIn _googleSignIn = GoogleSignIn();
 
   login() async {
     try {
       await _googleSignIn.signIn();
       setState(() {
-        _isLoggedIn = true;
         _userObj = _googleSignIn.currentUser;
+        if (_userObj != null) {
+          _isLoggedIn = true;
+        }
       });
     } catch (err) {
       print(err);
@@ -34,6 +36,7 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text("Log In")),
       body: Container(
@@ -44,6 +47,7 @@ class _LoginPage extends State<LoginPage> {
                   Image.network(_userObj.photoUrl),
                   Text(_userObj.displayName),
                   Text(_userObj.email),
+                  Text(_userObj.id),
                   ElevatedButton(
                       onPressed: () {
                         logout();
@@ -52,15 +56,19 @@ class _LoginPage extends State<LoginPage> {
                 ],
               ))
             : Center(
-                child: OutlinedButton.icon(
-                label: Text("Login with Google"),
-                onPressed: () {
-                  login();
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.google,
-                  color: Colors.red,
-                ),
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/image/logo_horizontal_black.png',
+                    width: screenSize.width * 0.7,
+                  ),
+                  LoginButtton(
+                      text: "Google 계정으로 로그인",
+                      logoloc: 'assets/image/google_logo_icon.png',
+                      outlinecolor: Colors.red,
+                      onpress: () => login()),
+                ],
               )),
       ),
     );
