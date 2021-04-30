@@ -13,7 +13,7 @@ class _LoginPage extends State<LoginPage> {
   GoogleSignInAccount _userObj;
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  login() async {
+  loginGoogle() async {
     try {
       await _googleSignIn.signIn();
       setState(() {
@@ -27,7 +27,7 @@ class _LoginPage extends State<LoginPage> {
     }
   }
 
-  logout() {
+  logoutGoogle() {
     _googleSignIn.signOut();
     setState(() {
       _isLoggedIn = false;
@@ -50,7 +50,7 @@ class _LoginPage extends State<LoginPage> {
                   Text(_userObj.id),
                   ElevatedButton(
                       onPressed: () {
-                        logout();
+                        logoutGoogle();
                       },
                       child: Text("Logout"))
                 ],
@@ -67,7 +67,7 @@ class _LoginPage extends State<LoginPage> {
                       text: "Google 계정으로 로그인",
                       logoloc: 'assets/image/google_logo_icon.png',
                       outlinecolor: Colors.red,
-                      onpress: () => login()),
+                      onpress: () => loginGoogle()),
                 ],
               )),
       ),
