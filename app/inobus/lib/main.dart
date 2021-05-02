@@ -26,7 +26,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
-  bool checking = false;
+  bool checkingIntro = false;
   final Color representativeColor = Color(0xffE8551A);
 
   @override
@@ -36,7 +36,7 @@ class _MainPage extends State<MainPage> {
     var screenHeight = screenSize.height;
     return MaterialApp(
         title: 'INOBUS application',
-        home: checking
+        home: checkingIntro
             ? HomeFrame(
                 title: 'INOBUS',
                 backgroundColor: representativeColor,
@@ -48,7 +48,7 @@ class _MainPage extends State<MainPage> {
                 backgroundColor: representativeColor,
                 onPressButton: () {
                   setState(() {
-                    checking = true;
+                    checkingIntro = true;
                   });
                 },
               ),
