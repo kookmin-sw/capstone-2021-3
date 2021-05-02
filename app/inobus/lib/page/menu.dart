@@ -11,25 +11,16 @@ class MenuPage extends StatefulWidget {
 class _MenuPage extends State<MenuPage> {
   bool checkLogIn = false; // 로그인 여부 확인
   var userObj;
-  var testing = 'ttt';
 
-  void logInOut() {
+  void logInOut(bool check) {
     setState(() {
-      if (checkLogIn) {
-        checkLogIn = false;
-      } else {
-        checkLogIn = true;
-      }
+      checkLogIn = check;
     });
   }
 
   void getUserObj(var obj) {
     setState(() {
-      if (!checkLogIn) {
-        userObj = null;
-      } else {
-        userObj = obj;
-      }
+      userObj = obj;
     });
   }
 
@@ -41,7 +32,7 @@ class _MenuPage extends State<MenuPage> {
         Button(
             text: checkLogIn ? '마이페이지' : '회원가입 / 로그인',
             page: LoginPage(
-                logInOut: () => this.logInOut(),
+                logInOut: (bool check) => this.logInOut(check),
                 getUserObj: (dynamic obj) => this.getUserObj(obj),
                 checkLogIn: checkLogIn,
                 userObj: userObj),
