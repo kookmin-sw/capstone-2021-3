@@ -4,18 +4,39 @@ import 'version.dart';
 import 'login.dart';
 
 class MenuPage extends StatefulWidget {
-  MenuPage();
   @override
   _MenuPage createState() => _MenuPage();
 }
 
 class _MenuPage extends State<MenuPage> {
+  bool checkLogIn = false; // 로그인 여부 확인
+
+  void logInOut() {
+    setState(() {
+      if (checkLogIn) {
+        checkLogIn = false;
+        print("Login 확인여부");
+        print(checkLogIn);
+      } else {
+        checkLogIn = true;
+        print("Login 확인여부");
+        print(checkLogIn);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
       children: [
-        Button(text: '회원가입 / 로그인', page: LoginPage(), url: ''),
+        checkLogIn
+            ? Button(
+                text: '마이페이지', page: LoginPage(logInOut: logInOut), url: '')
+            : Button(
+                text: '회원가입 / 로그인',
+                page: LoginPage(logInOut: logInOut),
+                url: ''),
         Button(
           url:
               'https://www.youtube.com/watch?v=y0AfdkAIbP4&ab_channel=%EC%9D%B4%EB%85%B8%EB%B2%84%EC%8A%A4',

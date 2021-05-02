@@ -3,7 +3,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../frame/loginbutton.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage();
+  final VoidCallback logInOut;
+  LoginPage({Key key, this.logInOut});
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -20,6 +21,9 @@ class _LoginPage extends State<LoginPage> {
         _userObj = _googleSignIn.currentUser;
         if (_userObj != null) {
           _isLoggedIn = true;
+          if (_isLoggedIn) {
+            widget.logInOut();
+          }
         }
       });
     } catch (err) {
@@ -31,6 +35,10 @@ class _LoginPage extends State<LoginPage> {
     _googleSignIn.signOut();
     setState(() {
       _isLoggedIn = false;
+      if (!_isLoggedIn) {
+        print("change checkLogIIn");
+        widget.logInOut();
+      }
     });
   }
 
