@@ -10,17 +10,25 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPage extends State<MenuPage> {
   bool checkLogIn = false; // 로그인 여부 확인
+  var userObj;
+  var testing = 'ttt';
 
   void logInOut() {
     setState(() {
       if (checkLogIn) {
         checkLogIn = false;
-        print("Login 확인여부");
-        print(checkLogIn);
       } else {
         checkLogIn = true;
-        print("Login 확인여부");
-        print(checkLogIn);
+      }
+    });
+  }
+
+  void getUserObj(var obj) {
+    setState(() {
+      if (!checkLogIn) {
+        userObj = null;
+      } else {
+        userObj = obj;
       }
     });
   }
@@ -30,13 +38,14 @@ class _MenuPage extends State<MenuPage> {
     return Scaffold(
         body: Column(
       children: [
-        checkLogIn
-            ? Button(
-                text: '마이페이지', page: LoginPage(logInOut: logInOut), url: '')
-            : Button(
-                text: '회원가입 / 로그인',
-                page: LoginPage(logInOut: logInOut),
-                url: ''),
+        Button(
+            text: checkLogIn ? '마이페이지' : '회원가입 / 로그인',
+            page: LoginPage(
+                logInOut: () => this.logInOut(),
+                getUserObj: (dynamic obj) => this.getUserObj(obj),
+                checkLogIn: checkLogIn,
+                userObj: userObj),
+            url: ''),
         Button(
           url:
               'https://www.youtube.com/watch?v=y0AfdkAIbP4&ab_channel=%EC%9D%B4%EB%85%B8%EB%B2%84%EC%8A%A4',

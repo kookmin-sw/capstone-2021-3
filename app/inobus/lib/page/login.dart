@@ -4,7 +4,11 @@ import '../frame/loginbutton.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback logInOut;
-  LoginPage({Key key, this.logInOut});
+  final Function(dynamic) getUserObj;
+  final bool checkLogIn;
+  final userObj;
+  LoginPage(
+      {Key key, this.logInOut, this.userObj, this.checkLogIn, this.getUserObj});
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -23,6 +27,7 @@ class _LoginPage extends State<LoginPage> {
           _isLoggedIn = true;
           if (_isLoggedIn) {
             widget.logInOut();
+            widget.getUserObj(_userObj);
           }
         }
       });
@@ -39,6 +44,15 @@ class _LoginPage extends State<LoginPage> {
         print("change checkLogIIn");
         widget.logInOut();
       }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _isLoggedIn = widget.checkLogIn;
+      _userObj = widget.userObj;
     });
   }
 
