@@ -3,12 +3,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../frame/loginbutton.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function(bool) logInOut;
   final Function(dynamic) getUserObj;
   final bool checkLogIn;
   final userObj;
-  LoginPage(
-      {Key key, this.logInOut, this.userObj, this.checkLogIn, this.getUserObj});
+  LoginPage({Key key, this.userObj, this.checkLogIn, this.getUserObj});
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -18,6 +16,15 @@ class _LoginPage extends State<LoginPage> {
   GoogleSignInAccount _userObj;
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _isLoggedIn = widget.checkLogIn;
+      _userObj = widget.userObj;
+    });
+  }
+
   loginGoogle() async {
     try {
       await _googleSignIn.signIn();
@@ -26,7 +33,6 @@ class _LoginPage extends State<LoginPage> {
         if (_userObj != null) {
           _isLoggedIn = true;
           if (_isLoggedIn) {
-            widget.logInOut(_isLoggedIn);
             widget.getUserObj(_userObj);
           }
         }
@@ -42,18 +48,8 @@ class _LoginPage extends State<LoginPage> {
       _isLoggedIn = false;
       _userObj = null;
       if (!_isLoggedIn) {
-        widget.logInOut(_isLoggedIn);
         widget.getUserObj(_userObj);
       }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _isLoggedIn = widget.checkLogIn;
-      _userObj = widget.userObj;
     });
   }
 

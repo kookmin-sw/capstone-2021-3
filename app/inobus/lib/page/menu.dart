@@ -4,51 +4,45 @@ import 'version.dart';
 import 'login.dart';
 
 class MenuPage extends StatefulWidget {
+  final Function(dynamic) getUserObj;
+  final bool checkLogIn;
+  final userObj;
+  MenuPage({Key key, this.userObj, this.checkLogIn, this.getUserObj});
   @override
   _MenuPage createState() => _MenuPage();
 }
 
 class _MenuPage extends State<MenuPage> {
-  bool checkLogIn = false; // 로그인 여부 확인
-  var userObj;
-
-  void logInOut(bool check) {
-    setState(() {
-      checkLogIn = check;
-    });
-  }
-
-  void getUserObj(var obj) {
-    setState(() {
-      userObj = obj;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        Button(
-            text: checkLogIn ? '마이페이지' : '회원가입 / 로그인',
-            page: LoginPage(
-                logInOut: (bool check) => this.logInOut(check),
-                getUserObj: (dynamic obj) => this.getUserObj(obj),
-                checkLogIn: checkLogIn,
-                userObj: userObj),
-            url: ''),
-        Button(
-          url:
-              'https://www.youtube.com/watch?v=y0AfdkAIbP4&ab_channel=%EC%9D%B4%EB%85%B8%EB%B2%84%EC%8A%A4',
-          text: '쓰샘 기기 활용법',
-        ),
-        Button(
-          url: 'https://www.inobus.co.kr/',
-          text: '이노버스 소개',
-        ),
-        Button(text: '라이선스 및 버전', page: VersionPage(), url: ''),
-      ],
-    ));
+      body: Column(
+        children: [
+          Button(
+              text: widget.checkLogIn ? '마이페이지' : '회원가입 / 로그인',
+              page: LoginPage(
+                getUserObj: (dynamic obj) => widget.getUserObj(obj),
+                checkLogIn: widget.checkLogIn,
+                userObj: widget.userObj,
+              ),
+              url: ''),
+          Button(
+            url:
+                'https://www.youtube.com/watch?v=y0AfdkAIbP4&ab_channel=%EC%9D%B4%EB%85%B8%EB%B2%84%EC%8A%A4',
+            text: '쓰샘 기기 활용법',
+          ),
+          Button(
+            url: 'https://www.inobus.co.kr/',
+            text: '이노버스 소개',
+          ),
+          Button(
+            text: '라이선스 및 버전',
+            page: VersionPage(),
+            url: '',
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -92,16 +86,16 @@ class Button extends StatelessWidget {
         ),
       ),
       child: ElevatedButton(
-          onPressed: () => (this.url == '' ? goPage(context) : launchURL()),
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.white),
-              padding: MaterialStateProperty.all(
-                  EdgeInsets.all(screenHeight * 0.05))),
-          child: Text(
-            this.text,
-            style:
-                TextStyle(color: Colors.black, fontSize: screenHeight * 0.03),
-          )),
+        onPressed: () => (this.url == '' ? goPage(context) : launchURL()),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.white),
+            padding:
+                MaterialStateProperty.all(EdgeInsets.all(screenHeight * 0.05))),
+        child: Text(
+          this.text,
+          style: TextStyle(color: Colors.black, fontSize: screenHeight * 0.03),
+        ),
+      ),
     );
   }
 }
