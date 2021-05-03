@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../api/json.dart';
 import 'loading.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
@@ -26,23 +27,7 @@ class _MapPage extends State<MapPage> {
   List<Marker> allMarkers = [];
 
   void getLocation() async {
-    var jsonText = await rootBundle.loadString('assets/test/location.json');
-    var locationList = json.decode(jsonText);
-    for (var i = 0; i < locationList.length; i++) {
-      String markerId = '${locationList[i]["name"]}';
-      String tapString = '${locationList[i]["organization"]}';
-      double lat = double.parse('${locationList[i]["latitude"]}');
-      double long = double.parse('${locationList[i]["longitude"]}');
-
-      allMarkers.add(Marker(
-          markerId: MarkerId(markerId),
-          draggable: false,
-          onTap: () {
-            print(tapString);
-          },
-          position: LatLng(lat, long)));
-    }
-    setState(() {});
+    allMarkers = await requestDevices();
   }
 
   void locatePosition() async {
