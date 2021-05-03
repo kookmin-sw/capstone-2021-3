@@ -73,14 +73,18 @@ Future<List<Marker>> requestDevices() async {
     String tapString = '${locationList[i]["organization"]}';
     double lat = double.parse('${locationList[i]["latitude"]}');
     double long = double.parse('${locationList[i]["longitude"]}');
+    int point = int.parse('${locationList[i]["point"]}');
 
-    allMarkers.add(Marker(
+    allMarkers.add(
+      Marker(
         markerId: MarkerId(markerId),
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(
+            title: "속한 기관 명 : " + tapString,
+            snippet: point.toString() + " Point"),
         draggable: false,
-        onTap: () {
-          print(tapString);
-        },
-        position: LatLng(lat, long)));
+      ),
+    );
   }
 
   return allMarkers;
