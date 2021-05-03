@@ -8,8 +8,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../api/json.dart';
 import 'loading.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 class MapPage extends StatefulWidget {
   MapPage();
