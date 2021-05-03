@@ -21,17 +21,17 @@ class _RankPage extends State<RankPage> {
 
   List getRank(mediaQuery) {
     setState(() {
-      if (rankList.length > 0) {
-        rankIcon.add(RankIcon(
-            rankColor: Colors.yellow,
-            rankSize: mediaQuery.size.width * 0.25,
-            rankText: rankList[0]));
-      }
       if (rankList.length > 1) {
         rankIcon.add(RankIcon(
             rankColor: Colors.grey,
             rankSize: mediaQuery.size.width * 0.2,
             rankText: rankList[1]));
+      }
+      if (rankList.length > 0) {
+        rankIcon.add(RankIcon(
+            rankColor: Colors.yellow,
+            rankSize: mediaQuery.size.width * 0.25,
+            rankText: rankList[0]));
       }
       if (rankList.length > 2) {
         rankIcon.add(RankIcon(
