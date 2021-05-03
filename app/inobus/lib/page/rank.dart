@@ -10,6 +10,7 @@ class RankPage extends StatefulWidget {
 class _RankPage extends State<RankPage> {
   List<String> rankList;
   final List<RankText> rankText = [];
+  final List<RankIcon> rankIcon = [];
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
@@ -18,16 +19,35 @@ class _RankPage extends State<RankPage> {
     });
   }
 
-  List getRankText(mediaQuery) {
+  List getRank(mediaQuery) {
     setState(() {
-      for (var j = 3; j < rankList.length; j++) {
-        rankText.add(
-          RankText(
-            bottomHeight: mediaQuery.size.height * 0.05,
-            rankeText: rankList[j],
-            rank: j + 1,
-          ),
-        );
+      if (rankList.length > 0) {
+        rankIcon.add(RankIcon(
+            rankColor: Colors.yellow,
+            rankSize: mediaQuery.size.width * 0.25,
+            rankText: rankList[0]));
+      }
+      if (rankList.length > 1) {
+        rankIcon.add(RankIcon(
+            rankColor: Colors.grey,
+            rankSize: mediaQuery.size.width * 0.2,
+            rankText: rankList[1]));
+      }
+      if (rankList.length > 2) {
+        rankIcon.add(RankIcon(
+            rankColor: Colors.brown,
+            rankSize: mediaQuery.size.width * 0.15,
+            rankText: rankList[2]));
+
+        for (var j = 3; j < rankList.length; j++) {
+          rankText.add(
+            RankText(
+              bottomHeight: mediaQuery.size.height * 0.05,
+              rankeText: rankList[j],
+              rank: j + 1,
+            ),
+          );
+        }
       }
     });
     return rankText;
@@ -54,22 +74,10 @@ class _RankPage extends State<RankPage> {
                         bottom: mediaQuery.size.width * 0.1,
                       ),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RankIcon(
-                                rankColor: Colors.grey,
-                                rankSize: mediaQuery.size.width * 0.2,
-                                rankText: rankList[1]),
-                            RankIcon(
-                                rankColor: Colors.yellow,
-                                rankSize: mediaQuery.size.width * 0.25,
-                                rankText: rankList[0]),
-                            RankIcon(
-                                rankColor: Colors.brown,
-                                rankSize: mediaQuery.size.width * 0.15,
-                                rankText: rankList[2]),
-                          ]),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: rankIcon,
+                      ),
                     ),
                     Expanded(
                         //스크롤 가능하게
@@ -77,7 +85,7 @@ class _RankPage extends State<RankPage> {
                       padding: EdgeInsets.only(
                         left: mediaQuery.size.width * 0.1,
                       ),
-                      children: getRankText(mediaQuery),
+                      children: getRank(mediaQuery),
                     ))
                   ])
             : Text("Loading"));
