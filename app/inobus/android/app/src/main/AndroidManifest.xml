@@ -12,7 +12,9 @@
    <!--url_launcher-->
    <application
         android:label="inobus"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <!--up line http permit-->
         <!--for google_maps_flutter.dart.dart-->
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDpXYarqo_dhCwzfKmKT5ZmLVNHSmfiDfo"/>
