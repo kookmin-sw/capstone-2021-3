@@ -30,7 +30,6 @@ Future<List<String>> requestOrganization() async {
   for (int i = 0; i < data.length; i++) {
     orgResult.add(data[i]['name']);
   }
-  //
 
   return orgResult;
 }
