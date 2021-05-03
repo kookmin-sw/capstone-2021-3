@@ -26,6 +26,7 @@ dependencies:
   barcode_scan:
   smooth_page_indicator: 
   url_launcher:
+  http:
   flutter:
     sdk: flutter
 
