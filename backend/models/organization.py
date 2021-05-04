@@ -10,7 +10,7 @@ class Organization(BaseModel):
 
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str = Field(description="기관명")
-    point: int = Field(default=0, description="기관의 누적 포인트")
+    point: Optional[int] = Field(default=0, description="기관의 누적 포인트")
     homepage: Optional[HttpUrl] = Field(description="기관 홈페이지")
     phone: Optional[str] = Field(description="기관 전화번호")
 
@@ -18,6 +18,7 @@ class Organization(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "_id": "60901b909232236ad8c4f0d6",
                 "name": "국민대학교",
                 "point": 0,
                 "homepage": "http://kookmin.ac.kr/",

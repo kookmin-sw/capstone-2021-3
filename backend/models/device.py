@@ -1,10 +1,8 @@
-from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from models.organization import Organization
-from utils.datetime import get_current_datetime_str
+from utils.datetime import get_current_datetime_str, DateTime
 from utils.pyobjectid import ObjectId, PyObjectId
 
 
@@ -14,19 +12,20 @@ class Device(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str
     model: str
-    organization: Organization
-    install_date: datetime
+    organization: PyObjectId
+    install_date: DateTime
 
     latitude: float
     longitude: float
     location_description: Optional[str]
 
-    point: int = Field(default=0)
+    point: Optional[int] = Field(default=0)
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "_id": "60901b909232236ad8c4f0d6",
                 "name": "국민쓰샘1호",
                 "model": "model_1",
                 "organization": "국민대학교",
