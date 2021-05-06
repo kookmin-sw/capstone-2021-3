@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 
 class QRPage extends StatefulWidget {
@@ -34,7 +35,22 @@ class _QRPage extends State<QRPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(result),
+        child: Column(
+          children: [
+            Text(result),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(16),
+              child: BarcodeWidget(
+                barcode: Barcode.code128(),
+                data: "11111111" ?? "None of",
+                width: 200,
+                height: 200,
+                // drawText: false,
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.camera_alt),
