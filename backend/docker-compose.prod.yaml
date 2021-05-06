@@ -10,7 +10,8 @@ services:
       - DB_PASSWORD
       - DB_URL
       - DB_USERNAME
-      - PORT
+      - APP_PORT
+      - APP_TEST
     depends_on:
       - rabbitmq
     networks:
