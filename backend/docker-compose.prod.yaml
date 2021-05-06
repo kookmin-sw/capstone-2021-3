@@ -6,7 +6,6 @@ services:
       file: common.yaml
       service: api
     environment:
-      - DOT_ENV=FALSE
       - DB_NAME
       - DB_PASSWORD
       - DB_URL

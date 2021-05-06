@@ -17,6 +17,7 @@ router = APIRouter()
 async def deivce_list():
     return [Device(**i) for i in db.devices.find()]
 
+
 @router.get(
     "/nearby",
     response_model=List[Device],
