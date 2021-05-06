@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../frame/loginbutton.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,28 +13,45 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  bool _isLoggedIn = false;
-  GoogleSignInAccount _userObj;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool isLoggedIn = false;
+  User userObj;
+  GoogleSignIn googleSignIn = GoogleSignIn();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  // GoogleSignInAccount userObj;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      _isLoggedIn = widget.checkLogIn;
-      _userObj = widget.userObj;
+      isLoggedIn = widget.checkLogIn;
+      userObj = widget.userObj;
     });
   }
 
   loginGoogle() async {
     try {
-      await _googleSignIn.signIn();
+      // Trigger the Google Authentication flow.
+      final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+      // Obtain the auth details from the request.
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      // Create a new credential.
+      final GoogleAuthCredential googleCredential =
+          GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      // Sign in to Firebase with the Google [UserCredential].
+      final UserCredential googleUserCredential =
+          await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
       setState(() {
-        _userObj = _googleSignIn.currentUser;
-        if (_userObj != null) {
-          _isLoggedIn = true;
-          if (_isLoggedIn) {
-            widget.getUserObj(_userObj);
+        // userObj = googleSignIn.currentUser;
+        userObj = googleUserCredential.user;
+        if (userObj != null) {
+          isLoggedIn = true;
+          if (isLoggedIn) {
+            widget.getUserObj(userObj);
           }
         }
       });
@@ -43,12 +61,12 @@ class _LoginPage extends State<LoginPage> {
   }
 
   logoutGoogle() {
-    _googleSignIn.signOut();
+    googleSignIn.signOut();
     setState(() {
-      _isLoggedIn = false;
-      _userObj = null;
-      if (!_isLoggedIn) {
-        widget.getUserObj(_userObj);
+      isLoggedIn = false;
+      userObj = null;
+      if (!isLoggedIn) {
+        widget.getUserObj(userObj);
       }
     });
   }
@@ -59,14 +77,12 @@ class _LoginPage extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(title: Text("Log In")),
       body: Container(
-        child: _isLoggedIn
+        child: isLoggedIn
             ? Center(
                 child: Column(
                 children: <Widget>[
-                  Image.network(_userObj.photoUrl),
-                  Text(_userObj.displayName),
-                  Text(_userObj.email),
-                  Text(_userObj.id),
+                  Text(userObj.displayName),
+                  Text(userObj.email),
                   ElevatedButton(
                       onPressed: () {
                         logoutGoogle();
