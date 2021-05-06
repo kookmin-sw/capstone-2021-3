@@ -58,7 +58,6 @@ flutter:
   assets:
     - assets/introduce/introduce1.png
     - assets/introduce/introduce2.png
-    - assets/introduce/backimg.png
     - assets/introduce/backimg1.png
     - assets/introduce/backimg2.png
     - assets/introduce/img1.png
