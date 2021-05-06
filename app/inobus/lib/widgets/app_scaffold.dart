@@ -8,10 +8,14 @@ class AppScaffold extends StatelessWidget {
 
   final String title;
   final Widget body;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   AppScaffold({
     this.title,
     this.body,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
   });
 
   @override
@@ -25,6 +29,8 @@ class AppScaffold extends StatelessWidget {
         title: title,
       ),
       body: Column(
+        mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+        crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
         children: [
           isMainScreen
               ? Container()

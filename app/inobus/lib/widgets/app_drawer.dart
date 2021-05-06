@@ -81,6 +81,7 @@ class AppDrawer extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1,
       ),
       onTap: () {
+        Navigator.pop(context);
         Navigator.pushNamed(context, item.route,
             arguments: RouteArgument(title: item.title));
       },
