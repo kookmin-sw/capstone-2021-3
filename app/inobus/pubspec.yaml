@@ -77,10 +77,6 @@ flutter:
     - assets/icons/
     # 이미지 리소스
     - assets/images/
-    - assets/image/hero_img.png
-    # 로고
-    - assets/logo/google_logo_icon.png
-    - assets/logo/apple_logo_icon.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
