@@ -20,6 +20,6 @@ class AppImages {
   static final hero = AppImagePath("assets/images/hero.png");
 
   // Login button에 사용할 로고
-  static final appleLoggo = AppImagePath("assets/images/apple_loggo.png");
-  static final googleLoggo = AppImagePath("assets/images/google_loggo.png");
+  static final appleLogo = AppImagePath("assets/images/apple_logo.png");
+  static final googleLogo = AppImagePath("assets/images/google_logo.png");
 }

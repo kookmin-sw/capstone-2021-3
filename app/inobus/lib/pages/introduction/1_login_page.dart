@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
           Positioned(
             top: screenHeight * 0.6,
             child: LoginButtton(
-              logoloc: AppImages.googleLoggo.path,
+              logoloc: AppImages.googleLogo.path,
               outlinecolor: Color(0xff5234eb),
               onpress: onNextPage,
               text: "구글 로그인",
@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
           Positioned(
             top: screenHeight * 0.7,
             child: LoginButtton(
-              logoloc: AppImages.appleLoggo.path,
+              logoloc: AppImages.appleLogo.path,
               outlinecolor: Color(0xff5234eb),
               onpress: onNextPage,
               text: "애플 로그인",
