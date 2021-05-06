@@ -10,7 +10,7 @@ class InobusApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "INOBUS",
-      initialRoute: Routes.map,
+      initialRoute: Routes.initialRoute,
       onGenerateRoute: Routes.onGenerateRoute,
       theme: appTheme,
     );

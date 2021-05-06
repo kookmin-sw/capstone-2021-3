@@ -45,7 +45,7 @@ class Routes {
         print(settings);
         switch (settings.name) {
           case Routes.intro:
-            return IntroPage();
+            return IntroductionPage();
           case Routes.point:
             return PointPage();
           case Routes.setting:
