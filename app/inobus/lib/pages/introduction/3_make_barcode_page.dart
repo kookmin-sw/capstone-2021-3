@@ -1,14 +1,11 @@
 import 'package:barcode_widget/barcode_widget.dart';
-import 'mainMap.dart';
 import 'package:flutter/material.dart';
 
-class MakeBarcodePage extends StatefulWidget {
-  MakeBarcodePage({Key key});
-  @override
-  _MakeBarcodePage createState() => _MakeBarcodePage();
-}
+class MakeBarcodePage extends StatelessWidget {
+  final VoidCallback onNextPage;
 
-class _MakeBarcodePage extends State<MakeBarcodePage> {
+  MakeBarcodePage({Key key, this.onNextPage});
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -68,12 +65,7 @@ class _MakeBarcodePage extends State<MakeBarcodePage> {
               width: screenWidth * 0.23,
               height: screenHeight * 0.07,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainMapPage()),
-                  );
-                },
+                onPressed: onNextPage,
                 child: Text(
                   "완료",
                   style: TextStyle(
