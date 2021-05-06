@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-///로그인 버튼 만들기
+/// 로그인 버튼 만들기
 class LoginButtton extends StatefulWidget {
   final String text;
   final String logoloc;

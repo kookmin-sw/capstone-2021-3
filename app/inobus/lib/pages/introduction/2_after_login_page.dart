@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'makebarcode.dart';
+import 'package:inobus/app_colors.dart';
+import 'package:inobus/app_images.dart';
 
-class AfterLoginPage extends StatefulWidget {
-  AfterLoginPage({Key key});
-  @override
-  _AfterLoginPage createState() => _AfterLoginPage();
-}
+class AfterLoginPage extends StatelessWidget {
+  final VoidCallback onNextPage;
 
-class _AfterLoginPage extends State<AfterLoginPage> {
+  AfterLoginPage({Key key, this.onNextPage});
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -43,7 +42,7 @@ class _AfterLoginPage extends State<AfterLoginPage> {
           Positioned(
             top: screenHeight * 0.35,
             child: Image.asset(
-              "assets/image/hero_img.png",
+              AppImages.hero.path,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -53,12 +52,7 @@ class _AfterLoginPage extends State<AfterLoginPage> {
               width: screenWidth * 0.7,
               height: screenHeight * 0.1,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MakeBarcodePage()),
-                  );
-                },
+                onPressed: onNextPage,
                 child: Text(
                   "바코드 만들로 가기",
                   style: TextStyle(
@@ -66,7 +60,7 @@ class _AfterLoginPage extends State<AfterLoginPage> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xff5234eb),
+                  primary: AppColors.primary,
                   onPrimary: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
