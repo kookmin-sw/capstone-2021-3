@@ -1,9 +1,8 @@
-from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from utils.datetime import get_current_datetime_str
+from utils.datetime import get_current_datetime_str, DateTime
 from utils.pyobjectid import ObjectId, PyObjectId
 
 
@@ -15,13 +14,14 @@ class PointData(BaseModel):
     user: Optional[PyObjectId] = Field(description="포인트를 쌓은 유저 id")
     team: Optional[str] = Field(description="포인트를 쌓은 팀의 이름")
     point: int = Field(default=0, description="포인트")
-    date: datetime = Field(description="데이터 날짜")
+    date: DateTime = Field(description="데이터 날짜")
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "organization": "1",
+                "_id": "60901b909232236ad8c4f0d6",
+                "organization": "60901b909232236a2314f0d6",
                 "user": "1",
                 "team": "소융대18",
                 "point": 40,
@@ -38,13 +38,14 @@ class CapacityData(BaseModel):
     sensor: str = Field(description="센서 타입 plastic/water")
     percentage: float = Field(description="적재량")
     state: str = Field(description="알림 상태 ON/OFF")
-    date: datetime = Field(description="데이터 날짜")
+    date: DateTime = Field(description="데이터 날짜")
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "device": "1",
+                "_id": "60901b909232236ad8c4f0d6",
+                "device": "60901b909232236a2341f0d6",
                 "sensor": "plastic",
                 "percentage": 10.3,
                 "state": "ON",
