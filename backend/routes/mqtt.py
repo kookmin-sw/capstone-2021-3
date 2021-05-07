@@ -4,16 +4,16 @@ Topic 구조
 - IOT 문서 참고
 """
 import json
-import os
 from json.decoder import JSONDecodeError
 
 from fastapi import APIRouter
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
 
+from config import mqtt_settings
 from database import db
 from models.data import CapacityData, PointData
-from utils.datetime import get_datetime_obj_from_str
+from utils.datetime import parse_datetime_str
 from utils.logger import logger
 
 TOPIC_CAPACITY = "device/capacity/#"  # 모든 기관의 PLASTIC, WATER 용량
@@ -22,10 +22,10 @@ TOPIC_POINT = "device/point/#"  # 모든 기관의 POINT 기록
 router = APIRouter()
 
 mqtt_config = MQTTConfig(
-    username=os.getenv("MQTT_USERNAME"),
-    password=os.getenv("MQTT_PASS"),
-    host=os.getenv("MQTT_HOST"),
-    port=os.getenv("MQTT_PORT"),
+    username=mqtt_settings.username,
+    password=mqtt_settings.password,
+    host=mqtt_settings.host,
+    port=mqtt_settings.port,
     version=MQTTv311,  # Rabbitmq-mqtt plugin에서 사용하는 MQTT Version이 3.1
 )
 
@@ -73,7 +73,7 @@ async def handle_data_topics(client, topic, payload, qos, properties):
 
         # Topic에서 추출한 정보와 시간 정보를 json에 업데이트
         json_data = json.loads(payload)
-        json_data["date"] = get_datetime_obj_from_str(json_data["date"])
+        json_data["date"] = parse_datetime_str(json_data["date"])
         json_data["organization_name"] = organization_name
         json_data["device_name"] = device_name
 
