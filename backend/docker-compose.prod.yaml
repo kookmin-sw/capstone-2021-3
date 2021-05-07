@@ -6,12 +6,12 @@ services:
       file: common.yaml
       service: api
     environment:
-      - DOT_ENV=FALSE
       - DB_NAME
       - DB_PASSWORD
       - DB_URL
       - DB_USERNAME
-      - PORT
+      - APP_PORT
+      - APP_TEST
     depends_on:
       - rabbitmq
     networks:

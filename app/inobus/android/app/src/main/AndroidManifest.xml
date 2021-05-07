@@ -7,12 +7,15 @@
    <!--for qrscan.dart-->
    <uses-permission android:name="android.permission.CAMERA" />
    <!--for qrscan.dart-->
+   <!--url_launcher-->
+   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+   <!--url_launcher-->
    <application
         android:label="inobus"
         android:icon="@mipmap/ic_launcher">
         <!--for google_maps_flutter.dart.dart-->
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDpXYarqo_dhCwzfKmKT5ZmLVNHSmfiDfo"/>
+            android:value="AIzaSyCbBmX-gTCMbHIKQJtA55o2DFUn4jhT9w4"/>
         <!--for google_maps_flutter.dart.dart-->
         <activity
             android:name=".MainActivity"

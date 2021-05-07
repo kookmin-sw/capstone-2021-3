@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
-from database import db
 from routes import devices, organizations, users
 from routes.mqtt import mqtt
 from routes.mqtt import router as mqtt_router

@@ -19,7 +19,7 @@ class UserIn(User):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "id": "1",
+                "_id": "60901b909232236ad8c4f0d6",
                 "user_name": "우주최강개발자 박정섭",
             }
         }
@@ -28,13 +28,13 @@ class UserIn(User):
 class UserOut(User):
     """User Response 모델"""
 
-    point: int = Field(description="유저의 누적 포인트")
+    point: Optional[int] = Field(description="유저의 누적 포인트")
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "id": "1",
+                "_id": "60901b909232236ad8c4f0d6",
                 "user_name": "우주최강개발자 박정섭",
                 "point": 0,
             }

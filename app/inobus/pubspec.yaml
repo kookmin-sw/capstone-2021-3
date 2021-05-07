@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -21,13 +21,16 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  animations:
   google_maps_flutter:
   geolocator:
   barcode_scan:
-  smooth_page_indicator: 
+  smooth_page_indicator:
+  url_launcher:
+  barcode_widget:
+  http:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,7 +47,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -52,13 +54,14 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/introduce/introduce1.jpg
-    - assets/introduce/introduce2.jpg
-    - assets/introduce/introduce2_1.jpg
-    - assets/introduce/introduce2_2.jpg
-    - assets/introduce/introduce2_3.jpg
-    - assets/introduce/introduce2_4.jpg
-    - assets/introduce/introduce2_5.jpg
+    - assets/introduce/introduce1.png
+    - assets/introduce/introduce2.png
+    - assets/introduce/backimg1.png
+    - assets/introduce/backimg2.png
+    - assets/introduce/img1.png
+    - assets/introduce/img2.png
+    - assets/introduce/img3.png
+    - assets/introduce/img4.png
 
     - assets/test/location.json
     - assets/test/organizations.json
@@ -69,6 +72,12 @@ flutter:
     - assets/image/logo_vertical_white.png
     - assets/image/logo_just_image.png
     - assets/image/device_image.png
+
+    # 아이콘
+    - assets/icons/
+    # 이미지 리소스
+    - assets/images/
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
