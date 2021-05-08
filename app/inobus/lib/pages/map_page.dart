@@ -37,7 +37,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
       cameraPosition = CameraPosition(target: companyLocation, zoom: 15);
     }
     try {
-      allMarkers = await getLocation();
+      allMarkers = await requestDevices();
     } on Exception {}
   }
 

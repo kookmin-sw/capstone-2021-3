@@ -40,7 +40,7 @@ class _MainMapPage extends State<MainMapPage> {
     }
 
     try {
-      allMarkers = await getLocation();
+      allMarkers = await requestDevices();
     } on Exception {}
   }
 
