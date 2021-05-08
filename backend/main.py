@@ -1,3 +1,4 @@
+from config import app_settings
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
@@ -9,6 +10,7 @@ app = FastAPI(
     title="INOBUS API",
     description="INOBUS capstone project api",
     version="1.0.0",
+    port=app_settings.port,
 )
 
 router = APIRouter(prefix="/api/v1")

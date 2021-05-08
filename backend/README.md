@@ -54,7 +54,7 @@ pip install -r requirements/deployment.txt
 
 ### 개발용 서버 실행하기
 
-- 접속: http://localhost:8000
+- 접속: http://localhost
 
 #### Docker가 없는 경우
 
@@ -102,8 +102,8 @@ docker-compose -f docker-compose.prod.yaml down [-v]
 
 ## API 문서 링크
 
-- Swagger: http://localhost:8000/docs
-- Redoc: http://localhost:8000/redoc
+- Swagger: http://localhost/docs
+- Redoc: http://localhost/redoc
 
 ## Git hook 설정
 

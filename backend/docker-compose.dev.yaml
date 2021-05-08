@@ -27,7 +27,7 @@ services:
       - mongodb
       - rabbitmq
     ports:
-      - "8000:8000"
+      - "80:80"
     networks:
       - app
     volumes:
