@@ -1,10 +1,16 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 
 class GoogleUser {
   static User userObj;
   static final GoogleSignIn googleSignIn = GoogleSignIn();
   static final FirebaseAuth auth = FirebaseAuth.instance;
+  static BarcodeWidget barcod = BarcodeWidget(
+    data: userObj.uid,
+    barcode: Barcode.code128(),
+    drawText: false,
+  );
 }
 
 void loginGoogle() async {
@@ -28,9 +34,7 @@ void loginGoogle() async {
 
     // 디버깅
     if (GoogleUser.userObj != null) {
-      print("유저 정보 확인");
-      print(GoogleUser.userObj.displayName);
-      print(GoogleUser.userObj.email);
+      print("유저 정보 확인 성공");
     } else {
       print("유저 정보 못 받아옴");
     }

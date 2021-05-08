@@ -1,5 +1,5 @@
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:inobus/login/google_login.dart';
 
 class MakeBarcodePage extends StatelessWidget {
   final VoidCallback onNextPage;
@@ -37,14 +37,7 @@ class MakeBarcodePage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: screenHeight * 0.4,
-            child: BarcodeWidget(
-              data: "example",
-              barcode: Barcode.code128(),
-              width: screenWidth * 0.8,
-            ),
-          ),
+          Positioned(top: screenHeight * 0.4, child: GoogleUser.barcod),
           Positioned(
             bottom: screenHeight * 0.25,
             child: SizedBox(
