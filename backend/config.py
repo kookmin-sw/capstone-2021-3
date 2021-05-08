@@ -24,10 +24,11 @@ class DatabaseSettings(BaseSettings):
 
 
 class MQTTSettings(BaseSettings):
-    username: str
-    password: str
-    host: str
-    port: int
+    username: str = "admin"
+    password: str = "admin1234!"
+    host: str = "localhost"
+    port: int = "18820"
+
     class Config:
         # env_file = ".env"
         env_prefix = "MQTT_"
