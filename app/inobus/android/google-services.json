@@ -1,0 +1,29 @@
+{
+  "project_info": {
+  },
+  "client": [
+    {
+      "client_info": {
+      },
+      "oauth_client": [
+        {
+        }
+      ],
+      "api_key": [
+        {
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+            },
+            {
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
