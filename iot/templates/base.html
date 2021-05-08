@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>FrontendFunn - Bulma CSS Sample Admin Template</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/bulma.min.css' ) }}" />
+  <link rel="stylesheet" href="{{ url_for('static', path='font-awesome/all.min.css' ) }}" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css' ) }}" />
+</head>
+
+<body>
+  {% if error %}
+  <script>
+    alert("{{error}}")
+  </script>
+  {% endif %}
+  <nav class="navbar is-fixed-top box-shadow-y">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger toggler" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+
+      <a href="#" class="navbar-item has-text-weight-bold has-text-black">
+        INOBUS IOT Admin Dashboard
+      </a>
+    </div>
+  </nav>
+
+  <div class="columns is-variable is-0">
+    <div>
+      <div class="menu-container px-1 has-background-white">
+        <div class="menu-wrapper py-1">
+          <aside class="menu">
+            {% import 'partial/menu_item.html' as menu with context%}
+            <p class="menu-label has-text-lighter">General</p>
+            <ul class="menu-list">
+              {{ menu.item("Dashboard", "dashboard", "fas fa-tachometer-alt", true) }}
+            </ul>
+            <p class="menu-label has-text-lighter">Administration</p>
+            <ul class="menu-list">
+              {{ menu.item("Settings", "settings", "fas fa-cogs", false) }}
+          </aside>
+        </div>
+      </div>
+    </div>
+    <div class="column is-10-desktop is-offset-2-desktop is-9-tablet is-offset-3-tablet is-12-mobile">
+      <div class="p-1">
+        <div class="columns is-variable is-desktop">
+          <div class="column">
+            <h1 class="title">
+              {{ title }}
+            </h1>
+          </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  <script src="{{ url_for('static', path='font-awesome/all.min.js' ) }}"></script>
+  <script src="{{ url_for('static', path='js/jquery-3.6.0.min.js' ) }}"></script>
+  <script src="{{ url_for('static', path='js/script.js') }}"></script>
+</body>
+
+</html>
