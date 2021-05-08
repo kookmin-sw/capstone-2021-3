@@ -3,6 +3,7 @@ import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/login/google_login.dart';
 import 'package:inobus/routes.dart';
 
 class DrawerItem {
@@ -61,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                     .copyWith(color: Colors.white),
               ),
               Text(
-                'ㅇㅇㅇ님',
+                GoogleUser.userObj.displayName,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1

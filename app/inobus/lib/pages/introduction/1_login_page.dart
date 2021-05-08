@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/widgets/login_button.dart';
+import 'package:inobus/login/google_login.dart';
 
 class LoginPage extends StatelessWidget {
   final VoidCallback onNextPage;
@@ -50,8 +52,11 @@ class LoginPage extends StatelessWidget {
             top: screenHeight * 0.6,
             child: LoginButtton(
               logoloc: AppImages.googleLogo.path,
-              outlinecolor: Color(0xff5234eb),
-              onpress: onNextPage,
+              outlinecolor: AppColors.primary,
+              onpress: () {
+                loginGoogle();
+                onNextPage();
+              },
               text: "구글 로그인",
             ),
           ),
@@ -59,7 +64,7 @@ class LoginPage extends StatelessWidget {
             top: screenHeight * 0.7,
             child: LoginButtton(
               logoloc: AppImages.appleLogo.path,
-              outlinecolor: Color(0xff5234eb),
+              outlinecolor: AppColors.primary,
               onpress: onNextPage,
               text: "애플 로그인",
             ),
