@@ -38,6 +38,7 @@ android {
         applicationId "com.example.inobus"
         minSdkVersion 21 //16
         targetSdkVersion 30
+        multiDexEnabled true // Firebase.initializeApp
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
