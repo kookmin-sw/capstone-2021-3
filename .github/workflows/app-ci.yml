@@ -39,6 +39,25 @@ jobs:
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
 
+      - name: Set github secret key
+        env:
+          GOOGLE_MAP_API_KEY: ${{ secrets.GOOGLE_MAP_API_KEY }}
+
+          GOOGLE_SERVICES_PROJECT_NUMBER: ${{ secrets.GOOGLE_SERVICES_PROJECT_NUMBER }}
+          GOOGLE_SERVICES_MOBILESDK_APP_ID: ${{ secrets.GOOGLE_SERVICES_MOBILESDK_APP_ID }}
+          GOOGLE_SERVICES_CLIENT_ID: ${{ secrets.GOOGLE_SERVICES_CLIENT_ID }}
+          GOOGLE_SERVICES_CERTIFICATE_HASH: ${{ secrets.GOOGLE_SERVICES_CERTIFICATE_HASH }}
+          GOOGLE_SERVICES_CLIENT_ID2: ${{ secrets.GOOGLE_SERVICES_CLIENT_ID2 }}
+          GOOGLE_SERVICES_CURRENT_KEY: ${{ secrets.GOOGLE_SERVICES_CURRENT_KEY }}
+          GOOGLE_SERVICES_CLIENT_ID3: ${{ secrets.GOOGLE_SERVICES_CLIENT_ID3 }}
+
+          GOOGLE_SERVICES_CLIENT_ID_IOS: ${{ secrets.GOOGLE_SERVICES_CLIENT_ID_IOS }}
+          GOOGLE_SERVICES_REVERSED_CLIENT_ID_IOS: ${{ secrets.GOOGLE_SERVICES_REVERSED_CLIENT_ID_IOS }}
+          GOOGLE_SERVICES_ANDROID_CLIENT_ID_IOS: ${{ secrets.GOOGLE_SERVICES_ANDROID_CLIENT_ID_IOS }}
+          GOOGLE_SERVICES_API_KEY_IOS: ${{ secrets.GOOGLE_SERVICES_API_KEY_IOS }}
+          GOOGLE_SERVICES_GCM_SENDER_ID_IOS: ${{ secrets.GOOGLE_SERVICES_GCM_SENDER_ID_IOS }}
+          GOOGLE_SERVICES_GOOGLE_APP_ID_IOS: ${{ secrets.GOOGLE_SERVICES_GOOGLE_APP_ID_IOS }}
+
       # 테스트 사용시 주석 해제
       # - run: flutter test
 
