@@ -41,6 +41,7 @@ android {
         multiDexEnabled true // Firebase.initializeApp
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders = [GOOGLE_MAP_API_KEY: "$System.env.GOOGLE_MAP_API_KEY"]
     }
 
     buildTypes {

@@ -3,13 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>apps.googleusercontent.com</string>
+	<string>${env.GOOGLE_SERVICES_CLIENT_ID_IOS}</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.-</string>
+	<string>${env.GOOGLE_SERVICES_REVERSED_CLIENT_ID_IOS}</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>${env.GOOGLE_SERVICES_ANDROID_CLIENT_ID_IOS}</string>
 	<key>API_KEY</key>
-	<string></string>
+	<string>${env.GOOGLE_SERVICES_API_KEY_IOS}</string>
 	<key>GCM_SENDER_ID</key>
-	<string></string>
+	<string>${env.GOOGLE_SERVICES_GCM_SENDER_ID_IOS}</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string></string>
+	<string>${env.GOOGLE_SERVICES_GOOGLE_APP_ID_IOS}</string>
 </dict>
 </plist>
