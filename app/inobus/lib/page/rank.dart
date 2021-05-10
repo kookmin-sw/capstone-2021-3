@@ -8,7 +8,7 @@ class RankPage extends StatefulWidget {
 }
 
 class _RankPage extends State<RankPage> {
-  List<String> rankList;
+  List<OrgEle> rankList;
   final List<RankText> rankText = [];
 
   void getOrganizationRank() async {
@@ -24,7 +24,7 @@ class _RankPage extends State<RankPage> {
         rankText.add(
           RankText(
             bottomHeight: mediaQuery.size.height * 0.05,
-            rankeText: rankList[j],
+            rankeText: rankList[j].name,
             rank: j + 1,
           ),
         );
@@ -60,15 +60,15 @@ class _RankPage extends State<RankPage> {
                             RankIcon(
                                 rankColor: Colors.grey,
                                 rankSize: mediaQuery.size.width * 0.2,
-                                rankText: rankList[1]),
+                                rankText: rankList[1].name),
                             RankIcon(
                                 rankColor: Colors.yellow,
                                 rankSize: mediaQuery.size.width * 0.25,
-                                rankText: rankList[0]),
+                                rankText: rankList[0].name),
                             RankIcon(
                                 rankColor: Colors.brown,
                                 rankSize: mediaQuery.size.width * 0.15,
-                                rankText: rankList[2]),
+                                rankText: rankList[2].name),
                           ]),
                     ),
                     Expanded(
