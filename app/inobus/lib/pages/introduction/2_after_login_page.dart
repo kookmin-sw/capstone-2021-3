@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
+import 'package:inobus/app_size.dart';
 import 'package:inobus/app_images.dart';
 
 class AfterLoginPage extends StatelessWidget {
@@ -9,9 +10,8 @@ class AfterLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenWidth = screenSize.width;
-    var screenHeight = screenSize.height;
+    var screenWidth = ScreenSize(context).width;
+    var screenHeight = ScreenSize(context).height;
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
