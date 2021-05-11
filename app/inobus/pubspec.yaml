@@ -29,6 +29,7 @@ dependencies:
   url_launcher:
   barcode_widget:
   http:
+  json_annotation:
   flutter:
     sdk: flutter
 
@@ -37,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  build_runner:
+  json_serializable:
   flutter_test:
     sdk: flutter
   integration_test:
