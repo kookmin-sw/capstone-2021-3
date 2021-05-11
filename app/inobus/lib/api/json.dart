@@ -34,16 +34,6 @@ Future<List<OrgEle>> requestOrganization() async {
     print(response.statusCode);
   }
 
-  //이후 생략되야 하는 코드
-  var jsonText = await rootBundle.loadString('assets/test/organizations.json');
-  var data = json.decode(jsonText);
-  for (int i = 0; i < data.length; i++) {
-    var ele = OrgEle();
-    ele.name = data[i]['name'];
-    ele.point = data[i]['point'];
-    orgResult.add(ele);
-  }
-
   return orgResult;
 }
 
@@ -79,28 +69,6 @@ Future<List<Marker>> requestDevices() async {
   } else {
     print("Can not access API");
     print(response.statusCode);
-  }
-
-  // 이후 생략해야 하는 코드
-  var jsonText = await rootBundle.loadString('assets/test/location.json');
-  var locationList = json.decode(jsonText);
-  for (var i = 0; i < locationList.length; i++) {
-    String markerId = '${locationList[i]["name"]}';
-    String tapString = '${locationList[i]["organization"]}';
-    double lat = double.parse('${locationList[i]["latitude"]}');
-    double long = double.parse('${locationList[i]["longitude"]}');
-    int point = int.parse('${locationList[i]["point"]}');
-
-    allMarkers.add(
-      Marker(
-        markerId: MarkerId(markerId),
-        position: LatLng(lat, long),
-        infoWindow: InfoWindow(
-            title: "속한 기관 명 : " + tapString,
-            snippet: point.toString() + " Point"),
-        draggable: false,
-      ),
-    );
   }
 
   return allMarkers;
