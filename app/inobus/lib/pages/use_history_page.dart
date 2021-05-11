@@ -3,7 +3,7 @@ import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_size.dart';
-import '../api/json.dart';
+import 'package:inobus/api/orgainzation.dart';
 
 class UseHistoryPage extends StatefulWidget {
   UseHistoryPage({Key key});
@@ -12,7 +12,7 @@ class UseHistoryPage extends StatefulWidget {
 }
 
 class _UseHistoryPage extends State<UseHistoryPage> {
-  List<OrgEle> orgResult = [];
+  List<Orgainzation> orgResult = [];
   final List<RankText> rankText = [];
 
   void getOrganizationRank() async {
@@ -78,7 +78,7 @@ class _UseHistoryPage extends State<UseHistoryPage> {
 class RankText extends StatelessWidget {
   final int rank;
   final double bottomHeight;
-  final OrgEle rankeText;
+  final Orgainzation rankeText;
 
   RankText({Key key, this.bottomHeight, this.rankeText, this.rank})
       : super(key: key);

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:inobus/api/json.dart';
+import 'package:inobus/api/device.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 
 class MapPage extends StatefulWidget {
