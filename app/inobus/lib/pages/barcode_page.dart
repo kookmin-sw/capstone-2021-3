@@ -14,7 +14,6 @@ class BarcodePage extends StatelessWidget {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
     final screenSize = MediaQuery.of(context).size;
     final screenHeight = screenSize.height;
-    final screenWidth = screenSize.width;
     return AppScaffold(
       title: argument.title,
       body: Expanded(
@@ -43,67 +42,20 @@ class BarcodePage extends StatelessWidget {
                 width: screenHeight * 0.4,
               ),
             ),
+            // 아래 동그란 버튼 2개
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(
-                          context,
-                          Routes.information,
-                          arguments: RouteArgument(title: "이용안내"),
-                        );
-                      },
-                      child: Container(
-                        height: screenWidth * 0.15,
-                        width: screenWidth * 0.15,
-                        child: AppIcons.document.icon(),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(10),
-                        primary: Colors.white,
-                        onPrimary: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                          side: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text("이용방법"),
-                    )
-                  ],
+                CircleImageButton(
+                  bottomText: "이용방법",
+                  image: AppIcons.document.icon(),
+                  routPage: Routes.information,
+                  routTitle: "이용안내",
                 ),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Container(
-                        height: screenWidth * 0.15,
-                        width: screenWidth * 0.15,
-                        child: AppIcons.block.icon(),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(10),
-                        primary: Colors.white,
-                        onPrimary: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                          side: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        "바코드 인식이\n안되나요?",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+                CircleImageButton(
+                  bottomText: "바코드 인식이\n안되나요?",
+                  image: AppIcons.block.icon(),
                 ),
               ],
             ),
@@ -137,6 +89,57 @@ class BarcodePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// 동그란 버튼 with icon(Image)
+class CircleImageButton extends StatelessWidget {
+  final String bottomText;
+  final Image image;
+  final routPage;
+  final routTitle;
+  CircleImageButton(
+      {Key key, this.bottomText, this.image, this.routPage, this.routTitle});
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            if (routPage != null) {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                context,
+                routPage,
+                arguments: RouteArgument(title: routTitle),
+              );
+            }
+          },
+          child: Container(
+            height: screenWidth * 0.15,
+            width: screenWidth * 0.15,
+            child: this.image,
+          ),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(10),
+            primary: Colors.white,
+            onPrimary: Colors.grey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+              side: BorderSide(color: Colors.grey),
+            ),
+          ),
+        ),
+        Center(
+          child: Text(
+            this.bottomText,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }
