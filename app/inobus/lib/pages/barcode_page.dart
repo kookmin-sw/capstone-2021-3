@@ -5,6 +5,7 @@ import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/app_icons.dart';
 
+/// 바코드
 class BarcodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
