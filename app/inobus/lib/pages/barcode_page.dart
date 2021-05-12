@@ -12,9 +12,9 @@ class BarcodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
-    var screenWidth = screenSize.width;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
+    final screenWidth = screenSize.width;
     return AppScaffold(
       title: argument.title,
       body: Expanded(

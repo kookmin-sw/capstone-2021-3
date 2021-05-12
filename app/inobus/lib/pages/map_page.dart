@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inobus/api/json.dart';
 import 'package:inobus/app_colors.dart';
+import 'package:inobus/routes.dart';
+import 'package:inobus/app_images.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/models/route_argument.dart';
-import 'package:inobus/routes.dart';
-import 'package:inobus/widgets/app_drawer.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -16,8 +15,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
-  var barcodeButton = DrawerItem(
-      Image.asset('assets/images/barcode.png'), "바코드 열기", Routes.barcode);
   @override
   bool get wantKeepAlive => true;
 
@@ -78,15 +75,14 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, barcodeButton.route,
-                            arguments:
-                                RouteArgument(title: barcodeButton.title));
+                        Navigator.pushNamed(context, Routes.barcode,
+                            arguments: RouteArgument(title: "바코드 열기"));
                       },
                       child: Column(
                         children: [
                           Container(
                             height: 30,
-                            child: barcodeButton.icon,
+                            child: AppImages.barcode.image(),
                           ),
                           Text(
                             "바코드 열기",

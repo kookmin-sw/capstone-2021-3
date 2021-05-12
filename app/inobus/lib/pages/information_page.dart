@@ -17,9 +17,15 @@ class _InformationPage extends State<InformationPage> {
   final List<Widget> pageList = [FirstPage(), SecondPage(), ThirdPage()];
 
   @override
+  void dispose() {
+    pagecontroller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    this.pagecontroller = PageController(
+    pagecontroller = PageController(
       initialPage: this.selectedIndex,
     );
   }
@@ -42,13 +48,13 @@ class _InformationPage extends State<InformationPage> {
               alignment: Alignment(0.0, 0.9),
               child: Container(
                 child: SmoothPageIndicator(
-                    controller: pagecontroller,
-                    count: pageList.length,
-                    axisDirection: Axis.horizontal,
-                    effect: WormEffect(
-                        dotColor: Colors.grey.withOpacity(.60),
-                        activeDotColor: AppColors.primary),
-                    onDotClicked: (index) {}),
+                  controller: pagecontroller,
+                  count: pageList.length,
+                  axisDirection: Axis.horizontal,
+                  effect: WormEffect(
+                      dotColor: Colors.grey.withOpacity(.60),
+                      activeDotColor: AppColors.primary),
+                ),
               ),
             )
           ],
@@ -61,9 +67,9 @@ class _InformationPage extends State<InformationPage> {
 class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
-    var screenWidth = screenSize.width;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
+    final screenWidth = screenSize.width;
     return Stack(
       children: [
         Positioned(
@@ -129,8 +135,8 @@ class FirstPage extends StatelessWidget {
 class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
     return Stack(
       children: [
         Align(
@@ -180,8 +186,8 @@ class SecondPage extends StatelessWidget {
 class ThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
     return Stack(
       children: [
         Align(
