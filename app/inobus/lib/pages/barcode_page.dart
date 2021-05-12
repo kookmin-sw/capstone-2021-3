@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:inobus/app_colors.dart';
+import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/app_icons.dart';
+import 'package:inobus/app_images.dart';
 
 /// 바코드
 class BarcodePage extends StatelessWidget {
@@ -27,7 +29,7 @@ class BarcodePage extends StatelessWidget {
             ),
             Positioned(
               child: Container(
-                child: Image.asset('assets/images/device_image.png'),
+                child: AppImages.device.image(),
                 height: screenHeight * 0.2,
               ),
             ),
@@ -48,7 +50,14 @@ class BarcodePage extends StatelessWidget {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.information,
+                          arguments: RouteArgument(title: "이용안내"),
+                        );
+                      },
                       child: Container(
                         height: screenWidth * 0.15,
                         width: screenWidth * 0.15,
@@ -65,7 +74,7 @@ class BarcodePage extends StatelessWidget {
                       ),
                     ),
                     Center(
-                      child: Text("이용내역"),
+                      child: Text("이용방법"),
                     )
                   ],
                 ),
