@@ -26,7 +26,7 @@ class _InformationPage extends State<InformationPage> {
   void initState() {
     super.initState();
     pagecontroller = PageController(
-      initialPage: this.selectedIndex,
+      initialPage: selectedIndex,
     );
   }
 
