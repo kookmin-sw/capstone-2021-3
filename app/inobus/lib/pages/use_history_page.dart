@@ -13,28 +13,27 @@ class UseHistoryPage extends StatefulWidget {
 
 class _UseHistoryPage extends State<UseHistoryPage> {
   List<Orgainzation> orgResult = [];
-  final List<RankText> rankText = [];
+  final List<RankRow> rankText = [];
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
     setState(() {
       orgResult = requestOrganizationList;
     });
+    getRankText();
   }
 
-  List getRankText(height) {
+  void getRankText() {
     setState(() {
       for (var j = 0; j < orgResult.length; j++) {
         rankText.add(
-          RankText(
-            bottomHeight: height * 0.05,
+          RankRow(
             rankeText: orgResult[j],
             rank: j + 1,
           ),
         );
       }
     });
-    return rankText;
   }
 
   @override
@@ -63,10 +62,8 @@ class _UseHistoryPage extends State<UseHistoryPage> {
               color: AppColors.primary,
             ),
           ),
-          child: Expanded(
-            child: ListView(
-              children: getRankText(screenHeight),
-            ),
+          child: ListView(
+            children: rankText,
           ),
         ),
       ),
@@ -75,64 +72,50 @@ class _UseHistoryPage extends State<UseHistoryPage> {
 }
 
 /// 텍스트로 등수 표현
-class RankText extends StatelessWidget {
+class RankRow extends StatelessWidget {
   final int rank;
-  final double bottomHeight;
   final Orgainzation rankeText;
 
-  RankText({Key key, this.bottomHeight, this.rankeText, this.rank})
-      : super(key: key);
+  RankRow({Key key, this.rankeText, this.rank}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: bottomHeight,
+    return ListTile(
+      dense: true,
+      leading: RankCircle(
+        rank: this.rank,
+        color: this.rank == 1
+            ? Colors.yellow
+            : this.rank == 2
+                ? Colors.grey
+                : this.rank == 3
+                    ? Color(0xFFb86c39)
+                    : Colors.purple[50],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (rank == 1)
-            RankRow(
-              rank: rank,
-              color: Colors.yellow,
-            )
-          else if (rank == 2)
-            RankRow(
-              rank: rank,
-              color: Colors.grey,
-            )
-          else if (rank == 3)
-            RankRow(
-              rank: rank,
-              color: Colors.orange,
-            )
-          else
-            RankRow(
-              rank: rank,
-              color: Colors.white,
-            ),
-          Text(
-            rankeText.name,
-            style: TextStyle(
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          Text(
-            rankeText.point.toString() + "회",
-          ),
-        ],
+      title: Text(
+        rankeText.name,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
       ),
+      trailing: Text(
+        rankeText.point.toString() + "회",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // onTap: () => {},
+      // enabled: false,
     );
   }
 }
 
-/// 텍스트로 등수 표현의 각 Row에 대한 Container
-class RankRow extends StatelessWidget {
+/// 제일 앞의 등수 숫자로 표현
+class RankCircle extends StatelessWidget {
   final int rank;
   final Color color;
 
-  RankRow({
+  RankCircle({
     Key key,
     this.rank,
     this.color,
@@ -141,17 +124,27 @@ class RankRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10.0),
+      height: 40,
+      width: 40,
+      padding: const EdgeInsets.all(5.0),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.all(
-          Radius.circular(50.0),
-        ),
+        shape: BoxShape.circle,
       ),
-      child: Text(
-        rank.toString() + "위",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
+      child: rank < 10
+          ? Text(
+              rank.toString() + "위",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          : Text(
+              rank.toString(),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 }
