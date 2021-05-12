@@ -17,49 +17,52 @@ class BarcodePage extends StatelessWidget {
     return AppScaffold(
       title: argument.title,
       body: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Positioned(
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment(0.0, -0.9),
               child: Text(
                 "스캐너는 여기에서 찾을 수 있어요!",
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-            Positioned(
+            Align(
+              alignment: Alignment(0.0, -0.7),
               child: Container(
                 child: AppImages.device.image(),
                 height: screenHeight * 0.2,
               ),
             ),
-            Positioned(
+            Align(
+              alignment: Alignment(0.0, -0.05),
               child: Container(
                 child: BarcodeWidget(
                   data: "example",
                   barcode: Barcode.code128(),
                 ),
-                height: screenHeight * 0.15,
+                height: screenHeight * 0.2,
                 width: screenHeight * 0.4,
               ),
             ),
             // 아래 동그란 버튼 2개
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleImageButton(
-                  bottomText: "이용방법",
-                  image: AppIcons.document.icon(),
-                  routPage: Routes.information,
-                  routTitle: "이용안내",
-                ),
-                CircleImageButton(
-                  bottomText: "바코드 인식이\n안되나요?",
-                  image: AppIcons.block.icon(),
-                ),
-              ],
+            Align(
+              alignment: Alignment(-0.4, 0.45),
+              child: CircleImageButton(
+                bottomText: "이용방법",
+                image: AppIcons.document.icon(),
+                routPage: Routes.information,
+                routTitle: "이용안내",
+              ),
             ),
-            Positioned(
+            Align(
+              alignment: Alignment(0.4, 0.45),
+              child: CircleImageButton(
+                bottomText: "인식불가",
+                image: AppIcons.block.icon(),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, 0.8),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -103,43 +106,42 @@ class CircleImageButton extends StatelessWidget {
       {Key key, this.bottomText, this.image, this.routPage, this.routTitle});
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final screenWidth = screenSize.width;
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            if (routPage != null) {
-              Navigator.pop(context);
-              Navigator.pushNamed(
-                context,
-                routPage,
-                arguments: RouteArgument(title: routTitle),
-              );
-            }
-          },
-          child: Container(
-            height: screenWidth * 0.15,
-            width: screenWidth * 0.15,
-            child: this.image,
-          ),
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(10),
-            primary: Colors.white,
-            onPrimary: Colors.grey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
-              side: BorderSide(color: Colors.grey),
+    return Container(
+      width: 80,
+      height: 80,
+      child: MaterialButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            this.image,
+            Text(
+              this.bottomText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
+          ],
         ),
-        Center(
-          child: Text(
-            this.bottomText,
-            textAlign: TextAlign.center,
-          ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          side: BorderSide(color: Colors.grey),
         ),
-      ],
+        color: Colors.white,
+        textColor: AppColors.primary,
+        onPressed: () {
+          if (routPage != null) {
+            Navigator.pop(context);
+            Navigator.pushNamed(
+              context,
+              routPage,
+              arguments: RouteArgument(title: routTitle),
+            );
+          }
+        },
+      ),
     );
   }
 }
