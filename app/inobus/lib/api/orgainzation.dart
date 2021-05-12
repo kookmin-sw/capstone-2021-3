@@ -6,9 +6,12 @@ part 'orgainzation.g.dart';
 
 @JsonSerializable()
 class Orgainzation {
-  Orgainzation(this.name, this.point);
+  Orgainzation(this.name, this.point, this.phone, this.url, this.id);
   final String name;
   final int point;
+  final String phone;
+  final String url;
+  final String id;
   factory Orgainzation.fromJson(Map<String, dynamic> json) =>
       _$OrgainzationFromJson(json);
   Map<String, dynamic> toJson() => _$OrgainzationToJson(this);
@@ -23,14 +26,12 @@ Future<List<Orgainzation>> requestOrganization() async {
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var responseBody = utf8.decode(response.bodyBytes); //String
-    var data = json.decode(responseBody);
-
-    print("기관 URL 데이터 확인");
-    print(data); //json
+    var data = json.decode(responseBody); //json
 
     for (int i = 0; i < data.length; i++) {
-      var ele = Orgainzation(data[i]['name'], data[i]['point']);
-      orgResult.add(ele);
+      var orgInfo = Orgainzation(data[i]['name'], data[i]['point'],
+          data[i]['phone'], data[i]['homepage'], data[i]['_id']);
+      orgResult.add(orgInfo);
     }
   } else {
     print("Can not access API");
