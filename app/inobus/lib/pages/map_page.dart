@@ -74,7 +74,6 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                     bottom: screenHeight * 0.1,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
                         Navigator.pushNamed(context, Routes.barcode,
                             arguments: RouteArgument(title: "바코드 열기"));
                       },
