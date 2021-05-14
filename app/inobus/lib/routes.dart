@@ -49,7 +49,9 @@ class Routes {
           case Routes.point:
             return PointPage();
           case Routes.setting:
-            return SettinigPage();
+            return SettingPage();
+          case Routes.history:
+            return UseHistoryPage();
           case Routes.map:
           default:
             return MapPage();
