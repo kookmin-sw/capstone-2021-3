@@ -12,6 +12,10 @@ services:
       - DB_USERNAME
       - APP_PORT
       - APP_TEST
+      - MQTT_USERNAME
+      - MQTT_PASSWORD
+      - MQTT_HOST
+      - MQTT_PORT
     depends_on:
       - rabbitmq
     networks:

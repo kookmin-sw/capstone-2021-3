@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 
-class SettinigPage extends StatelessWidget {
+class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;

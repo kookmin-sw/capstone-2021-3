@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+
+KST = timezone(timedelta(hours=9))
 
 datetime_format = "%Y-%m-%d %H:%M:%S"
 

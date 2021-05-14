@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from utils.datetime import get_current_datetime_str, DateTime
+from utils.datetime import DateTime, get_current_datetime_str
 from utils.pyobjectid import ObjectId, PyObjectId
 
 

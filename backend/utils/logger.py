@@ -1,8 +1,5 @@
-try:
-    from uvicorn.config import logger as uvicorn_logger
+import logging
 
-    logger = uvicorn_logger
-except:
-    import logging
+from fastapi.logger import logger
 
-    logger = logging.getLogger()
+logger.setLevel(logging.INFO)
