@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>${env.GOOGLE_SERVICES_CLIENT_ID_IOS}</string>
+	<string>3688960405-tacfq7u71uc71teqvcg72isbu5d58oiv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>${env.GOOGLE_SERVICES_REVERSED_CLIENT_ID_IOS}</string>
+	<string>com.googleusercontent.apps.3688960405-tacfq7u71uc71teqvcg72isbu5d58oiv</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>${env.GOOGLE_SERVICES_ANDROID_CLIENT_ID_IOS}</string>
+	<string>3688960405-2hc1gt1n63s5e2akiv73ck5oc5j5hhaa.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>${env.GOOGLE_SERVICES_API_KEY_IOS}</string>
+	<string>AIzaSyDv8xbB3KRHbLZZRB30TkVdH8ik_1mDpuU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>${env.GOOGLE_SERVICES_GCM_SENDER_ID_IOS}</string>
+	<string>3688960405</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>${env.GOOGLE_SERVICES_GOOGLE_APP_ID_IOS}</string>
+	<string>1:3688960405:ios:c126be5467ebb0c7e4669c</string>
 </dict>
 </plist>

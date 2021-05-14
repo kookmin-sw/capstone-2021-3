@@ -29,7 +29,7 @@
 			<array>
 				<!-- TODO Replace this value: -->
 				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-				<string>${env.GOOGLE_SERVICES_REVERSED_CLIENT_ID_IOS}</string>
+				<string>com.googleusercontent.apps.3688960405-tacfq7u71uc71teqvcg72isbu5d58oiv</string>
 			</array>
 		</dict>
 	</array>

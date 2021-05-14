@@ -1,45 +1,45 @@
 {
   "project_info": {
-    "project_number": "${env.GOOGLE_SERVICES_PROJECT_NUMBER}",
+    "project_number": "3688960405",
     "project_id": "inobusapp",
     "storage_bucket": "inobusapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "${env.GOOGLE_SERVICES_MOBILESDK_APP_ID}",
+        "mobilesdk_app_id": "1:3688960405:android:f81e02953a8918efe4669c",
         "android_client_info": {
           "package_name": "com.example.inobus"
         }
       },
       "oauth_client": [
         {
-          "client_id": "${env.GOOGLE_SERVICES_CLIENT_ID}",
+          "client_id": "3688960405-2hc1gt1n63s5e2akiv73ck5oc5j5hhaa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.inobus",
-            "certificate_hash": "${env.GOOGLE_SERVICES_CERTIFICATE_HASH}"
+            "certificate_hash": "47cbf672e5b864a58698cfefff1be55e32cbac14"
           }
         },
         {
-          "client_id": "${env.GOOGLE_SERVICES_CLIENT_ID2}",
+          "client_id": "3688960405-uu05b7tb58nqh7r250qg6fsg8ce1tl60.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "${env.GOOGLE_SERVICES_CURRENT_KEY}"
+          "current_key": "AIzaSyDS7g7LDKEDVDV6tWtxyfRZCo0dI9eQxRY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "${env.GOOGLE_SERVICES_CLIENT_ID2}",
+              "client_id": "3688960405-uu05b7tb58nqh7r250qg6fsg8ce1tl60.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "${env.GOOGLE_SERVICES_CLIENT_ID3}",
+              "client_id": "3688960405-k5v775qpm7qkgpqs9lskc6bkc5oae6ll.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.inobus.InobusApp"
