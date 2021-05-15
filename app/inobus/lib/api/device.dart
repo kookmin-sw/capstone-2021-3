@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:json_annotation/json_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:http/http.dart' as http;
 part 'device.g.dart';
 
-// @JsonSerializable()
+@JsonSerializable()
 class Device {
   Device(this.name, this.id, this.organ, this.installDate, this.point, this.lat,
       this.long, this.loc);

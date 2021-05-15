@@ -32,6 +32,7 @@ dependencies:
   firebase_core:
   google_sign_in:
   http:
+  json_annotation:
   flutter:
     sdk: flutter
 
@@ -40,6 +41,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  build_runner:
+  json_serializable:
   flutter_test:
     sdk: flutter
   integration_test:
@@ -65,9 +68,6 @@ flutter:
     - assets/introduce/img2.png
     - assets/introduce/img3.png
     - assets/introduce/img4.png
-
-    - assets/test/location.json
-    - assets/test/organizations.json
 
     - assets/image/logo_horizontal_black.png
     - assets/image/logo_horizontal_white.png
