@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-// import 'package:json_annotation/json_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'orgainzation.g.dart';
 
-// @JsonSerializable()
+@JsonSerializable()
 class Orgainzation {
   Orgainzation(this.name, this.point, this.phone, this.url, this.id);
   final String name;
