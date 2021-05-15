@@ -41,7 +41,7 @@ android {
         multiDexEnabled true // Firebase.initializeApp
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders = "AIzaSyCbBmX-gTCMbHIKQJtA55o2DFUn4jhT9w4"
+        manifestPlaceholders = [hostName:"com.example.inobus"]
     }
 
     buildTypes {
