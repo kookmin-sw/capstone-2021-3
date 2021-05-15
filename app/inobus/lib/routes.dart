@@ -56,6 +56,8 @@ class Routes {
             return BarcodePage();
           case Routes.information:
             return InformationPage();
+          case Routes.history:
+            return UseHistoryPage();
           case Routes.map:
           default:
             return MapPage();

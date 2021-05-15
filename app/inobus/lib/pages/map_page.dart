@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:inobus/api/json.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/routes.dart';
 import 'package:inobus/app_images.dart';
+import 'package:inobus/api/device.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/models/route_argument.dart';
 
@@ -40,7 +40,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
       cameraPosition = CameraPosition(target: companyLocation, zoom: 15);
     }
     try {
-      allMarkers = await getLocation();
+      allMarkers = await requestDevices();
     } on Exception {}
   }
 

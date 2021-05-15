@@ -3,8 +3,10 @@ from typing import List
 from fastapi import APIRouter, HTTPException
 
 from database import db
+from models.device import Device
 from models.organization import Organization
 from models.user import UserOut
+from utils.pyobjectid import PyObjectId
 
 router = APIRouter()
 
@@ -34,17 +36,25 @@ async def organization_detail(organization_name: str):
 
 
 @router.get(
-    "/{organization_name}/users",
+    "/{organization}/devices",
+    response_model=List[Device],
+    description="입력한 기관 이름으로 정보 조회",
+)
+async def organization_detail(organization: PyObjectId):
+    res = list(db.devices.find({"organization": organization}))
+    return res
+
+
+@router.get(
+    "/{organization}/users",
     response_model=List[UserOut],
     description="기관에 속한 개인의 리스트 조회",
 )
-async def organization_user_list(organization_name: str):
-    print(db.users.find({"organization_name": organization_name}).sort("point", -1))
+async def organization_user_list(organization: PyObjectId):
+    print(db.users.find({"organization": organization}).sort("point", -1))
     return [
         UserOut(**i)
-        for i in db.users.find({"organization_name": organization_name}).sort(
-            "point", -1
-        )
+        for i in db.users.find({"organization": organization}).sort("point", -1)
     ]
 
 
