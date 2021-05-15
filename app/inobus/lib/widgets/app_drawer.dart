@@ -62,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                     .copyWith(color: Colors.white),
               ),
               Text(
-                GoogleUser.userObj.displayName,
+                UserObj.name,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1

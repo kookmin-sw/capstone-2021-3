@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/login/google_login.dart';
+import 'package:inobus/routes.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -9,7 +11,18 @@ class SettingPage extends StatelessWidget {
     return AppScaffold(
       title: argument.title,
       body: Center(
-        child: Text(argument.title),
+        child: TextButton(
+          onPressed: () {
+            logoutGoogle();
+            Navigator.pushNamed(context, Routes.intro);
+          },
+          child: Text(
+            "임의 로그아웃",
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ),
       ),
     );
   }

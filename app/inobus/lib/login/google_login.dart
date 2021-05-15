@@ -2,39 +2,42 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
-class GoogleUser {
-  static User userObj;
-  static final GoogleSignIn googleSignIn = GoogleSignIn();
-  static final FirebaseAuth auth = FirebaseAuth.instance;
+class UserObj {
+  static String id;
+  static String name;
+  static int point;
   static BarcodeWidget barcod = BarcodeWidget(
-    data: userObj.uid,
+    data: id,
     barcode: Barcode.code128(),
     drawText: false,
   );
+
+  static final GoogleSignIn googleSignIn = GoogleSignIn();
+  static final FirebaseAuth auth = FirebaseAuth.instance;
 }
 
 void loginGoogle() async {
   try {
     // Google 인증 흐름을 Trigger 시작
-    final GoogleSignInAccount googleUser =
-        await GoogleUser.googleSignIn.signIn();
+    final GoogleSignInAccount googleUser = await UserObj.googleSignIn.signIn();
     // 요청에서 인증 세부 정보를 얻기
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
     // 새로운 자격 증명 만들기
-    final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
     // firebase를 구글로 Sign in : 사용자 자격 증명용
-    final UserCredential googleUserCredential =
-        await FirebaseAuth.instance.signInWithCredential(googleCredential);
+    await UserObj.auth.signInWithCredential(credential);
     // 유저 정보 firebase에서 가져오기
-    GoogleUser.userObj = googleUserCredential.user;
+    UserObj.id = UserObj.auth.currentUser.uid;
+    UserObj.name = UserObj.auth.currentUser.displayName;
 
     // 디버깅
-    if (GoogleUser.userObj != null) {
+    if (UserObj.id != null) {
       print("유저 정보 확인 성공");
+      print(UserObj.name);
     } else {
       print("유저 정보 못 받아옴");
     }
@@ -47,9 +50,11 @@ void loginGoogle() async {
 void logoutGoogle() {
   try {
     // Google 인증 흐름을 Trigger 해제
-    GoogleUser.googleSignIn.signOut();
+    UserObj.googleSignIn.signOut();
     // 사용자 정보 삭제
-    GoogleUser.userObj = null;
+    UserObj.name = null;
+    UserObj.id = null;
+    print("로그아웃 완료");
   } catch (err) {
     print(err);
   }
