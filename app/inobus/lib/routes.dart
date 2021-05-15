@@ -51,7 +51,7 @@ class Routes {
           case Routes.point:
             return PointPage();
           case Routes.setting:
-            return SettinigPage();
+            return SettingPage();
           case Routes.barcode:
             return BarcodePage();
           case Routes.information:
