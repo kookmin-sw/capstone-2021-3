@@ -54,7 +54,7 @@ class AfterLoginPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onNextPage,
                 child: Text(
-                  "바코드 만들로 가기",
+                  "히어로 활동 시작하기",
                   style: TextStyle(
                     fontSize: 20,
                   ),
