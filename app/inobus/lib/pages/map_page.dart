@@ -1,10 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:inobus/app_colors.dart';
+import 'package:inobus/routes.dart';
+import 'package:inobus/app_images.dart';
 import 'package:inobus/api/device.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/models/route_argument.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -71,23 +74,26 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                     bottom: screenHeight * 0.1,
                     child: ElevatedButton(
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("대충 바코드 뜬다는 텍스트"),
-                            );
-                          },
-                        );
+                        Navigator.pushNamed(context, Routes.barcode,
+                            arguments: RouteArgument(title: "바코드 열기"));
                       },
-                      child: Text(
-                        "바코드 열기",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 30,
+                            child: AppImages.barcode.image(),
+                          ),
+                          Text(
+                            "바코드 열기",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff5234eb),
+                        padding: EdgeInsets.all(10),
+                        primary: AppColors.primary,
                         onPrimary: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),

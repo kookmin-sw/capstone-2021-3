@@ -8,4 +8,6 @@ export 'introduction/3_make_barcode_page.dart';
 export 'map_page.dart';
 export 'point_page.dart';
 export 'setting_page.dart';
+export 'barcode_page.dart';
+export 'information_page.dart';
 export 'use_history_page.dart';

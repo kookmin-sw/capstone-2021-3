@@ -21,6 +21,8 @@ class Routes {
   static const setting = '/setting';
   // 지도
   static const map = '/map';
+  // 바코드
+  static const barcode = '/barcode';
 
   // 첫 페이지
   static const initialRoute = intro;
@@ -50,6 +52,10 @@ class Routes {
             return PointPage();
           case Routes.setting:
             return SettingPage();
+          case Routes.barcode:
+            return BarcodePage();
+          case Routes.information:
+            return InformationPage();
           case Routes.history:
             return UseHistoryPage();
           case Routes.map:
