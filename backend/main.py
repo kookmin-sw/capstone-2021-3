@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
-from routes import devices, organizations, users
+from routes import devices, organizations, rewards, users
 
 app = FastAPI(
     title="INOBUS API",
@@ -27,6 +27,12 @@ router.include_router(
     router=users.router,
     prefix="/users",
     tags=["users"],
+)
+
+router.include_router(
+    router=rewards.router,
+    prefix="/rewards",
+    tags=["rewards"],
 )
 
 app.include_router(router)

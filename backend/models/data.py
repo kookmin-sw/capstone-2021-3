@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from utils.datetime import get_current_datetime_str, DateTime
+from utils.datetime import DateTime, get_current_datetime_str
 from utils.pyobjectid import ObjectId, PyObjectId
 
 
@@ -10,10 +10,8 @@ class PointData(BaseModel):
     """쓰샘 기기의 포인트 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    organization: PyObjectId = Field(description="데이터의 디바이스 id")
+    device: PyObjectId = Field(description="데이터의 디바이스 id")
     user: Optional[PyObjectId] = Field(description="포인트를 쌓은 유저 id")
-    team: Optional[str] = Field(description="포인트를 쌓은 팀의 이름")
-    point: int = Field(default=0, description="포인트")
     date: DateTime = Field(description="데이터 날짜")
 
     class Config:
@@ -21,10 +19,8 @@ class PointData(BaseModel):
         schema_extra = {
             "example": {
                 "_id": "60901b909232236ad8c4f0d6",
-                "organization": "60901b909232236a2314f0d6",
+                "device": "60901b909232236a2314f0d6",
                 "user": "1",
-                "team": "소융대18",
-                "point": 40,
                 "date": get_current_datetime_str(),
             }
         }

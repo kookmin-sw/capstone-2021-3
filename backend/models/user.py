@@ -8,7 +8,7 @@ from utils.pyobjectid import ObjectId, PyObjectId
 class User(BaseModel):
     """User Base 모델"""
 
-    id: Optional[PyObjectId] = Field(alias="_id")
+    _id: Optional[PyObjectId] = Field(alias="_id")
     user_name: str = Field(description="사용자의 닉네임")
 
 
