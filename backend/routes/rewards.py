@@ -65,7 +65,7 @@ async def organization_detail(device_id: str, uid: str, data_id: str):
 
     # Firebase 조회
     try:
-        user = auth.get_user(uid)  # '3zwBwL08vDMn5lXzIagw4kSMGn52'
+        user = auth.get_user(uid)
     except firebase_admin._auth_utils.UserNotFoundError:
         raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
