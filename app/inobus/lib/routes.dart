@@ -17,6 +17,9 @@ class Routes {
   static const notice = '/notice';
   // 고객지원
   static const support = '/support';
+  static const support_faq = '/support/faq';
+  static const support_privacy_policy = '/support/privacy_policy';
+  static const support_terms_of_service = '/support/terms_of_service';
   // 설정
   static const setting = '/setting';
   // 지도
@@ -52,6 +55,14 @@ class Routes {
             return SettingPage();
           case Routes.history:
             return UseHistoryPage();
+          case Routes.support:
+            return SupportPage();
+          case Routes.support_faq:
+            return FaqPage();
+          case Routes.support_privacy_policy:
+            return PrivacyPolicyPage();
+          case Routes.support_terms_of_service:
+            return TermsOfServicePage();
           case Routes.map:
           default:
             return MapPage();

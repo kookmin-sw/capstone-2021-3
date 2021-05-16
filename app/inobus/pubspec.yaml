@@ -30,6 +30,7 @@ dependencies:
   barcode_widget:
   http:
   json_annotation:
+  flutter_staggered_grid_view:
   flutter:
     sdk: flutter
 
