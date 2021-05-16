@@ -12,21 +12,3 @@ router = APIRouter()
 )
 async def user_detail():
     pass
-
-
-@router.post(
-    "/",
-    response_model=UserOut,
-    description="사용자 생성",
-)
-async def user_create(user: UserIn):
-    pass
-
-
-@router.put(
-    "/",
-    response_model=UserOut,
-    description="사용자 정보 업데이트",
-)
-async def user_update(user: UserIn):
-    pass
