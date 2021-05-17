@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:barcode_widget/barcode_widget.dart';
@@ -34,16 +35,16 @@ void loginGoogle() async {
     UserObj.id = UserObj.auth.currentUser.uid;
     UserObj.name = UserObj.auth.currentUser.displayName;
 
-    // 디버깅
+    // 정보 확인
     if (UserObj.id != null) {
-      print("유저 정보 확인 성공");
-      print(UserObj.name);
+      developer.log("Firebase user information verification success");
+      developer.log(UserObj.name);
     } else {
-      print("유저 정보 못 받아옴");
+      print("Firebase user information verification fail");
     }
   } catch (err) {
-    print("구글 로그인 실패");
-    print(err);
+    developer.log("Google Login Fail");
+    developer.log(err);
   }
 }
 
@@ -54,8 +55,11 @@ void logoutGoogle() {
     // 사용자 정보 삭제
     UserObj.name = null;
     UserObj.id = null;
-    print("로그아웃 완료");
+    UserObj.point = null;
+    UserObj.barcod = null;
+    developer.log("Google Logout Success");
   } catch (err) {
-    print(err);
+    developer.log("Google Logout Fail");
+    developer.log(err);
   }
 }
