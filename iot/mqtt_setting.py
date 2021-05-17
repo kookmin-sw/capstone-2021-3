@@ -12,17 +12,25 @@ class Mqtt:
 
         self.organization = self.get_organization_info()
         self.device = self.get_device_info()
-        
-        self._mqtt: FastMQTT = self.get_mqtt_app()
-        self.add_handlers(self._mqtt)
+
+        self._mqtt = None
+        if self.initialized:
+            self._mqtt: FastMQTT = self.get_mqtt_app()
+            self.add_handlers(self._mqtt)
+        else:
+            logger.error("Initialization is required.")
 
     @property
     def app(self):
         return self._mqtt
 
+    @property
+    def initialized(self):
+        return self.organization and self.device
+
     async def re_initialize(self):
-        if self._mqtt:
-            await self._mqtt.client.disconnect()
+        if self.app:
+            await self.app.client.disconnect()
 
         self.organization = self.get_organization_info()
         self.device = self.get_device_info()
