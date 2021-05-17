@@ -16,7 +16,7 @@ Jinja2==2.11.3
 MarkupSafe==1.1.1
 mypy-extensions==0.4.3
 pathspec==0.8.1
-pydantic==1.8.1
+pydantic==1.8.2
 python-dateutil==2.8.1
 python-dotenv==0.16.0
 PyYAML==5.4.1
