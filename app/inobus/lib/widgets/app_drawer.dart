@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
-import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/routes.dart';
+import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/models/auth_service.dart';
 
 class DrawerItem {
   final Image icon;
@@ -61,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                     .copyWith(color: Colors.white),
               ),
               Text(
-                'ㅇㅇㅇ님',
+                AuthService.user.displayName + '님',
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1

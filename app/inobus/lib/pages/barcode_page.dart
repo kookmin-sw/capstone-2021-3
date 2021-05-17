@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:inobus/app_icons.dart';
+import 'package:inobus/app_images.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/models/auth_service.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
-import 'package:inobus/app_icons.dart';
-import 'package:inobus/app_images.dart';
 
 /// 바코드
 class BarcodePage extends StatelessWidget {
@@ -33,12 +34,14 @@ class BarcodePage extends StatelessWidget {
                 height: screenHeight * 0.2,
               ),
             ),
+            // 바코드 생성
             Align(
               alignment: Alignment(0.0, -0.05),
               child: Container(
                 child: BarcodeWidget(
-                  data: "example",
+                  data: AuthService.user.uid,
                   barcode: Barcode.code128(),
+                  drawText: false, //바코드값 보이지 않게
                 ),
                 height: screenHeight * 0.2,
                 width: screenHeight * 0.4,
@@ -61,6 +64,7 @@ class BarcodePage extends StatelessWidget {
                 image: AppIcons.block.icon(),
               ),
             ),
+            // 아래 설명 텍스트
             Align(
               alignment: Alignment(0.0, 0.8),
               child: RichText(
