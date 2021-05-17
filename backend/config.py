@@ -1,6 +1,6 @@
-from pydantic import BaseSettings
+from functools import cached_property
 
-from utils.logger import logger
+from pydantic import BaseSettings
 
 
 class AppSettings(BaseSettings):
@@ -34,9 +34,18 @@ class MQTTSettings(BaseSettings):
         env_prefix = "MQTT_"
 
 
-app_settings = AppSettings()
-db_settings = DatabaseSettings()
-mqtt_settings = MQTTSettings()
+class Config:
+    @cached_property
+    def app_settings(self):
+        return AppSettings()
 
-if app_settings.test:
-    logger.warning("==========TEST 모드입니다.==========")
+    @cached_property
+    def mqtt_settings(self):
+        return MQTTSettings()
+
+    @cached_property
+    def db_settings(self):
+        return DatabaseSettings()
+
+
+config = Config()

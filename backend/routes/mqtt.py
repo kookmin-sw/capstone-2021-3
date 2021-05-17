@@ -10,7 +10,7 @@ from fastapi import APIRouter
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
 
-from config import mqtt_settings
+from config import config
 from database import db
 from models.data import CapacityData, PointData
 from utils.datetime import parse_datetime_str
@@ -22,10 +22,10 @@ TOPIC_POINT = "device/point/#"  # 모든 기관의 POINT 기록
 router = APIRouter()
 
 mqtt_config = MQTTConfig(
-    username=mqtt_settings.username,
-    password=mqtt_settings.password,
-    host=mqtt_settings.host,
-    port=mqtt_settings.port,
+    username=config.mqtt_settings.username,
+    password=config.mqtt_settings.password,
+    host=config.mqtt_settings.host,
+    port=config.mqtt_settings.port,
     version=MQTTv311,  # Rabbitmq-mqtt plugin에서 사용하는 MQTT Version이 3.1
 )
 

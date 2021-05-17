@@ -1,16 +1,17 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRouter
 
-from config import app_settings
+from config import config
 from routes import devices, organizations, users
 from routes.mqtt import mqtt
 from routes.mqtt import router as mqtt_router
+from utils.logger import logger
 
 app = FastAPI(
     title="INOBUS API",
     description="INOBUS capstone project api",
     version="1.0.0",
-    port=app_settings.port,
+    port=config.app_settings.port,
 )
 
 router = APIRouter(prefix="/api/v1")
@@ -41,3 +42,6 @@ router.include_router(
 )
 
 app.include_router(router)
+
+if config.app_settings.test:
+    logger.warning("==========TEST 모드입니다.==========")
