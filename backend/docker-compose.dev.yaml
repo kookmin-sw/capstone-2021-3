@@ -26,8 +26,6 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
-    ports:
-      - "80:80"
     networks:
       - app
     volumes:
