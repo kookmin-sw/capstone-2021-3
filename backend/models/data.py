@@ -11,7 +11,7 @@ class PointData(BaseModel):
 
     id: Optional[PyObjectId] = Field(alias="_id")
     organization: PyObjectId = Field(description="데이터의 디바이스 id")
-    user: Optional[str] = Field(description="포인트를 쌓은 유저 id")
+    user: Optional[PyObjectId] = Field(description="포인트를 쌓은 유저 id")
     point: int = Field(default=0, description="포인트")
     date: DateTime = Field(description="데이터 날짜")
 
