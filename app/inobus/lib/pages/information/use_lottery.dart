@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_images.dart';
-import 'package:inobus/widgets/information_page.dart';
+import 'package:inobus/widgets/page_info_one_image.dart';
 
 class LotteryFirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InforamtionOneImagePage(
+    return PageInforamtionOneImage(
       mainImg: AppImages.smilePurple.image(),
       textList: TextSpan(
         children: <TextSpan>[
@@ -41,7 +41,7 @@ class LotteryFirstPage extends StatelessWidget {
 class LotterySecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InforamtionOneImagePage(
+    return PageInforamtionOneImage(
       mainImg: AppImages.smilePurple.image(),
       textList: TextSpan(
         children: <TextSpan>[

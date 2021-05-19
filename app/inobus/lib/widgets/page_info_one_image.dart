@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class InforamtionOneImagePage extends StatelessWidget {
+class PageInforamtionOneImage extends StatelessWidget {
   final Image mainImg;
   final TextSpan textList;
 
-  InforamtionOneImagePage({this.mainImg, this.textList});
+  PageInforamtionOneImage({this.mainImg, this.textList});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inobus/routes.dart';
 import 'package:inobus/app_colors.dart';
+import 'package:inobus/app_images.dart';
+import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/widgets/circle_button.dart';
 
 /// 이용안내
 class InformationPage extends StatefulWidget {
@@ -16,40 +18,100 @@ class _InformationPage extends State<InformationPage> {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
     return AppScaffold(
       title: argument.title,
-      body: Expanded(
-        child: Stack(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Align(
-              alignment: Alignment(0.0, -0.2),
-              child: MaterialButton(
-                child: Text("기기이용안내"),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    Routes.infoExplan,
-                    arguments: RouteArgument(
-                      title: "이용안내",
-                      selectList: 0, // 0: 기기 사용법, 1: 추첨권 사용법 설명
-                    ),
-                  );
-                },
+            //이용방법
+            Text(
+              "이용방법",
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.grey,
               ),
             ),
-            Align(
-              alignment: Alignment(0.0, 0.2),
-              child: MaterialButton(
-                child: Text("추첨권 발급 및 이용방법"),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    Routes.infoExplan,
-                    arguments: RouteArgument(
-                      title: "이용안내",
-                      selectList: 1, // 0: 기기 사용법, 1: 추첨권 사용법 설명
-                    ),
-                  );
-                },
+            OutlineCircleButton(
+              child: AppImages.device.image(),
+              radius: 180.0,
+              borderSize: 1.0,
+              borderColor: Colors.grey,
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.infoExplan,
+                  arguments: RouteArgument(
+                    title: "이용안내",
+                    selectList: 0, // 0:이용방법, 1:서비스 안내
+                  ),
+                );
+              },
+            ),
+            RoundedRectangleBorderButton(
+              child: Text("    보러가기     >"),
+              backgroudColor: AppColors.primary,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.infoExplan,
+                  arguments: RouteArgument(
+                    title: "이용안내",
+                    selectList: 0, // 0:이용방법, 1:서비스 안내
+                  ),
+                );
+              },
+            ),
+            Divider(color: Colors.grey),
+            //이용방법
+            Text(
+              "추첨권/포인트 서비스 안내",
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.grey,
               ),
+            ),
+            OutlineCircleButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 60,
+                    child: AppImages.smileGrey.image(),
+                  ),
+                  Container(
+                    height: 60,
+                    child: AppImages.smilePurple.image(),
+                  )
+                ],
+              ),
+              radius: 180.0,
+              borderSize: 1.0,
+              borderColor: Colors.grey,
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.infoExplan,
+                  arguments: RouteArgument(
+                    title: "이용안내",
+                    selectList: 1, // 0: 기기 사용법, 1: 추첨권 사용법 설명
+                  ),
+                );
+              },
+            ),
+            RoundedRectangleBorderButton(
+              child: Text("    보러가기     >"),
+              backgroudColor: AppColors.primary,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.infoExplan,
+                  arguments: RouteArgument(
+                    title: "이용안내",
+                    selectList: 1, // 0: 기기 사용법, 1: 추첨권 사용법 설명
+                  ),
+                );
+              },
             ),
           ],
         ),

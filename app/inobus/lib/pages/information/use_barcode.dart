@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_images.dart';
-import 'package:inobus/widgets/information_page.dart';
+import 'package:inobus/widgets/page_info_one_image.dart';
 
 class BarcodeFirstPage extends StatelessWidget {
   @override
@@ -67,7 +67,7 @@ class BarcodeFirstPage extends StatelessWidget {
 class BarcodeSecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InforamtionOneImagePage(
+    return PageInforamtionOneImage(
       mainImg: AppImages.cup.image(),
       textList: TextSpan(
         children: <TextSpan>[
@@ -102,7 +102,7 @@ class BarcodeSecondPage extends StatelessWidget {
 class BarcodeThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InforamtionOneImagePage(
+    return PageInforamtionOneImage(
       mainImg: AppImages.phone.image(),
       textList: TextSpan(
         children: <TextSpan>[
