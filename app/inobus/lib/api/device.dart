@@ -28,7 +28,7 @@ Future<List<Marker>> requestDevices() async {
   allMarkers = [];
   String url =
       "http://ec2-54-149-103-226.us-west-2.compute.amazonaws.com/api/v1/devices/";
-  var response = await http.get(url);
+  var response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     var responseBody = utf8.decode(response.bodyBytes); //String
     var data = json.decode(responseBody); //json
