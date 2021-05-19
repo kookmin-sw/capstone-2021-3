@@ -50,7 +50,7 @@ class BarcodePage extends StatelessWidget {
               child: CircleImageButton(
                 bottomText: "이용방법",
                 image: AppIcons.document.icon(),
-                routPage: Routes.information,
+                routPage: Routes.infoExplan,
                 routTitle: "이용안내",
               ),
             ),
@@ -133,11 +133,13 @@ class CircleImageButton extends StatelessWidget {
         textColor: AppColors.primary,
         onPressed: () {
           if (routPage != null) {
-            Navigator.pop(context);
             Navigator.pushNamed(
               context,
               routPage,
-              arguments: RouteArgument(title: routTitle),
+              arguments: RouteArgument(
+                title: routTitle,
+                selectList: 0, // 0: 기기 사용법, 1: 추첨권 사용법 설명
+              ),
             );
           }
         },

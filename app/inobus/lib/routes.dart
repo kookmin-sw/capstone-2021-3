@@ -11,6 +11,8 @@ class Routes {
   static const market = '/market';
   // 이용안내
   static const information = '/information';
+  // 이용안내 설명
+  static const infoExplan = '/infoExplain';
   // 이용내역
   static const history = '/history';
   // 공지사항
@@ -58,6 +60,8 @@ class Routes {
             return InformationPage();
           case Routes.history:
             return UseHistoryPage();
+          case Routes.infoExplan:
+            return ExplanMain();
           case Routes.map:
           default:
             return MapPage();
