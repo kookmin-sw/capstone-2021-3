@@ -16,7 +16,7 @@ default_app = firebase_admin.initialize_app()
     "/insert_cup",
     description="쓰샘기기에 재활용컵 투입시 등록",
 )
-async def organization_detail(device_id: str):
+async def insert_cup(device_id: str):
 
     # 기기 포인트 적립
     device = db.devices.find_one({"_id": device_id})
@@ -52,7 +52,7 @@ async def organization_detail(device_id: str):
     response_model=UserOut,
     description="쓰샘기기에서 코드를 통해 포인트 적립",
 )
-async def organization_detail(device_id: str, uid: str, data_id: str):
+async def person_reward(device_id: str, uid: str, data_id: str):
 
     # 포인트 데이터 조회
     data = db.points.find_one({"_id": ObjectId(data_id)})
