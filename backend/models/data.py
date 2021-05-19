@@ -48,3 +48,26 @@ class CapacityData(BaseModel):
                 "date": get_current_datetime_str(),
             }
         }
+
+
+class TicketData(BaseModel):
+    """사용자 추첨권 데이터 모델"""
+
+    id: Optional[PyObjectId] = Field(alias="_id")
+    organization: PyObjectId = Field(description="데이터의 디바이스 id")
+    user: Optional[str] = Field(description="추첨권을 받은 유저 id")
+    date: DateTime = Field(description="데이터 날짜")
+    yearmonth: int = Field(default=0, description="추첨권의 해당년월 (데이터형태:  YYYYMM)")
+
+    class Config:
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "_id": "60901b909232236ad8c4f0d6",
+                "organization": "60901b909232236a2314f0d6",
+                "user": "60901b909232236ad8c4f0d6",
+                "date": get_current_datetime_str(),
+                "yearmonth": 202101,
+            }
+        }
+
