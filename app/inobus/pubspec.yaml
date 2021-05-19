@@ -31,6 +31,9 @@ dependencies:
   http:
   json_annotation:
   flutter_staggered_grid_view:
+  firebase_auth:
+  firebase_core:
+  google_sign_in:
   flutter:
     sdk: flutter
 

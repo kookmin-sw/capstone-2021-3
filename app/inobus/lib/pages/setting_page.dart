@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/models/auth_service.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -44,7 +46,12 @@ class UnderLineButton extends StatelessWidget {
           ),
         ),
         child: MaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            if (mainText == '로그아웃') {
+              AuthService().logoutGoogle();
+              Navigator.pushNamed(context, Routes.intro);
+            }
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
