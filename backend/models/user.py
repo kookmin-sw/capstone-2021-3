@@ -39,3 +39,18 @@ class UserOut(User):
                 "point": 0,
             }
         }
+
+
+class UserTicket(User):
+    """User Ticket 모델"""
+
+    ticket: int = Field(description="유저의 누적 추첨권")
+
+    class Config:
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "user_name": "우주최강개발자 박정섭",
+                "ticket": 2,
+            }
+        }
