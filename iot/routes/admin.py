@@ -5,10 +5,10 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
+from utils.logger import logger
 
-from config import api_settings
+from config import config
 from iot_utils.database import DBType, db
-from iot_utils.logger import logger
 from mqtt_setting import mqtt
 
 templates = Jinja2Templates(directory="templates")
@@ -35,7 +35,7 @@ async def dashboard(request: Request):
 
 
 @router.get("/reconnect")
-async def reconnect(request: Request):
+async def redirect_admin(request: Request):
     await mqtt.re_initialize()
     return RedirectResponse("/admin")
 
@@ -67,7 +67,7 @@ async def settings(
             else:
                 # 없을 시 네트워크로 데이터 패치
                 logger.info("기관 정보를 네트워크에서 받아옵니다.")
-                res = requests.get(f"{api_settings.base_url}/organizations")
+                res = requests.get(f"{config.api_settings.base_url}/organizations")
                 organization_list = res.json()
                 db.upsert(DBType.organization_list, organization_list)
                 db.remove(DBType.device_list)
@@ -94,7 +94,7 @@ async def settings(
                 # 없을 시 네트워크로 데이터 패치
                 logger.info("디바이스 정보를 네트워크에서 받아옵니다.")
                 res = requests.get(
-                    f"{api_settings.base_url}/organizations/{organization.get('_id')}/devices"
+                    f"{config.api_settings.base_url}/organizations/{organization.get('_id')}/devices"
                 )
                 device_list = res.json()
                 db.upsert(DBType.device_list, device_list)
