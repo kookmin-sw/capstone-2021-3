@@ -30,7 +30,7 @@ class BarcodePage extends StatelessWidget {
             Align(
               alignment: Alignment(0.0, -0.7),
               child: Container(
-                child: AppImages.device.image(),
+                child: AppImages.deviceInput.image(),
                 height: screenHeight * 0.2,
               ),
             ),

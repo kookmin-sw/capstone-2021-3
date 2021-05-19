@@ -15,7 +15,7 @@ class BarcodeFirstPage extends StatelessWidget {
           top: screenHeight * 0.05,
           left: screenWidth * 0.1,
           child: Container(
-            child: AppImages.device.image(),
+            child: AppImages.deviceInput.image(),
             height: screenHeight * 0.3,
           ),
         ),

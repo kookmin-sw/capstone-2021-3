@@ -42,7 +42,7 @@ class LotterySecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageInforamtionOneImage(
-      mainImg: AppImages.smilePurple.image(),
+      mainImg: AppImages.point.image(),
       textList: TextSpan(
         children: <TextSpan>[
           TextSpan(

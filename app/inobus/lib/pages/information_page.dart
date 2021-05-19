@@ -31,7 +31,7 @@ class _InformationPage extends State<InformationPage> {
               ),
             ),
             OutlineCircleButton(
-              child: AppImages.device.image(),
+              child: AppImages.deviceInput.image(),
               radius: 180.0,
               borderSize: 1.0,
               borderColor: Colors.grey,
@@ -76,11 +76,11 @@ class _InformationPage extends State<InformationPage> {
                 children: [
                   Container(
                     height: 60,
-                    child: AppImages.smileGrey.image(),
+                    child: AppImages.smilePurple.image(),
                   ),
                   Container(
                     height: 60,
-                    child: AppImages.smilePurple.image(),
+                    child: AppImages.point.image(),
                   )
                 ],
               ),
