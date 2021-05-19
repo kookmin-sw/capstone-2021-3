@@ -17,7 +17,7 @@ mypy-extensions==0.4.3
 paho-mqtt==1.5.1
 pathspec==0.8.1
 pika==1.2.0
-pydantic==1.8.1
+pydantic==1.8.2
 pymongo==3.11.3
 python-dateutil==2.8.1
 python-dotenv==0.15.0
