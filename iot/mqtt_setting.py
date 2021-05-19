@@ -1,9 +1,12 @@
+import logging
+
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
+from models.organization import Organization
+from utils.logger import logger
 
-from config import mqtt_settings
+from config import config
 from iot_utils.database import DBType, db
-from iot_utils.logger import logger
 
 
 class Mqtt:
@@ -34,7 +37,7 @@ class Mqtt:
 
         self.organization = self.get_organization_info()
         self.device = self.get_device_info()
-
+        
         self._mqtt = self.get_mqtt_app()
         self.add_handlers(self._mqtt)
         await self._mqtt.connection()
@@ -67,7 +70,7 @@ class Mqtt:
 
     @property
     def topic_point_group(self):
-        return f"device/point/{self.organization_id}/+"
+        return f"device/point_received/{self.organization_id}"
 
     @property
     def topic_plastic_capacity(self):
@@ -86,24 +89,24 @@ class Mqtt:
         def connect(client, flags, rc, properties):
             """MQTT Broker에 연결이 되었을 때 동작하는 Handler"""
             logger.info(f"Connected: {client}, {flags}, {rc}, {properties}")
-            app.client.subscribe(self.topic_point_group)
+            app.client.subscribe(
+                self.topic_point_group,
+            )
 
         @app.on_disconnect()
         def disconnect(client, packet, exc=None):
             """MQTT Broker와 연결이 끊어졌을 때 동작하는 Handler"""
             logger.info(f"Disconnected client '{client._client_id}'")
 
-        @app.on_subscribe()
-        def subscribe(client, mid, qos, properties):
-            """특정 Topic을 구독했을 때 동작하는 Handler"""
-            logger.info(
-                f"Subscribed client '{client._client_id}', {mid}, {qos}, {properties}"
-            )
-
         @app.subscribe(self.topic_point_group)
         async def handle_data_topics(client, topic, payload, qos, properties):
             """TOPIC_POINT_GROUP Handler"""
-            logger.info(f"point received! {topic}")
+            logger.info(f"point received! {topic}, {payload}")
+            organization = payload.decode()
+            organization = Organization.parse_raw(organization)
+            organization = organization.dict(by_alias=True)
+            organization["_id"] = str(organization["_id"])
+            db.upsert(DBType.organization, organization)
 
 
-mqtt = Mqtt(mqtt_settings)
+mqtt = Mqtt(config.mqtt_settings)

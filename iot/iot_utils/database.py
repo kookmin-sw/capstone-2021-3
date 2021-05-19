@@ -2,7 +2,6 @@ from enum import Enum
 from typing import Any
 
 from tinydb import Query, TinyDB
-from tinydb.operations import delete
 from utils.logger import logger
 
 
