@@ -22,6 +22,8 @@ class AppImages {
   static final device = AppImagePath("assets/images/device_image.png");
   static final phone = AppImagePath("assets/images/phone_image.PNG");
   static final cup = AppImagePath("assets/images/cup_image.PNG");
+  static final smileGrey = AppImagePath("assets/images/smile_grey.PNG");
+  static final smilePurple = AppImagePath("assets/images/smile_purple.PNG");
 
   // Login button에 사용할 로고
   static final appleLogo = AppImagePath("assets/images/apple_logo.png");
