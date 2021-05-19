@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/widgets/login_button.dart';
+import 'package:inobus/models/auth_service.dart';
 
 class LoginPage extends StatelessWidget {
   final VoidCallback onNextPage;
@@ -51,7 +52,10 @@ class LoginPage extends StatelessWidget {
             child: LoginButtton(
               logoloc: AppImages.googleLogo.path,
               outlinecolor: Color(0xff5234eb),
-              onpress: onNextPage,
+              onpress: () {
+                // 로그인을 확인하면 다음 페이지로 넘어가기
+                AuthService().loginGoogle().then((value) => onNextPage());
+              },
               text: "구글 로그인",
             ),
           ),
