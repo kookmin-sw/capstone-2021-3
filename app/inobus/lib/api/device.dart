@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 part 'device.g.dart';
 
@@ -57,8 +58,8 @@ Future<List<Marker>> requestDevices() async {
       );
     }
   } else {
-    print("Can not access API");
-    print(response.statusCode);
+    developer.log("Can not access API");
+    developer.log(response.statusCode.toString());
   }
 
   return allMarkers;

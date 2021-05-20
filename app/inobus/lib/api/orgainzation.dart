@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as developer;
 import 'package:json_annotation/json_annotation.dart';
 part 'orgainzation.g.dart';
 
@@ -34,8 +35,8 @@ Future<List<Orgainzation>> requestOrganization() async {
       orgResult.add(orgInfo);
     }
   } else {
-    print("Can not access API");
-    print(response.statusCode);
+    developer.log("Can not access API");
+    developer.log(response.statusCode.toString());
   }
 
   return orgResult;

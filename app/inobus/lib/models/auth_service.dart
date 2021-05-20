@@ -30,14 +30,13 @@ class AuthService {
       // 정보 확인
       if (user != null) {
         developer.log("Firebase user information verification success");
-        developer.log(user.displayName);
         return true;
       } else {
         developer.log("Firebase user information verification fail");
       }
     } catch (err) {
       developer.log("Google Login Fail");
-      developer.log(err);
+      developer.log(err.toString());
     }
     return false;
   }
@@ -45,15 +44,15 @@ class AuthService {
 // 구글 로그아웃
   void logoutGoogle() {
     try {
-      // Google 인증 흐름을 Trigger 해제
       // 샤용자 정보 삭제
-      user.delete();
+      // user.delete();
+      // Google 인증 흐름을 Trigger 해제
       _googleSignIn.signOut();
       _auth.signOut();
       developer.log("Google Logout Success");
     } catch (err) {
       developer.log("Google Logout Fail");
-      developer.log(err);
+      developer.log(err.toString());
     }
   }
 }
