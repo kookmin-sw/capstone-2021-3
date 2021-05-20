@@ -20,7 +20,7 @@ class _InformationPage extends State<InformationPage> {
       title: argument.title,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             //이용방법
             Text(
@@ -31,7 +31,15 @@ class _InformationPage extends State<InformationPage> {
               ),
             ),
             OutlineCircleButton(
-              child: AppImages.deviceInput.image(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: AppImages.deviceInput.image(),
+                    width: 100,
+                  ),
+                ],
+              ),
               radius: 180.0,
               borderSize: 1.0,
               borderColor: Colors.grey,
