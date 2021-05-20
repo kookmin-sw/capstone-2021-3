@@ -1,17 +1,23 @@
+import sys
+
+sys.path.append("../backend")
+
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
+from utils.logger import logger
 
-from config import api_settings
 from iot_utils.database import DBType, db
-from iot_utils.logger import logger
 from iot_utils.publisher import *
 from mqtt_setting import *
 from routes import admin
 
-# API base url
-BASE_URL = api_settings.base_url
+app = FastAPI(
+    title="INOBUS IOT",
+    description="INOBUS capstone project iot client",
+    version="1.0.0",
+    port=config.app_settings.port,
+)
 
-app = FastAPI()
 app.mount(
     "/static",
     StaticFiles(directory="static"),
