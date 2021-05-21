@@ -7,6 +7,7 @@ import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/models/auth_service.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/widgets/circle_button.dart';
 
 /// 바코드
 class BarcodePage extends StatelessWidget {
@@ -30,7 +31,7 @@ class BarcodePage extends StatelessWidget {
             Align(
               alignment: Alignment(0.0, -0.7),
               child: Container(
-                child: AppImages.device.image(),
+                child: AppImages.deviceInput.image(),
                 height: screenHeight * 0.2,
               ),
             ),
@@ -50,18 +51,64 @@ class BarcodePage extends StatelessWidget {
             // 아래 동그란 버튼 2개
             Align(
               alignment: Alignment(-0.4, 0.45),
-              child: CircleImageButton(
-                bottomText: "이용방법",
-                image: AppIcons.document.icon(),
-                routPage: Routes.information,
-                routTitle: "이용안내",
+              child: OutlineCircleButton(
+                radius: 80.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      child: AppIcons.document.icon(),
+                    ),
+                    Container(
+                      width: 50,
+                      child: Text(
+                        "이용안내",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                borderColor: Colors.grey,
+                borderSize: 1.0,
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  Routes.infoExplan,
+                  arguments: RouteArgument(
+                    title: "이용방법",
+                    selectList: 0, // 0:이용방법, 1:서비스 안내
+                  ),
+                ),
               ),
             ),
             Align(
               alignment: Alignment(0.4, 0.45),
-              child: CircleImageButton(
-                bottomText: "인식불가",
-                image: AppIcons.block.icon(),
+              child: OutlineCircleButton(
+                radius: 80.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      child: AppIcons.block.icon(),
+                    ),
+                    Container(
+                      width: 50,
+                      child: Text(
+                        "이용불가",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                borderColor: Colors.grey,
+                borderSize: 1.0,
               ),
             ),
             // 아래 설명 텍스트
@@ -95,56 +142,6 @@ class BarcodePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// 동그란 버튼 with icon(Image)
-class CircleImageButton extends StatelessWidget {
-  final String bottomText;
-  final Image image;
-  final routPage;
-  final routTitle;
-  CircleImageButton(
-      {Key key, this.bottomText, this.image, this.routPage, this.routTitle});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 80,
-      child: MaterialButton(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            this.image,
-            Text(
-              this.bottomText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-          side: BorderSide(color: Colors.grey),
-        ),
-        color: Colors.white,
-        textColor: AppColors.primary,
-        onPressed: () {
-          if (routPage != null) {
-            Navigator.pop(context);
-            Navigator.pushNamed(
-              context,
-              routPage,
-              arguments: RouteArgument(title: routTitle),
-            );
-          }
-        },
       ),
     );
   }

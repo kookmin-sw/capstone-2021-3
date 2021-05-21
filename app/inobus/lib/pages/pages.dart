@@ -14,3 +14,6 @@ export 'support/support_page.dart';
 export 'support/faq_page.dart';
 export 'support/privacy_policy_page.dart';
 export 'support/terms_of_service_page.dart';
+
+// Information
+export 'information/explan_main.dart';
