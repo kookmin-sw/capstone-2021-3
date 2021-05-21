@@ -34,6 +34,7 @@ Future<List<Marker>> requestDevices() async {
     var responseBody = utf8.decode(response.bodyBytes); //String
     var data = json.decode(responseBody); //json
 
+    allMarkers = [];
     for (int i = 0; i < data.length; i++) {
       var deviceInfo = Device(
           data[i]["name"],

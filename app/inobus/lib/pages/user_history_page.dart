@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:inobus/api/user.dart';
 import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/models/auth_service.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_size.dart';
 import 'package:inobus/api/orgainzation.dart';
+import 'package:inobus/widgets/circle_button.dart';
+
+double minFointSize = 12;
+double maxFointSize = 20;
 
 /// 이용내역
 class UserHistoryPage extends StatefulWidget {
@@ -15,10 +20,12 @@ class UserHistoryPage extends StatefulWidget {
 }
 
 class _UserHistoryPage extends State<UserHistoryPage> {
+  bool loading = false;
   List<Orgainzation> orgResult = [];
-  final List<RankRow> rankText = [];
+  List<RankRow> rankText = [];
   List<User> userResult = [];
 
+  // 사용자 월별 포인트 값 가져오기
   void getUserPointHistory() async {
     var requesttUserPointHistoryList = await requesttUserPointHistory();
     setState(() {
@@ -26,6 +33,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
     });
   }
 
+  // 전체 기관별 순위 가져오기
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
     setState(() {
@@ -34,6 +42,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
     getRankText();
   }
 
+  // 기관별 순위 List 형태로 만들기
   void getRankText() {
     setState(() {
       for (var j = 0; j < orgResult.length; j++) {
@@ -50,8 +59,13 @@ class _UserHistoryPage extends State<UserHistoryPage> {
   @override
   void initState() {
     super.initState();
+    // 기관별 순위 가져오기
     getOrganizationRank();
+    // 사용자 월별 값 가져오기
     getUserPointHistory();
+    setState(() {
+      loading = true;
+    });
   }
 
   @override
@@ -61,53 +75,131 @@ class _UserHistoryPage extends State<UserHistoryPage> {
     final screenWidth = ScreenSize(context).width;
     return AppScaffold(
       title: argument.title,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            children: [Text("월별 포인트 적립")],
-            mainAxisAlignment: MainAxisAlignment.start,
-          ),
-          Container(
-            height: screenHeight * 0.2,
-            width: screenWidth * 0.9,
-            margin: const EdgeInsets.all(30.0),
-            padding: const EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
-              ),
-              border: Border.all(
-                width: 3,
-                color: AppColors.primary,
-              ),
-            ),
-            child: Chart(userPointList: userResult),
-          ),
-          Row(
-            children: [Text("기관별")],
-            mainAxisAlignment: MainAxisAlignment.start,
-          ),
-          Container(
-            height: screenHeight * 0.4,
-            width: screenWidth * 0.9,
-            margin: const EdgeInsets.all(30.0),
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
-              ),
-              border: Border.all(
-                width: 3,
-                color: AppColors.primary,
-              ),
-            ),
-            child: ListView(
-              children: rankText,
-            ),
-          ),
-        ],
-      ),
+      body: loading
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // 사용자 정보
+                Container(
+                  margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.network(AuthService.user.photoURL.toString()),
+                          Container(
+                            margin: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AuthService.user.displayName.toString(),
+                                  style: TextStyle(
+                                    fontSize: maxFointSize,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  AuthService.point.toString() + " Point",
+                                  style: TextStyle(
+                                    color: AppColors.primary,
+                                    fontSize: maxFointSize * 0.8,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                // 월별 포인트 적립 그래프
+                Container(
+                  margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RoundedRectangleBorderButton(
+                              child: Text(
+                                "월별 포인트 적립",
+                                style: TextStyle(fontSize: maxFointSize),
+                              ),
+                              backgroudColor: AppColors.primary,
+                              textColor: Colors.white,
+                              radius: 10.0,
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: screenHeight * 0.2,
+                        width: screenWidth * 0.9,
+                        padding: const EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                          border: Border.all(
+                            width: 3,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        child: Chart(userPointList: userResult),
+                      ),
+                    ],
+                  ),
+                ),
+                // 기관별 랭킹
+                Container(
+                  margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          children: [
+                            RoundedRectangleBorderButton(
+                              child: Text(
+                                "전체 기관별 순위",
+                                style: TextStyle(fontSize: maxFointSize),
+                              ),
+                              backgroudColor: AppColors.primary,
+                              textColor: Colors.white,
+                              radius: 10.0,
+                            )
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.start,
+                        ),
+                      ),
+                      Container(
+                        height: screenHeight * 0.2,
+                        width: screenWidth * 0.9,
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                          border: Border.all(
+                            width: 3,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        child: ListView(
+                          children: rankText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          : CircularProgressIndicator(),
     );
   }
 }
@@ -132,16 +224,21 @@ class Chart extends StatelessWidget {
 
   // 월별 포인트 FlSpot List로 만들기
   List<FlSpot> flspot() {
+    final listLength = userPointList.length - 1;
     List<FlSpot> result = [];
-    for (var i = 0; i < userPointList.length; i++) {
-      result.add(FlSpot(i.toDouble(), userPointList[i].point.toDouble()));
+    for (var i = 0; i < listLength + 1; i++) {
+      result.add(
+        FlSpot(
+          i.toDouble(),
+          userPointList[i].point.toDouble(),
+        ),
+      );
     }
     return result;
   }
 
   @override
   Widget build(BuildContext context) {
-    final double fontsize = 10;
     return LineChart(
       LineChartData(
         // x, y축 최대 최소 값 정하기
@@ -178,16 +275,17 @@ class Chart extends StatelessWidget {
           // X축 label
           bottomTitles: SideTitles(
             showTitles: true,
-            reservedSize: 0,
+            reservedSize: 5,
             getTextStyles: (value) => TextStyle(
               color: AppColors.primary,
-              fontSize: fontsize,
+              fontSize: minFointSize,
               fontWeight: FontWeight.bold,
             ),
             getTitles: (value) {
               // 기존 0~ 값 대신 적힐 내용
-              final String date = userPointList[value.toInt()].date;
-              return date.substring(date.length - 2);
+              final String date =
+                  userPointList[userPointList.length - 1 - value.toInt()].date;
+              return date.substring(date.length - 2) + "월";
             },
           ),
           // Y축 label
@@ -196,12 +294,18 @@ class Chart extends StatelessWidget {
             reservedSize: 10,
             getTextStyles: (value) => TextStyle(
               color: AppColors.primary,
-              fontSize: fontsize,
+              fontSize: minFointSize,
               fontWeight: FontWeight.bold,
             ),
             getTitles: (value) {
               // 기존 0~ 값 대신 적힐 내용
-              return value.toInt().toString() + 'P';
+              if (maxNum() > 10) {
+                if (value.toInt() % 10 == 5) {
+                  return value.toInt().toString() + 'P';
+                } else
+                  return '';
+              } else
+                return value.toInt().toString() + 'P';
             },
           ),
         ),
@@ -234,12 +338,14 @@ class RankRow extends StatelessWidget {
       title: Text(
         rankeText.name,
         style: TextStyle(
+          fontSize: minFointSize,
           fontWeight: FontWeight.bold,
         ),
       ),
       trailing: Text(
         rankeText.point.toString() + "회",
         style: TextStyle(
+          fontSize: minFointSize,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -275,6 +381,7 @@ class RankCircle extends StatelessWidget {
           ? Text(
               rank.toString() + "위",
               style: TextStyle(
+                fontSize: minFointSize,
                 fontWeight: FontWeight.bold,
               ),
             )

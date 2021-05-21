@@ -30,6 +30,7 @@ Future<List<User>> requesttUserPointHistory() async {
     var responseBody = utf8.decode(response.bodyBytes); //String
     var data = json.decode(responseBody); //json
 
+    userResult = [];
     for (int i = 0; i < data['history'].length; i++) {
       var date = data['history'].keys.toList()[i];
       var orgInfo = User(date.toString(), data['history'][date].toInt());

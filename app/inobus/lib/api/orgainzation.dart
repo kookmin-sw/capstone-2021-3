@@ -29,6 +29,7 @@ Future<List<Orgainzation>> requestOrganization() async {
     var responseBody = utf8.decode(response.bodyBytes); //String
     var data = json.decode(responseBody); //json
 
+    orgResult = [];
     for (int i = 0; i < data.length; i++) {
       var orgInfo = Orgainzation(data[i]['name'], data[i]['point'],
           data[i]['phone'], data[i]['homepage'], data[i]['_id']);
