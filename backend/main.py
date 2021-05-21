@@ -39,5 +39,10 @@ router.include_router(
 app.include_router(router)
 
 
+@app.get("/ping")
+async def ping():
+    return "pong"
+
+
 if config.app_settings.test:
     logger.warning("==========TEST 모드입니다.==========")
