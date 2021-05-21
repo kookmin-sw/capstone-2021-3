@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:inobus/api/api.dart';
 
 /// 사용자 정보 관련 클래스
 class AuthService {
@@ -63,9 +64,7 @@ class AuthService {
 
   // 사용자 포인트 값 가져오기
   void requesttUserPoint() async {
-    String url =
-        "http://ec2-54-149-103-226.us-west-2.compute.amazonaws.com/api/v1/users/" +
-            user.uid.toString();
+    String url = ApiUrl().getUserUrl(user.uid.toString());
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var responseBody = utf8.decode(response.bodyBytes); //String

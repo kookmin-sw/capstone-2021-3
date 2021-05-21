@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:inobus/models/auth_service.dart';
+import 'package:inobus/api/api.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
@@ -21,10 +22,7 @@ class User {
 List<User> userResult = [];
 
 Future<List<User>> requesttUserPointHistory() async {
-  String url =
-      "http://ec2-54-149-103-226.us-west-2.compute.amazonaws.com/api/v1/users/" +
-          AuthService.user.uid.toString() +
-          "/history";
+  String url = ApiUrl().getUserHistoryUrl(AuthService.user.uid.toString());
   var response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
     var responseBody = utf8.decode(response.bodyBytes); //String
