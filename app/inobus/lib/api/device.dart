@@ -50,6 +50,8 @@ Future<List<Marker>> requestDevices() async {
             snippet: deviceInfo.point.toString() + " Point",
           ),
           draggable: false,
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
         ),
       );
     }
