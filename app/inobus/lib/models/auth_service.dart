@@ -46,8 +46,8 @@ class AuthService {
   void logoutGoogle() {
     try {
       // Google 인증 흐름을 Trigger 해제
-      // 샤용자 정보 삭제
-      user.delete();
+      // 샤용자 정보 삭제(탈퇴)
+      // user.delete();
       _googleSignIn.signOut();
       _auth.signOut();
       developer.log("Google Logout Success");
