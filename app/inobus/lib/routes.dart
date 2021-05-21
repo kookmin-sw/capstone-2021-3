@@ -60,7 +60,7 @@ class Routes {
           case Routes.information:
             return InformationPage();
           case Routes.history:
-            return UseHistoryPage();
+            return UserHistoryPage();
           case Routes.support:
             return SupportPage();
           case Routes.support_faq:

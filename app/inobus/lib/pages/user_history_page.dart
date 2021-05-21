@@ -8,13 +8,13 @@ import 'package:inobus/app_size.dart';
 import 'package:inobus/api/orgainzation.dart';
 
 /// 이용내역
-class UseHistoryPage extends StatefulWidget {
-  UseHistoryPage({Key key});
+class UserHistoryPage extends StatefulWidget {
+  UserHistoryPage({Key key});
   @override
-  _UseHistoryPage createState() => _UseHistoryPage();
+  _UserHistoryPage createState() => _UserHistoryPage();
 }
 
-class _UseHistoryPage extends State<UseHistoryPage> {
+class _UserHistoryPage extends State<UserHistoryPage> {
   List<Orgainzation> orgResult = [];
   final List<RankRow> rankText = [];
   List<User> testJson = [
