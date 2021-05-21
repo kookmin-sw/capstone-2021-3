@@ -87,7 +87,11 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.network(AuthService.user.photoURL.toString()),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              AuthService.user.photoURL.toString(),
+                            ),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(left: 10.0),
                             child: Column(
@@ -101,7 +105,9 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                                   ),
                                 ),
                                 Text(
-                                  AuthService.point.toString() + " Point",
+                                  AuthService.point.toString() == 'null'
+                                      ? '0 Point'
+                                      : AuthService.point.toString() + " Point",
                                   style: TextStyle(
                                     color: AppColors.primary,
                                     fontSize: maxFointSize * 0.8,
@@ -239,78 +245,83 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        // x, y축 최대 최소 값 정하기
-        minX: 0,
-        maxX: userPointList.length.toDouble() - 1.0,
-        minY: 0,
-        maxY: maxNum() + 1.0,
-        // 가로선 세로선 그리기
-        gridData: FlGridData(
-          show: true,
-          drawVerticalLine: true,
-          drawHorizontalLine: true,
-        ),
-        lineBarsData: [
-          // 그래프 그리기
-          LineChartBarData(
-            spots: flspot(), //그래프 값
-            colors: [AppColors.primary, AppColors.primary],
-            barWidth: 2,
-            dotData: FlDotData(show: true),
-            // 아래 색상 채우기
-            belowBarData: BarAreaData(
-              show: true,
-              colors: [
-                AppColors.primary.withOpacity(0.2),
-                AppColors.primary.withOpacity(0.2)
+    return userPointList == null || userPointList.length == 0
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : LineChart(
+            LineChartData(
+              // x, y축 최대 최소 값 정하기
+              minX: 0,
+              maxX: userPointList.length.toDouble() - 1.0,
+              minY: 0,
+              maxY: maxNum() + 1.0,
+              // 가로선 세로선 그리기
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: true,
+                drawHorizontalLine: true,
+              ),
+              lineBarsData: [
+                // 그래프 그리기
+                LineChartBarData(
+                  spots: flspot(), //그래프 값
+                  colors: [AppColors.primary, AppColors.primary],
+                  barWidth: 2,
+                  dotData: FlDotData(show: true),
+                  // 아래 색상 채우기
+                  belowBarData: BarAreaData(
+                    show: true,
+                    colors: [
+                      AppColors.primary.withOpacity(0.2),
+                      AppColors.primary.withOpacity(0.2)
+                    ],
+                  ),
+                ),
               ],
+              // 그래프 label 값 설정
+              titlesData: FlTitlesData(
+                show: true,
+                // X축 label
+                bottomTitles: SideTitles(
+                  showTitles: true,
+                  reservedSize: 5,
+                  getTextStyles: (value) => TextStyle(
+                    color: AppColors.primary,
+                    fontSize: minFointSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  getTitles: (value) {
+                    // 기존 0~ 값 대신 적힐 내용
+                    final String date =
+                        userPointList[userPointList.length - 1 - value.toInt()]
+                            .date;
+                    return date.substring(date.length - 2) + "월";
+                  },
+                ),
+                // Y축 label
+                leftTitles: SideTitles(
+                  showTitles: true,
+                  reservedSize: 10,
+                  getTextStyles: (value) => TextStyle(
+                    color: AppColors.primary,
+                    fontSize: minFointSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  getTitles: (value) {
+                    // 기존 0~ 값 대신 적힐 내용
+                    if (maxNum() > 10) {
+                      if (value.toInt() % 10 == 5) {
+                        return value.toInt().toString() + 'P';
+                      } else
+                        return '';
+                    } else
+                      return value.toInt().toString() + 'P';
+                  },
+                ),
+              ),
             ),
-          ),
-        ],
-        // 그래프 label 값 설정
-        titlesData: FlTitlesData(
-          show: true,
-          // X축 label
-          bottomTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 5,
-            getTextStyles: (value) => TextStyle(
-              color: AppColors.primary,
-              fontSize: minFointSize,
-              fontWeight: FontWeight.bold,
-            ),
-            getTitles: (value) {
-              // 기존 0~ 값 대신 적힐 내용
-              final String date =
-                  userPointList[userPointList.length - 1 - value.toInt()].date;
-              return date.substring(date.length - 2) + "월";
-            },
-          ),
-          // Y축 label
-          leftTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 10,
-            getTextStyles: (value) => TextStyle(
-              color: AppColors.primary,
-              fontSize: minFointSize,
-              fontWeight: FontWeight.bold,
-            ),
-            getTitles: (value) {
-              // 기존 0~ 값 대신 적힐 내용
-              if (maxNum() > 10) {
-                if (value.toInt() % 10 == 5) {
-                  return value.toInt().toString() + 'P';
-                } else
-                  return '';
-              } else
-                return value.toInt().toString() + 'P';
-            },
-          ),
-        ),
-      ),
-    );
+          );
   }
 }
 
