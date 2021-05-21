@@ -2,17 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
-import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/routes.dart';
+import 'package:inobus/api/user.dart';
+import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/widgets/circle_button.dart';
 import 'package:inobus/models/auth_service.dart';
 
 /// 추첨권-포인트
-class PointPage extends StatelessWidget {
-  // 나중에 user 값으로 대체
-  final String date = '202105';
-  final int ticket = 1;
+class PointPage extends StatefulWidget {
+  PointPage({Key key});
+  @override
+  _PointPage createState() => _PointPage();
+}
+
+class _PointPage extends State<PointPage> {
+  User lastMonth = User('000000', 0);
+
+  // 사용자 마지막 월의 포인트 값 가져오기
+  void getUserPointLastMonth() async {
+    final requesttUserPointHistoryList = await requesttUserPointHistory();
+    setState(() {
+      lastMonth = requesttUserPointHistoryList[0];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserPointLastMonth();
+  }
+
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
@@ -60,9 +80,9 @@ class PointPage extends StatelessWidget {
           ),
           // 이번달 추첨권 개수 알려주기
           Text(
-            date.substring(2) +
+            lastMonth.date.substring(0, 4) +
                 "년 " +
-                date.substring(date.length - 2) +
+                lastMonth.date.substring(lastMonth.date.length - 2) +
                 "월 추첨권",
             style: TextStyle(
               color: Colors.grey,
@@ -95,26 +115,28 @@ class PointPage extends StatelessWidget {
                   children: [
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 0
+                      child: lastMonth.point > 0
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 1
+                      child: lastMonth.point > 1
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 2
+                      child: lastMonth.point > 2
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     )
                   ],
                 ),
                 Text(
-                  (3 - ticket).toString() + "개의 추첨권이 남았어요!",
+                  (3 - lastMonth.point >= 0 ? 3 - lastMonth.point : 0)
+                          .toString() +
+                      "개의 추첨권이 남았어요!",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
