@@ -23,7 +23,7 @@ class BarcodeFirstPage extends StatelessWidget {
           top: screenHeight * 0.2,
           left: screenWidth * 0.55,
           child: Container(
-            child: AppImages.phone.image(),
+            child: AppImages.phonePoint.image(),
             height: screenHeight * 0.3,
           ),
         ),
@@ -103,7 +103,7 @@ class BarcodeThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageInforamtionOneImage(
-      mainImg: AppImages.phone.image(),
+      mainImg: AppImages.phoneBarcode.image(),
       textList: TextSpan(
         children: <TextSpan>[
           TextSpan(

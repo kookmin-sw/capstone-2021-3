@@ -19,8 +19,10 @@ class AppImages {
   static final drawerSeed = AppImagePath("assets/images/drawer_seed.png");
   static final hero = AppImagePath("assets/images/hero.png");
   static final barcode = AppImagePath("assets/images/barcode.png");
+  static final device = AppImagePath("assets/images/device.png");
   static final deviceInput = AppImagePath("assets/images/device_input.png");
-  static final phone = AppImagePath("assets/images/phone_image.PNG");
+  static final phoneBarcode = AppImagePath("assets/images/phone_barcode.png");
+  static final phonePoint = AppImagePath("assets/images/phone_point.png");
   static final cup = AppImagePath("assets/images/cup_image.PNG");
   static final smileGrey = AppImagePath("assets/images/smile_grey.PNG");
   static final smilePurple = AppImagePath("assets/images/smile_purple.PNG");

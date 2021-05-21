@@ -44,7 +44,7 @@ class BarcodePage extends StatelessWidget {
                   barcode: Barcode.code128(),
                   drawText: false, //바코드값 보이지 않게
                 ),
-                height: screenHeight * 0.2,
+                height: screenHeight * 0.15,
                 width: screenHeight * 0.4,
               ),
             ),
@@ -59,7 +59,10 @@ class BarcodePage extends StatelessWidget {
                     Container(
                       height: 50,
                       width: 50,
-                      child: AppIcons.document.icon(),
+                      child: Image.asset(
+                        AppIcons.document.path,
+                        color: AppColors.primary,
+                      ),
                     ),
                     Container(
                       width: 50,
@@ -94,7 +97,10 @@ class BarcodePage extends StatelessWidget {
                     Container(
                       height: 50,
                       width: 50,
-                      child: AppIcons.block.icon(),
+                      child: Image.asset(
+                        AppIcons.block.path,
+                        color: AppColors.primary,
+                      ),
                     ),
                     Container(
                       width: 50,
