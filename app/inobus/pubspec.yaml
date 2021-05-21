@@ -34,6 +34,7 @@ dependencies:
   firebase_core:
   google_sign_in:
   fl_chart:
+  package_info:
   flutter:
     sdk: flutter
 
