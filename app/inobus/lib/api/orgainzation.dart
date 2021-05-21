@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as developer;
 import 'package:json_annotation/json_annotation.dart';
 part 'orgainzation.g.dart';
 
@@ -28,14 +29,15 @@ Future<List<Orgainzation>> requestOrganization() async {
     var responseBody = utf8.decode(response.bodyBytes); //String
     var data = json.decode(responseBody); //json
 
+    orgResult = [];
     for (int i = 0; i < data.length; i++) {
       var orgInfo = Orgainzation(data[i]['name'], data[i]['point'],
           data[i]['phone'], data[i]['homepage'], data[i]['_id']);
       orgResult.add(orgInfo);
     }
   } else {
-    print("Can not access API");
-    print(response.statusCode);
+    developer.log("Can not access API");
+    developer.log(response.statusCode.toString());
   }
 
   return orgResult;

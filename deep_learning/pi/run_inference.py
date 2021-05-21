@@ -33,6 +33,8 @@ def main():
 
   images = read_input_images(Path(args.data_path))
 
+  count = 0
+  time_accum = 0
   for image in images:
     input_data = np.expand_dims(image, axis=0)
     input_data = np.float32(input_data)
@@ -42,10 +44,17 @@ def main():
     interpreter.invoke()
     stop_time = time.time()
 
-    print('Inference time: {:.3f}'.format((stop_time - start_time) * 1000))
+    interval = stop_time - start_time
+    time_accum += interval
+
+    print('Inference time: {:.3f}ms'.format(interval * 1000))
 
     prediction = interpreter.get_tensor(output_details[0]['index'])
     print(f'Prediction: {prediction[0]}')
+    count += 1
+
+  print('Inference time on average: {:.3f}ms'.format(
+      (time_accum / count) * 1000))
 
 
 if __name__ == "__main__":

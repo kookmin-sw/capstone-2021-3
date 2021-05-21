@@ -21,25 +21,29 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMainScreen = title == null;
-
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      appBar: AppAppBar(
-        title: title,
-      ),
-      body: Column(
-        mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-        crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
-        children: [
-          isMainScreen
-              ? Container()
-              : Divider(
-                  color: AppColors.primary,
-                  thickness: 2,
-                ),
-          body ?? SizedBox(),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: AppDrawer(),
+        appBar: AppAppBar(
+          title: title,
+        ),
+        body: Column(
+          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+          children: [
+            isMainScreen
+                ? Container()
+                : Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+            Expanded(child: body ?? SizedBox()),
+          ],
+        ),
       ),
     );
   }

@@ -57,7 +57,6 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
           if (snapshot.connectionState == ConnectionState.done) {
             final screenSize = MediaQuery.of(context).size;
             final screenHeight = screenSize.height;
-
             return Expanded(
               child: Stack(
                 alignment: Alignment.center,

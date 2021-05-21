@@ -70,7 +70,7 @@ class AppAppBar extends StatelessWidget with PreferredSizeWidget {
       Image icon = AppIcons.home.icon();
       VoidCallback onTap = () {
         // 처음 화면까지 Route 비우기
-        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.maybePop(context);
       };
       return Container(
         padding: EdgeInsets.zero,
