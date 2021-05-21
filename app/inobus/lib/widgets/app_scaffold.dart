@@ -34,9 +34,12 @@ class AppScaffold extends StatelessWidget {
           children: [
             isMainScreen
                 ? Container()
-                : Divider(
-                    color: AppColors.primary,
-                    thickness: 2,
+                : Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
             Expanded(child: body ?? SizedBox()),
           ],
