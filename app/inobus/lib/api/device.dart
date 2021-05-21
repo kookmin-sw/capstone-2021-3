@@ -32,14 +32,14 @@ List<Marker> allMarkers = [];
 Future<List<Marker>> requestDevices() async {
   allMarkers = [];
   String url = ApiUrl().getDevicesUrl();
-  var response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-    var responseBody = utf8.decode(response.bodyBytes); //String
-    var data = json.decode(responseBody); //json
+    final responseBody = utf8.decode(response.bodyBytes); //String
+    final data = json.decode(responseBody); //json
 
     allMarkers = [];
     for (int i = 0; i < data.length; i++) {
-      var deviceInfo = Device.fromJson(data[i]);
+      final deviceInfo = Device.fromJson(data[i]);
 
       allMarkers.add(
         Marker(

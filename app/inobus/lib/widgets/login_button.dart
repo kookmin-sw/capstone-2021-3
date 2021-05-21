@@ -17,7 +17,7 @@ class LoginButtton extends StatefulWidget {
 class _LoginButtton extends State<LoginButtton> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Container(
       width: screenSize.width * 0.7,
       height: screenSize.width * 0.7 * 0.2,

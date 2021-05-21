@@ -18,8 +18,6 @@ class _SettingPage extends State<SettingPage> {
   void getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
-      print("VERSION");
-      print(packageInfo.version);
       version = packageInfo.version;
     });
   }

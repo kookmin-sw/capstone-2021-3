@@ -24,14 +24,14 @@ List<Orgainzation> orgResult = [];
 Future<List<Orgainzation>> requestOrganization() async {
   orgResult = [];
   String url = ApiUrl().getOrganizationsUrl();
-  var response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-    var responseBody = utf8.decode(response.bodyBytes); //String
-    var data = json.decode(responseBody); //json
+    final responseBody = utf8.decode(response.bodyBytes); //String
+    final data = json.decode(responseBody); //json
 
     orgResult = [];
     for (int i = 0; i < data.length; i++) {
-      var orgInfo = Orgainzation.fromJson(data[i]);
+      final orgInfo = Orgainzation.fromJson(data[i]);
       orgResult.add(orgInfo);
     }
   } else {

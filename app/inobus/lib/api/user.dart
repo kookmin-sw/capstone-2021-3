@@ -23,15 +23,15 @@ List<User> userResult = [];
 
 Future<List<User>> requesttUserPointHistory() async {
   String url = ApiUrl().getUserHistoryUrl(AuthService.user.uid.toString());
-  var response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-    var responseBody = utf8.decode(response.bodyBytes); //String
-    var data = json.decode(responseBody); //json
+    final responseBody = utf8.decode(response.bodyBytes); //String
+    final data = json.decode(responseBody); //json
 
     userResult = [];
     for (int i = 0; i < data['history'].length; i++) {
-      var date = data['history'].keys.toList()[i];
-      var orgInfo = User(date.toString(), data['history'][date].toInt());
+      final date = data['history'].keys.toList()[i];
+      final orgInfo = User(date.toString(), data['history'][date].toInt());
       userResult.add(orgInfo);
     }
   } else {

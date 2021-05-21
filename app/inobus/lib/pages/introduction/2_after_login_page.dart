@@ -10,8 +10,8 @@ class AfterLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = ScreenSize(context).width;
-    var screenHeight = ScreenSize(context).height;
+    final screenWidth = ScreenSize(context).width;
+    final screenHeight = ScreenSize(context).height;
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,

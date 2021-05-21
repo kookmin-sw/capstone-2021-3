@@ -10,8 +10,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,

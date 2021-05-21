@@ -65,11 +65,12 @@ class AuthService {
   // 사용자 포인트 값 가져오기
   void requesttUserPoint() async {
     String url = ApiUrl().getUserUrl(user.uid.toString());
-    var response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var responseBody = utf8.decode(response.bodyBytes); //String
-      var data = json.decode(responseBody); //json
+      final responseBody = utf8.decode(response.bodyBytes); //String
+      final data = json.decode(responseBody); //json
 
+      // 수정 요망
       if (data == null)
         point = 100;
       else
