@@ -17,20 +17,14 @@ class UserHistoryPage extends StatefulWidget {
 class _UserHistoryPage extends State<UserHistoryPage> {
   List<Orgainzation> orgResult = [];
   final List<RankRow> rankText = [];
-  List<User> testJson = [
-    User('202102', 4),
-    User('202103', 6),
-    User('202104', 2),
-    User('202105', 1),
-  ];
-  // List<User> userResult = [];
+  List<User> userResult = [];
 
-  // void getUserPointHistory() async {
-  //   var requesttUserPointHistoryList = await requesttUserPointHistory();
-  //   setState(() {
-  //     userResult = requesttUserPointHistoryList;
-  //   });
-  // }
+  void getUserPointHistory() async {
+    var requesttUserPointHistoryList = await requesttUserPointHistory();
+    setState(() {
+      userResult = requesttUserPointHistoryList;
+    });
+  }
 
   void getOrganizationRank() async {
     var requestOrganizationList = await requestOrganization();
@@ -57,7 +51,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
   void initState() {
     super.initState();
     getOrganizationRank();
-    // getUserPointHistory();
+    getUserPointHistory();
   }
 
   @override
@@ -88,7 +82,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                 color: AppColors.primary,
               ),
             ),
-            child: Chart(userPointList: testJson),
+            child: Chart(userPointList: userResult),
           ),
           Row(
             children: [Text("기관별")],
@@ -213,9 +207,6 @@ class Chart extends StatelessWidget {
         ),
       ),
     );
-    // Sparkline(
-    //   data: [4, 5, 6, 2, 1],
-    // );
   }
 }
 
