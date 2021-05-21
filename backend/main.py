@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.routing import APIRouter
 
 from config import config
@@ -11,6 +12,9 @@ app = FastAPI(
     version="1.0.0",
     port=config.app_settings.port,
 )
+
+if config.app_settings.https_redirect:
+    app.add_middleware(HTTPSRedirectMiddleware)
 
 router = APIRouter(prefix="/api/v1")
 
@@ -33,6 +37,7 @@ router.include_router(
 )
 
 app.include_router(router)
+
 
 if config.app_settings.test:
     logger.warning("==========TEST 모드입니다.==========")
