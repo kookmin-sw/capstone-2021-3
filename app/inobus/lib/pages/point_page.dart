@@ -3,11 +3,16 @@ import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/routes.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/widgets/circle_button.dart';
 import 'package:inobus/models/auth_service.dart';
 
 /// 추첨권-포인트
 class PointPage extends StatelessWidget {
+  // 나중에 user 값으로 대체
+  final String date = '202105';
+  final int ticket = 1;
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
@@ -55,7 +60,10 @@ class PointPage extends StatelessWidget {
           ),
           // 이번달 추첨권 개수 알려주기
           Text(
-            "****월 **일 추첨권",
+            date.substring(2) +
+                "년 " +
+                date.substring(date.length - 2) +
+                "월 추첨권",
             style: TextStyle(
               color: Colors.grey,
             ),
@@ -87,20 +95,26 @@ class PointPage extends StatelessWidget {
                   children: [
                     Container(
                       width: screenWidth * 0.2,
-                      child: AppImages.appleLogo.image(),
+                      child: ticket > 0
+                          ? AppImages.smilePurple.image()
+                          : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: AppImages.googleLogo.image(),
+                      child: ticket > 1
+                          ? AppImages.smilePurple.image()
+                          : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: AppImages.googleLogo.image(),
+                      child: ticket > 2
+                          ? AppImages.smilePurple.image()
+                          : AppImages.smileGrey.image(),
                     )
                   ],
                 ),
                 Text(
-                  "*개의 추첨권이 남았어요!",
+                  (3 - ticket).toString() + "개의 추첨권이 남았어요!",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -157,9 +171,22 @@ class PointPage extends StatelessWidget {
               ],
             ),
           ),
-          // 이미지 말고 동그라미로 변경
+          // 사용자 누적 포인트
           Container(
-            child: Text(AuthService.point.toString()),
+            child: OutlineCircleButton(
+              child: Center(
+                child: Text(
+                  AuthService.point.toString() + "P",
+                  style: TextStyle(
+                    color: Colors.yellow,
+                    fontSize: screenWidth * 0.1,
+                  ),
+                ),
+              ),
+              borderColor: Colors.yellow,
+              borderSize: 5,
+              radius: screenWidth * 0.3,
+            ),
             width: screenWidth * 0.3,
           ),
           // 마켓 가기 박스
@@ -168,12 +195,21 @@ class PointPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "적립내역 >  ",
-                  style: TextStyle(
-                    color: Colors.grey,
+                TextButton(
+                  child: Text(
+                    "적립내역 >  ",
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.history,
+                      arguments: RouteArgument(title: "이용내역"),
+                    );
+                  },
+                )
               ],
             ),
           ),
