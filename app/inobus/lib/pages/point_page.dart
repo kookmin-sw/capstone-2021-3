@@ -4,6 +4,7 @@ import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/models/auth_service.dart';
 
 /// 추첨권-포인트
 class PointPage extends StatelessWidget {
@@ -158,7 +159,7 @@ class PointPage extends StatelessWidget {
           ),
           // 이미지 말고 동그라미로 변경
           Container(
-            child: AppImages.appleLogo.image(),
+            child: Text(AuthService.point.toString()),
             width: screenWidth * 0.3,
           ),
           // 마켓 가기 박스
