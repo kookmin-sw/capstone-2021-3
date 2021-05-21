@@ -1,13 +1,26 @@
+import time
+
+import io
+import cv2
+import numpy as np
 import RPi.GPIO as GPIO
 import pygame  #오디오 라이브러리
 from picamera import PiCamera  #카메라 라이브러리
-import time
+import tflite_runtime.interpreter as tflite
 
 pygame.mixer.init()  #오디오 설정
 Audio1 = pygame.mixer.Sound("/home/pi/01_start.wav")
 Audio2 = pygame.mixer.Sound("/home/pi/02_done.wav")
 
-camera = PiCamera()
+IMG_SIZE = 448
+THRESHOLD = 0.5
+MODEL_PATH = '/home/pi/mobilenet_448_3.tflite'
+
+interpreter = tflite.Interpreter(model_path=MODEL_PATH)
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
 
 button = 40  #버튼 핀
 LED = 38  #버튼 LED 핀
@@ -207,12 +220,22 @@ def LinearMotor(
     GPIO.output(out6, GPIO.LOW)
 
 
-def Camera():  # 카메라 함수
-  camera.start_preview()
-  time.sleep(1)
-  camera.capture('/home/pi/image.jpg')
-  print("Image captured!")
-  camera.stop_preview()
+def read_from_camera():  # 카메라 함수
+  stream = io.BytesIO()
+  with PiCamera as camera:
+    print("Camera resolution: {}".format(camera.resolution))
+    camera.start_preview()
+    time.sleep(2)
+    camera.capture(stream, format='jpeg', resize=(IMG_SIZE, IMG_SIZE))
+    print("Image captured!")
+
+    data = np.fromstring(stream.getvalue(), dtype=np.float32)
+    img = cv2.imdecode(data, 1)
+    # Return RGB image.
+    
+    # 이미지 저장.
+    cv2.imwrite('img_log/{}.jpeg'.format(time.time()))
+    return img[:, :, ::-1]
 
 
 def forward(
@@ -252,10 +275,8 @@ def reverse(durationBwd,
   return
 
 
-##################메인코드#######################
-
-try:
-  while 1:
+def main():
+  while True:
     if GPIO.input(button) == 0:  #버튼이 눌리면
       GPIO.output(LED, False)
       print("Start Operation")  #작동시작
@@ -277,13 +298,14 @@ try:
 
       LinearMotor(1)  # UP(노즐 위로 올라감)
 
-      Camera()  # 사진촬영
-
       #이제 여기서 딥러닝 모델 돌린다음~ 출력값을 Output으로 받아서~(예를 들어 PET면 1 아니면 0)
+      img = read_from_camera()  # 사진촬영
+      interpreter.set_tensor(input_details[0]['index'],
+                             np.expand_dims(img, axis=0))
+      interpreter.invoke()
+      prediction = interpreter.get_tensor(output_details[0]['index'])[0]
 
-      Output = 1  #일단 1이라고 예를들어봅시다
-
-      if Output == 1:  #PET면
+      if prediction > THRESHOLD:  #PET면
         forward(800, 0.001)  #앞으로 180도 회전
       else:  #아니면
         reverse(800, 0.001)  #뒤로 180도 회전
@@ -295,5 +317,6 @@ try:
       print("0")
       GPIO.output(LED, True)
 
-finally:
-  GPIO.cleanup()
+
+if __name__ == '__main__':
+  main()
