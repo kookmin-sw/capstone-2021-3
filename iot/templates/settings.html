@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="columns  is-variable is-desktop is-multiline">
+    <div class="column is-6">
+        <div class="card has-background-white has-text-black">
+            <div class="card-header">
+                <div class="card-header-title has-text-black">
+                    기관 조회
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="columns">
+                    <div class="column">
+                        {% if not organizations and not organization %}
+                        <form action="{{ url_for('settings') }}">
+                            <button class="button" type="submit" name="query_type" value="organization">
+                                기관 조회
+                            </button>
+                        </form>
+                        {% elif organization %}
+                        <h2 class="subtitle">선택한 기관 정보</h2>
+                        {% for key, value in organization.items() %}
+                        {% if key != '_id' %}
+                        <p><b>{{key}}:</b> {{value}}</p>
+                        {% endif %}
+                        {% endfor %}
+                        {% elif organizations %}
+                        <form action="{{ url_for('settings') }}">
+                            <h2 class="subtitle">기관 선택</h2>
+                            <div class="control">
+                                <p>기관명</p>
+                                {% for o in organizations %}
+                                <label class="radio">
+                                    <input type="radio" name="organization_idx" value={{ loop.index0 }} required>
+                                    {{o.name}}
+                                </label>
+                                <br>
+                                {% else %}
+                                등록된 기관이 없습니다.
+                                {% endfor %}
+                            </div>
+
+                            <br>
+                            <button class="button" type="submit" name="query_type" value="device">
+                                디바이스 조회
+                            </button>
+                        </form>
+                        <hr>
+                        <p class="has-text-grey">원하는 기관명이 보이지 않나요? <br>초기화 후 다시 시도해보세요.</p>
+                        <p class="has-text-danger">*주의: 설정이 초기화 됩니다.</p>
+                        <br>
+                        <form action="{{ url_for('settings') }}">
+                            <button class="button" type="submit" name="query_type" value="remove_cache">
+                                초기화
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-6">
+        <div class="card has-background-white has-text-black">
+            <div class="card-header">
+                <div class="card-header-title has-text-black">
+                    디바이스 조회 결과
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="columns">
+                    <div class="column">
+                        {% if query_type == "device" %}
+                        {% if devices %}
+                        <form action="{{ url_for('settings') }}">
+                            <div class="control">
+                                <p>디바이스명</p>
+                                {% for d in devices %}
+                                <label class="radio">
+                                    <input type="radio" name="device_idx" value={{ loop.index0 }} required>
+                                    {{d.name}}
+                                </label>
+                                <br>
+                                {% endfor %}
+                            </div>
+                            <hr>
+                            <p class="has-text-danger">*주의: 이미 등록했던 디바이스를 다시 등록하지 않게 주의하세요.</p>
+                            <br>
+                            <button class="button" type="submit" name="query_type" value="registration">
+                                디바이스 등록
+                            </button>
+                            {% else %}
+                            <p>선택하신 기관에 등록된 디바이스가 없습니다.</p>
+                        </form>
+                        {% endif %}
+                        {% else %}
+                        기관 조회를 먼저 해주세요.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </>
+    {% endblock %}

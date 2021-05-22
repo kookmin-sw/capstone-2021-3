@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
-import 'package:inobus/app_images.dart';
-import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/routes.dart';
+import 'package:inobus/models/route_argument.dart';
+import 'package:inobus/models/auth_service.dart';
 
 class DrawerItem {
   final Image icon;
@@ -16,56 +16,56 @@ class DrawerItem {
 class AppDrawer extends StatelessWidget {
   final drawerItems = [
     DrawerItem(AppIcons.money.icon(), "추첨권/포인트", Routes.point),
-    DrawerItem(AppIcons.cart.icon(), "에코마켓", Routes.market),
     DrawerItem(AppIcons.document.icon(), "이용안내", Routes.information),
     DrawerItem(AppIcons.graph.icon(), "이용내역", Routes.history),
-    DrawerItem(AppIcons.bell.icon(), "공지사항", Routes.notice),
     DrawerItem(AppIcons.headset.icon(), "고객지원", Routes.support),
     DrawerItem(AppIcons.gear.icon(), "설정", Routes.setting),
   ];
 
   Widget _buildDrawerHeader(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.2,
       child: DrawerHeader(
           margin: EdgeInsets.zero,
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             color: AppColors.primary,
           ),
-          child: Column(
+          child: Row(
             children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(4.0),
-                  padding: const EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.drawerSeed.path),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+              Container(
+                margin: const EdgeInsets.only(left: 5.0),
+                child: CircleAvatar(
+                  radius: MediaQuery.of(context).size.height * 0.04,
+                  backgroundImage: NetworkImage(
+                    AuthService.user.photoURL.toString(),
                   ),
                 ),
               ),
-              Text(
-                '씨앗 등급',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    .copyWith(color: Colors.white),
-              ),
-              Text(
-                'ㅇㅇㅇ님',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: Colors.white),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AuthService.user.displayName.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .copyWith(color: Colors.white),
+                    ),
+                    Text(
+                      AuthService.point.toString() == 'null'
+                          ? '0 Point'
+                          : AuthService.point.toString() + " Point",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .copyWith(color: Colors.yellow),
+                    ),
+                  ],
+                ),
               ),
             ],
           )),

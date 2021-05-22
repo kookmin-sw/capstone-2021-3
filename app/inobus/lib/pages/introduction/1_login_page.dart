@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/widgets/login_button.dart';
+import 'package:inobus/models/auth_service.dart';
+import 'package:inobus/app_colors.dart';
 
 class LoginPage extends StatelessWidget {
   final VoidCallback onNextPage;
@@ -9,8 +11,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var screenHeight = screenSize.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenHeight = screenSize.height;
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -50,8 +52,12 @@ class LoginPage extends StatelessWidget {
             top: screenHeight * 0.6,
             child: LoginButtton(
               logoloc: AppImages.googleLogo.path,
-              outlinecolor: Color(0xff5234eb),
-              onpress: onNextPage,
+              outlinecolor: AppColors.primary,
+              onpress: () {
+                // 로그인을 확인하면 다음 페이지로 넘어가기
+                onNextPage();
+                AuthService().loginGoogle();
+              },
               text: "구글 로그인",
             ),
           ),
@@ -59,8 +65,7 @@ class LoginPage extends StatelessWidget {
             top: screenHeight * 0.7,
             child: LoginButtton(
               logoloc: AppImages.appleLogo.path,
-              outlinecolor: Color(0xff5234eb),
-              onpress: onNextPage,
+              outlinecolor: AppColors.primary,
               text: "애플 로그인",
             ),
           ),

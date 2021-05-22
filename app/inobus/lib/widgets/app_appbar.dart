@@ -46,8 +46,8 @@ class AppAppBar extends StatelessWidget with PreferredSizeWidget {
     } else {
       icon = AppIcons.arrow.icon();
       onTap = () {
-        // 처음 화면까지 Route 비우기
-        Navigator.popUntil(context, (route) => route.isFirst);
+        // 이전 화면까지 Route 비우기
+        Navigator.maybePop(context);
       };
     }
 

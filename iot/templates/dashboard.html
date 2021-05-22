@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="columns  is-variable is-desktop">
+    <div class="column is-6-desktop">
+        <div class="card has-background-info has-text-white">
+            <div class="card-header">
+                <div class="card-header-title has-text-white">
+                    등록된 기관 정보
+                </div>
+            </div>
+            <div class="card-content">
+                {% if organization %}
+                {% for key, value in organization.items() %}
+                <p><b>{{key}}:</b> {{value}}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="column is-6-desktop">
+        <div class="card has-background-info has-text-white">
+            <div class="card-header">
+                <div class="card-header-title has-text-white is-uppercase">
+                    디바이스 정보
+                </div>
+            </div>
+            <div class="card-content">
+                {% if device %}
+                {% for key, value in device.items() %}
+                <p><b>{{key}}:</b> {{value}}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% macro item(name, route, icon, is_active=false)%}
+<li>
+    <a href="{{ url_for(route) }}" class="{% if title == name %}is-active has-background-primary
+    {% else %}has-text-black{% endif %}"><i class="{{ icon }}"></i> {{ name }}</a>
+</li>
+{%- endmacro%}

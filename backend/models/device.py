@@ -36,3 +36,4 @@ class Device(BaseModel):
                 "point": 377,
             }
         }
+

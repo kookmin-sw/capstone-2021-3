@@ -13,23 +13,14 @@ services:
       - mongodb:/data/db
     ports:
       - "27017:27017"
-    networks:
-      - app
   api:
     extends:
       file: common.yaml
       service: api
+    ports:
+      - 80:80
     env_file:
       - .env.example
-    environment:
-      - DB_URL=mongodb://mongodb:27017/
-    depends_on:
-      - mongodb
-      - rabbitmq
-    ports:
-      - "8000:8000"
-    networks:
-      - app
     volumes:
       - .:/app
     command: "/start-reload.sh"
@@ -40,12 +31,12 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin1234!
-    networks:
-      - app
-
-networks:
-  app:
-    driver: bridge
+  mqtt:
+    extends:
+      file: common.yaml
+      service: mqtt
+    env_file:
+      - .env.example
 
 volumes:
   mongodb:

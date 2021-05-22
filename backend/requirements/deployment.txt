@@ -1,5 +1,9 @@
 pydantic>=1.2.0,<2.0.0
 fastapi>=0.63.0,<0.64.0
-uvicorn[standard]
+uvicorn==0.13.4
+paho-mqtt==1.5.1
+pika==1.2.0
+python-dotenv==0.15.0
 bson
 pymongo==3.11.3
+loguru==0.5.3

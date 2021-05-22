@@ -12,6 +12,7 @@ services:
       - DB_USERNAME
       - APP_PORT
       - APP_TEST
+      - APP_LOG_LEVEL
     depends_on:
       - rabbitmq
     networks:
@@ -20,9 +21,32 @@ services:
     extends:
       file: common.yaml
       service: rabbitmq
+    ports:
+      - 80:80
     environment:
       - RABBITMQ_DEFAULT_USER
       - RABBITMQ_DEFAULT_PASS
+    networks:
+      - app
+  consumer:
+    extends:
+      file: common.yaml
+      service: consumer
+    environment:
+      - DB_NAME
+      - DB_PASSWORD
+      - DB_URL
+      - DB_USERNAME
+      - APP_TEST
+      - APP_LOG_LEVEL
+      - AMQP_USERNAME
+      - AMQP_PASSWORD
+      - AMQP_HOST
+      - AMQP_PORT
+      - MQTT_USERNAME
+      - MQTT_PASSWORD
+      - MQTT_HOST
+      - MQTT_PORT
     networks:
       - app
 
