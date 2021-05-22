@@ -64,7 +64,6 @@ class LoginPage extends StatelessWidget {
             child: LoginButtton(
               logoloc: AppImages.appleLogo.path,
               outlinecolor: Color(0xff5234eb),
-              onpress: onNextPage,
               text: "애플 로그인",
             ),
           ),
