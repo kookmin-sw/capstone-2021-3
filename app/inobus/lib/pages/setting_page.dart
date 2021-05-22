@@ -37,7 +37,6 @@ class _SettingPage extends State<SettingPage> {
         children: [
           UnderLineButton(
             mainText: "버전 " + version,
-            endText: "최신버전",
             padding: 5.0,
           ),
           UnderLineButton(

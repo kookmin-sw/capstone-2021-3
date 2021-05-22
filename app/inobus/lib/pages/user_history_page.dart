@@ -196,9 +196,13 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                             color: AppColors.primary,
                           ),
                         ),
-                        child: ListView(
-                          children: rankText,
-                        ),
+                        child: rankText == null || rankText.length == 0
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView(
+                                children: rankText,
+                              ),
                       ),
                     ],
                   ),
