@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inobus/routes.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_size.dart';
 import 'package:inobus/app_images.dart';
@@ -57,7 +58,11 @@ class AfterLoginPage extends StatelessWidget {
                     width: screenWidth * 0.7,
                     height: screenHeight * 0.1,
                     child: ElevatedButton(
-                      onPressed: onNextPage,
+                      onPressed: () {
+                        // 지도 화면을 main 화면으로 설정
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.map, (route) => false);
+                      },
                       child: Text(
                         "바코드 만들로 가기",
                         style: TextStyle(
