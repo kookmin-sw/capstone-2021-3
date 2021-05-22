@@ -12,8 +12,8 @@ class Device(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str
     model: str
-    organization: PyObjectId
-    install_date: DateTime
+    organization: str
+    install_date: str
 
     latitude: float
     longitude: float

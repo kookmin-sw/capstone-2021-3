@@ -11,16 +11,17 @@ class PointData(BaseModel):
 
     id: Optional[PyObjectId] = Field(alias="_id")
     device: PyObjectId = Field(description="데이터의 디바이스 id")
-    user: Optional[PyObjectId] = Field(description="포인트를 쌓은 유저 id")
-    date: DateTime = Field(description="데이터 날짜")
+    user: Optional[str] = Field(description="포인트를 쌓은 유저 id")
+    date: DateTime = Field(description="쓰샘 투입 날짜")
+    reward_date: Optional[DateTime] = Field(description="데이터 날짜")
 
     class Config:
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
                 "_id": "60901b909232236ad8c4f0d6",
-                "device": "60901b909232236a2314f0d6",
-                "user": "1",
+                "device": "12341b909232236a2314f0d6",
+                "user": "56781b909232236a2314f0d6",
                 "date": get_current_datetime_str(),
             }
         }
@@ -63,9 +64,9 @@ class TicketData(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "_id": "60901b909232236ad8c4f0d6",
+                "_id": "55551b909232236ad8c4f011",
                 "organization": "60901b909232236a2314f0d6",
-                "user": "60901b909232236ad8c4f0d6",
+                "user": "56781b909232236a2314f0d6",
                 "date": get_current_datetime_str(),
                 "yearmonth": 202101,
             }

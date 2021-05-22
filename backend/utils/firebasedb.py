@@ -6,16 +6,12 @@ from models.user import UserOut
 
 default_app = firebase_admin.initialize_app()
 
-
 def get_user(uid):
     try:
         user = auth.get_user(uid)
     except firebase_admin._auth_utils.UserNotFoundError:
-        # print("Access denied: User not found!")
-        # raise HTTPException(status_code=404, detail="Access denied")
         return "User not found", None
     except Exception as e:
-        # raise HTTPException(status_code=404, detail="Firebase Error: "+ str(e))
         return "Firebase Error: "+ str(e), None
 
     

@@ -1,17 +1,17 @@
 from datetime import datetime
 
-import firebase_admin
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
-from firebase_admin import auth
 
 from database import db
-from models.user import UserOut
+from models.data import PointData, TicketData
+from models.device import Device
+from models.organization import Organization
+from models.user import User, UserOut
 from utils.datetime import get_current_datetime_str
+from utils.firebasedb import get_user
 
 router = APIRouter()
-
-default_app = firebase_admin.initialize_app()
 
 
 @router.post(
@@ -23,18 +23,20 @@ async def insert_cup(device_id: str):
     # 기기 포인트 적립
     device = db.devices.find_one({"_id": ObjectId(device_id)})
     if device:
-        device['point'] += 1
-        db.devices.update({"_id": ObjectId(device_id)}, device)
+        device = Device.parse_obj(device)
+        device.point += 1
+        db.devices.update({"_id": ObjectId(device_id)}, device.dict(by_alias=False))
     else:
         raise HTTPException(status_code=404, detail="Device not found")
 
-    org_name = device['organization']
+    org_name = device.organization
 
 
     # 단체 포인트 적립
     organization = db.organizations.find_one({"name": org_name})
-    organization['point'] += 1
-    db.organizations.update({"name": org_name}, organization)
+    organization = Organization.parse_obj(organization)
+    organization.point += 1
+    db.organizations.update({"name": org_name}, organization.dict(by_alias=False))
 
 
     # 적립 기록 레코드 생성
@@ -60,26 +62,17 @@ async def person_reward(device_id: str, uid: str, data_id: str):
     if not data:
         print("Access denied: data_id is invaild!")
         raise HTTPException(status_code=404, detail="Access denied")
+    data = PointData.parse_obj(data)
     # device_id 검사
-    if data['device'] != ObjectId(device_id):
+    if data.device != ObjectId(device_id):
         print("Access denied: device_id is not matched!")
         raise HTTPException(status_code=404, detail="Access denied")
     # 중복 요청 검사
-    if 'user' in data:
+    if data.user:
         print("Access denied: Already rewarded!")
         raise HTTPException(status_code=404, detail="Access denied")
-    data['user'] = uid
-    data['reward_date'] = get_current_datetime_str()
-    
-    # Firebase 조회
-    try:
-        user = auth.get_user(uid)
-    except firebase_admin._auth_utils.UserNotFoundError:
-        print("Access denied: User not found!")
-        raise HTTPException(status_code=404, detail="Access denied")
-    except Exception as e:
-        raise HTTPException(status_code=404, detail="Firebase Error: "+ str(e))
-
+    data.user = uid
+    data.reward_date = get_current_datetime_str()
     
     # 기기ID로 기관 조회
     device = db.devices.find_one({"_id": ObjectId(device_id)})
@@ -91,22 +84,57 @@ async def person_reward(device_id: str, uid: str, data_id: str):
     thismonth = int(datetime.today().strftime("%Y%m"))
     num_tickets = len(list(db.tickets.find({"user": uid, "yearmonth": thismonth})))
 
-    
-    m_user = db.users.find_one({"_id": uid})
-    # 최초 등록시
-    if not m_user:
-        db.users.update({"_id": uid}, {"user_name": user.display_name, "point": 0}, upsert=True)
-        m_user = db.users.find_one({"_id": uid})
+    result, m_user = get_user(uid)
+    if result != "success":
+        raise HTTPException(status_code=404, detail=result)
+
 
     if num_tickets < 3:
         # 추첨권 발행
-        db.tickets.insert_one({"organization": ObjectId(organization['_id']), "user": uid, "date": get_current_datetime_str(), "yearmonth": thismonth})
+        new_ticket = TicketData(
+            organization = ObjectId(organization['_id']),
+            user = uid,
+            date = get_current_datetime_str(),
+            yearmonth = thismonth
+        )
+
+        db.tickets.insert_one(new_ticket.dict(by_alias=False))
     else:
         # 개인 포인트 적립
-            m_user['point'] += 1
-            db.users.update({"_id": uid}, m_user)
+            m_user.point += 1
+            db.users.update({"uid": uid}, m_user.dict(by_alias=False))
         
     # 적립 기록 레코드 갱신
-    db.points.update({"_id": ObjectId(data_id)}, data)
+    db.points.update({"_id": ObjectId(data_id)}, data.dict(by_alias=False))
+    return m_user
 
-    return db.users.find_one({"_id": uid})
+
+##테스트데이터
+@router.get(
+    "/make",
+    description="테스트데이터",
+)
+async def organization_detail():
+    db.organizations.update({"_id": ObjectId("60901b909232236ad8c4f0d6")}, {
+                "_id": ObjectId("60901b909232236ad8c4f0d6"),
+                "name": "국민대학교",
+                "point": 0,
+                "homepage": "http://kookmin.ac.kr/",
+                "phone": "02-910-4114",
+            }, upsert=True)
+    db.devices.update({"_id": ObjectId("10901b909232236ad8c4f0d6")}, {
+                "_id": ObjectId("10901b909232236ad8c4f0d6"),
+                "name": "국민쓰샘1호",
+                "model": "model_1",
+                "organization": "국민대학교",
+                "install_date": get_current_datetime_str(),
+                "latitude": 37.61090337619938,
+                "longitude": 126.99727816928652,
+                "location_description": "국민대학교 미래관 4층 자율주행스튜디오 앞",
+                "point": 377,
+            }, upsert=True)
+    
+    print(list(db.organizations.find()))
+    print(list(db.devices.find()))
+    return "ss"
+
