@@ -23,19 +23,19 @@ class _UserHistoryPage extends State<UserHistoryPage> {
   bool loading = false;
   List<Orgainzation> orgResult = [];
   List<RankRow> rankText = [];
-  List<User> userResult = [];
+  List<User> userHistoryList = [];
 
   // 사용자 월별 포인트 값 가져오기
   void getUserPointHistory() async {
-    var requesttUserPointHistoryList = await requesttUserPointHistory();
+    final requesttUserPointHistoryList = await requesttUserPointHistory();
     setState(() {
-      userResult = requesttUserPointHistoryList;
+      userHistoryList = requesttUserPointHistoryList;
     });
   }
 
   // 전체 기관별 순위 가져오기
   void getOrganizationRank() async {
-    var requestOrganizationList = await requestOrganization();
+    final requestOrganizationList = await requestOrganization();
     setState(() {
       orgResult = requestOrganizationList;
     });
@@ -156,7 +156,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                             color: AppColors.primary,
                           ),
                         ),
-                        child: Chart(userPointList: userResult),
+                        child: Chart(userPointList: userHistoryList),
                       ),
                     ],
                   ),
@@ -196,9 +196,13 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                             color: AppColors.primary,
                           ),
                         ),
-                        child: ListView(
-                          children: rankText,
-                        ),
+                        child: rankText == null || rankText.length == 0
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView(
+                                children: rankText,
+                              ),
                       ),
                     ],
                   ),

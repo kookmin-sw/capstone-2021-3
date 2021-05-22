@@ -16,6 +16,8 @@ class _InformationPage extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
     return AppScaffold(
       title: argument.title,
       body: Center(
@@ -35,7 +37,7 @@ class _InformationPage extends State<InformationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: AppImages.deviceInput.image(),
+                    child: AppImages.device.image(),
                     width: 100,
                   ),
                 ],
@@ -83,11 +85,11 @@ class _InformationPage extends State<InformationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 60,
+                    height: screenWidth * 0.2,
                     child: AppImages.smilePurple.image(),
                   ),
                   Container(
-                    height: 60,
+                    height: screenWidth * 0.2,
                     child: AppImages.point.image(),
                   )
                 ],
@@ -101,7 +103,7 @@ class _InformationPage extends State<InformationPage> {
                   Routes.infoExplan,
                   arguments: RouteArgument(
                     title: "이용안내",
-                    selectList: 1, // 0: 기기 사용법, 1: 추첨권 사용법 설명
+                    selectList: 1, // 0:이용방법, 1:서비스 안내
                   ),
                 );
               },

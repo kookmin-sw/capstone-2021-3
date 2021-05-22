@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -53,7 +54,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
       body: FutureBuilder(
         future: locatePosition(),
         builder: (context, snapshot) {
-          print(snapshot.connectionState);
+          developer.log(snapshot.connectionState.toString());
           if (snapshot.connectionState == ConnectionState.done) {
             final screenSize = MediaQuery.of(context).size;
             final screenHeight = screenSize.height;

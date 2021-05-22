@@ -2,17 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
-import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/routes.dart';
+import 'package:inobus/api/user.dart';
+import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/widgets/circle_button.dart';
 import 'package:inobus/models/auth_service.dart';
 
 /// 추첨권-포인트
-class PointPage extends StatelessWidget {
-  // 나중에 user 값으로 대체
-  final String date = '202105';
-  final int ticket = 1;
+class PointPage extends StatefulWidget {
+  PointPage({Key key});
+  @override
+  _PointPage createState() => _PointPage();
+}
+
+class _PointPage extends State<PointPage> {
+  User lastMonth = User('000000', 0);
+
+  // 사용자 마지막 월의 포인트 값 가져오기
+  void getUserPointLastMonth() async {
+    final requesttUserPointHistoryList = await requesttUserPointHistory();
+    setState(() {
+      lastMonth = requesttUserPointHistoryList[0];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserPointLastMonth();
+  }
+
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
@@ -60,9 +80,9 @@ class PointPage extends StatelessWidget {
           ),
           // 이번달 추첨권 개수 알려주기
           Text(
-            date.substring(2) +
+            lastMonth.date.substring(0, 4) +
                 "년 " +
-                date.substring(date.length - 2) +
+                lastMonth.date.substring(lastMonth.date.length - 2) +
                 "월 추첨권",
             style: TextStyle(
               color: Colors.grey,
@@ -95,26 +115,28 @@ class PointPage extends StatelessWidget {
                   children: [
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 0
+                      child: lastMonth.point > 0
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 1
+                      child: lastMonth.point > 1
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: ticket > 2
+                      child: lastMonth.point > 2
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     )
                   ],
                 ),
                 Text(
-                  (3 - ticket).toString() + "개의 추첨권이 남았어요!",
+                  (3 - lastMonth.point >= 0 ? 3 - lastMonth.point : 0)
+                          .toString() +
+                      "개의 추첨권이 남았어요!",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -173,6 +195,7 @@ class PointPage extends StatelessWidget {
           ),
           // 사용자 누적 포인트
           Container(
+            margin: EdgeInsets.only(top: 10.0),
             child: OutlineCircleButton(
               child: Center(
                 child: Text(
@@ -180,93 +203,100 @@ class PointPage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.yellow,
                     fontSize: screenWidth * 0.1,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               borderColor: Colors.yellow,
+              foregroundColor: Colors.transparent,
               borderSize: 5,
               radius: screenWidth * 0.3,
             ),
             width: screenWidth * 0.3,
           ),
           // 마켓 가기 박스
-          Container(
-            margin: EdgeInsets.only(right: marginRight),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  child: Text(
-                    "적립내역 >  ",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.history,
-                      arguments: RouteArgument(title: "이용내역"),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: marginRight, right: marginRight),
-            padding: EdgeInsets.only(
-                left: marginRight * 0.5, right: marginRight * 0.5),
-            decoration: BoxDecoration(
-              color: Colors.black87,
-              border: Border.all(
-                color: Colors.yellow,
-                width: 2,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(right: marginRight),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        "적립내역 >  ",
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.history,
+                          arguments: RouteArgument(title: "이용내역"),
+                        );
+                      },
+                    )
+                  ],
+                ),
               ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  child: Image.asset(
-                    AppIcons.cart.path,
+              Container(
+                margin: EdgeInsets.only(left: marginRight, right: marginRight),
+                padding: EdgeInsets.only(
+                    left: marginRight * 0.5, right: marginRight * 0.5),
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                  border: Border.all(
                     color: Colors.yellow,
+                    width: 2,
                   ),
-                  height: screenWidth * 0.2,
-                ),
-                Text(
-                  "포인트로 에코 마켓을\n이용해보세요!",
-                  style: TextStyle(
-                    color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10.0),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "마켓\n보기",
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        AppIcons.cart.path,
+                        color: Colors.yellow,
+                      ),
+                      height: screenWidth * 0.2,
+                    ),
+                    Text(
+                      "포인트로 에코 마켓을\n이용해보세요!",
                       style: TextStyle(
-                        fontSize: screenWidth * 0.05,
-                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.all(5),
-                      primary: Colors.yellow,
-                      onPrimary: Colors.black87,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                    Container(
+                      margin: EdgeInsets.only(left: 10.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "마켓\n보기",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.05,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.all(5),
+                          primary: Colors.yellow,
+                          onPrimary: Colors.black87,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

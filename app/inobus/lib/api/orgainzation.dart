@@ -3,16 +3,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
 import 'package:json_annotation/json_annotation.dart';
+import 'package:inobus/api/api.dart';
 part 'orgainzation.g.dart';
 
 @JsonSerializable()
 class Orgainzation {
-  Orgainzation(this.name, this.point, this.phone, this.url, this.id);
+  Orgainzation(this.id, this.name, this.point, this.homepage, this.phone);
+  final String id;
   final String name;
   final int point;
+  final String homepage;
   final String phone;
-  final String url;
-  final String id;
   factory Orgainzation.fromJson(Map<String, dynamic> json) =>
       _$OrgainzationFromJson(json);
   Map<String, dynamic> toJson() => _$OrgainzationToJson(this);
@@ -22,17 +23,15 @@ List<Orgainzation> orgResult = [];
 
 Future<List<Orgainzation>> requestOrganization() async {
   orgResult = [];
-  String url =
-      "http://ec2-54-149-103-226.us-west-2.compute.amazonaws.com/api/v1/organizations/";
-  var response = await http.get(Uri.parse(url));
+  String url = ApiUrl().getOrganizationsUrl();
+  final response = await http.get(Uri.parse(url));
   if (response.statusCode == 200) {
-    var responseBody = utf8.decode(response.bodyBytes); //String
-    var data = json.decode(responseBody); //json
+    final responseBody = utf8.decode(response.bodyBytes); //String
+    final data = json.decode(responseBody); //json
 
     orgResult = [];
     for (int i = 0; i < data.length; i++) {
-      var orgInfo = Orgainzation(data[i]['name'], data[i]['point'],
-          data[i]['phone'], data[i]['homepage'], data[i]['_id']);
+      final orgInfo = Orgainzation.fromJson(data[i]);
       orgResult.add(orgInfo);
     }
   } else {
