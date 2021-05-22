@@ -8,19 +8,19 @@ part of 'orgainzation.dart';
 
 Orgainzation _$OrgainzationFromJson(Map<String, dynamic> json) {
   return Orgainzation(
+    json['id'] as String,
     json['name'] as String,
     json['point'] as int,
+    json['homepage'] as String,
     json['phone'] as String,
-    json['url'] as String,
-    json['id'] as String,
   );
 }
 
 Map<String, dynamic> _$OrgainzationToJson(Orgainzation instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'point': instance.point,
+      'homepage': instance.homepage,
       'phone': instance.phone,
-      'url': instance.url,
-      'id': instance.id,
     };

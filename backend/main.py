@@ -3,8 +3,9 @@ from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.routing import APIRouter
 
 from config import config
-from routes import devices, organizations, users
+from routes import devices, organizations, rewards, users
 from utils.logger import logger
+
 
 app = FastAPI(
     title="INOBUS API",
@@ -34,6 +35,12 @@ router.include_router(
     router=users.router,
     prefix="/users",
     tags=["users"],
+)
+
+router.include_router(
+    router=rewards.router,
+    prefix="/rewards",
+    tags=["rewards"],
 )
 
 app.include_router(router)

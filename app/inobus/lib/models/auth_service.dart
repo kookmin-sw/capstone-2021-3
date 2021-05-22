@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
+import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:inobus/api/api.dart';
 
 /// 사용자 정보 관련 클래스
 class AuthService {
@@ -30,30 +33,52 @@ class AuthService {
       // 정보 확인
       if (user != null) {
         developer.log("Firebase user information verification success");
-        developer.log(user.displayName);
+        developer.log(user.displayName.toString());
+        // 유저 포인트 가져오기
+        requesttUserPoint();
         return true;
       } else {
         developer.log("Firebase user information verification fail");
       }
     } catch (err) {
       developer.log("Google Login Fail");
-      developer.log(err);
+      developer.log(err.toString());
     }
     return false;
   }
 
-// 구글 로그아웃
+  // 구글 로그아웃
   void logoutGoogle() {
     try {
-      // Google 인증 흐름을 Trigger 해제
       // 샤용자 정보 삭제
-      user.delete();
+      // user.delete();
+      // Google 인증 흐름을 Trigger 해제
       _googleSignIn.signOut();
       _auth.signOut();
       developer.log("Google Logout Success");
     } catch (err) {
       developer.log("Google Logout Fail");
-      developer.log(err);
+      developer.log(err.toString());
+    }
+  }
+
+  // 사용자 포인트 값 가져오기
+  void requesttUserPoint() async {
+    String url = ApiUrl().getUserUrl(user.uid.toString());
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final responseBody = utf8.decode(response.bodyBytes); //String
+      final data = json.decode(responseBody); //json
+
+      // 수정 요망
+      if (data == null)
+        point = 100;
+      else
+        point = data["point"];
+    } else {
+      point = 0;
+      developer.log("Can not access API");
+      developer.log(response.statusCode.toString());
     }
   }
 }

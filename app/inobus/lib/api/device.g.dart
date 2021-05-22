@@ -8,24 +8,26 @@ part of 'device.dart';
 
 Device _$DeviceFromJson(Map<String, dynamic> json) {
   return Device(
-    json['name'] as String,
     json['id'] as String,
-    json['organ'] as String,
-    json['installDate'] as String,
+    json['name'] as String,
+    json['model'] as String,
+    json['organization'] as String,
+    json['install_date'] as String,
+    (json['latitude'] as num)?.toDouble(),
+    (json['longitude'] as num)?.toDouble(),
+    json['location_description'] as String,
     json['point'] as int,
-    (json['lat'] as num)?.toDouble(),
-    (json['long'] as num)?.toDouble(),
-    json['loc'] as String,
   );
 }
 
 Map<String, dynamic> _$DeviceToJson(Device instance) => <String, dynamic>{
-      'name': instance.name,
       'id': instance.id,
-      'organ': instance.organ,
-      'installDate': instance.installDate,
+      'name': instance.name,
+      'model': instance.model,
+      'organization': instance.organization,
+      'install_date': instance.install_date,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'location_description': instance.location_description,
       'point': instance.point,
-      'lat': instance.lat,
-      'long': instance.long,
-      'loc': instance.loc,
     };

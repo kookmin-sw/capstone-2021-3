@@ -1,10 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:inobus/routes.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/models/auth_service.dart';
 
-class SettingPage extends StatelessWidget {
+/// 설정 페이지
+class SettingPage extends StatefulWidget {
+  SettingPage({Key key});
+  @override
+  _SettingPage createState() => _SettingPage();
+}
+
+class _SettingPage extends State<SettingPage> {
+  String version = 'null';
+
+  void getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAppVersion();
+  }
+
   @override
   Widget build(BuildContext context) {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
@@ -13,8 +36,7 @@ class SettingPage extends StatelessWidget {
       body: Column(
         children: [
           UnderLineButton(
-            mainText: "버전 1.5.4",
-            endText: "최신버전",
+            mainText: "버전 " + version,
             padding: 5.0,
           ),
           UnderLineButton(
