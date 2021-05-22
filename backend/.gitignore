@@ -1,3 +1,4 @@
+rabbitmq/definitions.json
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,vscode,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,vscode,git
@@ -158,11 +159,10 @@ dmypy.json
 
 # operating system-related files
 *.DS_Store #file properties cache/storage on macOS
-Thumbs.db #thumbnail cache on Windows
+Thumbs.db  #thumbnail cache on Windows
 
 # profiling data
 .prof
-
 
 ### vscode ###
 .vscode/*

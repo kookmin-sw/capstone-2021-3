@@ -1,5 +1,6 @@
 *.sh eol=lf
 *.env* eol=lf
+*.json eol=lf
 *.cmd eol=crlf
 *.bat eol=crlf
 *.ps1 eol=crlf

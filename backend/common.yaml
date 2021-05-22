@@ -12,8 +12,8 @@ services:
     image: 573620237252.dkr.ecr.us-west-2.amazonaws.com/inobus/api
   rabbitmq:
     build:
-      dockerfile: docker/Dockerfile.rabbitmq
-      context: .
+      dockerfile: ../Dockerfile.rabbitmq
+      context: docker/rabbitmq/
     image: 573620237252.dkr.ecr.us-west-2.amazonaws.com/inobus/rabbitmq
     ports:
       - 15672:15672 # For management

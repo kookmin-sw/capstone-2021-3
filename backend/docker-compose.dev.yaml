@@ -28,9 +28,8 @@ services:
     extends:
       file: common.yaml
       service: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin1234!
+    env_file:
+      - .env.example
   mqtt:
     extends:
       file: common.yaml

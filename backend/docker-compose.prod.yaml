@@ -8,6 +8,7 @@ services:
       file: common.yaml
       service: api
     environment:
+      - WAIT_HOSTS
       - DB_NAME
       - DB_PASSWORD
       - DB_URL
@@ -25,13 +26,16 @@ services:
       file: common.yaml
       service: rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER
-      - RABBITMQ_DEFAULT_PASS
+      - RABBITMQ_ADMIN_USER
+      - RABBITMQ_ADMIN_PASS
+      - RABBITMQ_DATA_USER
+      - RABBITMQ_DATA_PASS
   consumer:
     extends:
       file: common.yaml
       service: consumer
     environment:
+      - WAIT_HOSTS
       - DB_NAME
       - DB_PASSWORD
       - DB_URL
