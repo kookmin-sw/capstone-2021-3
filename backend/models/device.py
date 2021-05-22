@@ -12,8 +12,8 @@ class Device(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id")
     name: str
     model: str
-    organization: str
-    install_date: str
+    organization: PyObjectId
+    install_date: DateTime
 
     latitude: float
     longitude: float
@@ -28,7 +28,7 @@ class Device(BaseModel):
                 "_id": "60901b909232236ad8c4f0d6",
                 "name": "국민쓰샘1호",
                 "model": "model_1",
-                "organization": "국민대학교",
+                "organization": "11111b909232236ad8c4f0d6",
                 "install_date": get_current_datetime_str(),
                 "latitude": 37.61090337619938,
                 "longitude": 126.99727816928652,
@@ -36,4 +36,3 @@ class Device(BaseModel):
                 "point": 377,
             }
         }
-

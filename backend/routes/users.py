@@ -34,7 +34,7 @@ async def user_tickets(uid: str):
 
     thismonth = int(datetime.today().strftime("%Y%m"))
     num_tickets = len(list(db.tickets.find({"user": uid, "yearmonth": thismonth})))
-    
+
     return UserTicket(user_name=user.user_name, ticket=num_tickets)
 
 
@@ -46,8 +46,8 @@ async def user_history(uid: str):
     points = list(db.points.find({"user": uid}))
 
     result = dict()
-    result['user'] = uid
-    result['history'] = dict()
+    result["user"] = uid
+    result["history"] = dict()
 
     imonth = datetime.date.today()
     for i in range(6):
@@ -60,7 +60,7 @@ async def user_history(uid: str):
             if i["date"][:7] == d:
                 count += 1
 
-        result['history'][yyyymm] = count
+        result["history"][yyyymm] = count
         imonth -= datetime.timedelta(days=1)
 
     return result

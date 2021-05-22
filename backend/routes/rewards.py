@@ -29,23 +29,24 @@ async def insert_cup(device_id: str):
     else:
         raise HTTPException(status_code=404, detail="Device not found")
 
-    org_name = device.organization
-
+    # org_name = device.organization
 
     # 단체 포인트 적립
-    organization = db.organizations.find_one({"name": org_name})
+    organization = db.organizations.find_one({"_id": device.organization})
     organization = Organization.parse_obj(organization)
     organization.point += 1
-    db.organizations.update({"name": org_name}, organization.dict(by_alias=False))
-
+    db.organizations.update(
+        {"_id": device.organization}, organization.dict(by_alias=False)
+    )
 
     # 적립 기록 레코드 생성
-    res = db.points.insert_one({"device": ObjectId(device_id), "date": get_current_datetime_str()})
+    res = db.points.insert_one(
+        {"device": ObjectId(device_id), "date": get_current_datetime_str()}
+    )
 
     ret = dict()
-    ret['result'] = 'success'
-    ret['data_id'] = str(res.inserted_id)
-
+    ret["result"] = "success"
+    ret["data_id"] = str(res.inserted_id)
 
     return ret
 
@@ -73,12 +74,10 @@ async def person_reward(device_id: str, uid: str, data_id: str):
         raise HTTPException(status_code=404, detail="Access denied")
     data.user = uid
     data.reward_date = get_current_datetime_str()
-    
+
     # 기기ID로 기관 조회
     device = db.devices.find_one({"_id": ObjectId(device_id)})
-    org_name = device['organization']
-    organization = db.organizations.find_one({"name": org_name})
-
+    organization = db.organizations.find_one({"_id": device["organization"]})
 
     # 당월 티켓발행수 조회
     thismonth = int(datetime.today().strftime("%Y%m"))
@@ -88,22 +87,21 @@ async def person_reward(device_id: str, uid: str, data_id: str):
     if result != "success":
         raise HTTPException(status_code=404, detail=result)
 
-
     if num_tickets < 3:
         # 추첨권 발행
         new_ticket = TicketData(
-            organization = ObjectId(organization['_id']),
-            user = uid,
-            date = get_current_datetime_str(),
-            yearmonth = thismonth
+            organization=ObjectId(organization["_id"]),
+            user=uid,
+            date=get_current_datetime_str(),
+            yearmonth=thismonth,
         )
 
         db.tickets.insert_one(new_ticket.dict(by_alias=False))
     else:
         # 개인 포인트 적립
-            m_user.point += 1
-            db.users.update({"uid": uid}, m_user.dict(by_alias=False))
-        
+        m_user.point += 1
+        db.users.update({"uid": uid}, m_user.dict(by_alias=False))
+
     # 적립 기록 레코드 갱신
     db.points.update({"_id": ObjectId(data_id)}, data.dict(by_alias=False))
     return m_user
@@ -115,26 +113,33 @@ async def person_reward(device_id: str, uid: str, data_id: str):
     description="테스트데이터",
 )
 async def organization_detail():
-    db.organizations.update({"_id": ObjectId("60901b909232236ad8c4f0d6")}, {
-                "_id": ObjectId("60901b909232236ad8c4f0d6"),
-                "name": "국민대학교",
-                "point": 0,
-                "homepage": "http://kookmin.ac.kr/",
-                "phone": "02-910-4114",
-            }, upsert=True)
-    db.devices.update({"_id": ObjectId("10901b909232236ad8c4f0d6")}, {
-                "_id": ObjectId("10901b909232236ad8c4f0d6"),
-                "name": "국민쓰샘1호",
-                "model": "model_1",
-                "organization": "국민대학교",
-                "install_date": get_current_datetime_str(),
-                "latitude": 37.61090337619938,
-                "longitude": 126.99727816928652,
-                "location_description": "국민대학교 미래관 4층 자율주행스튜디오 앞",
-                "point": 377,
-            }, upsert=True)
-    
+    db.organizations.update(
+        {"_id": ObjectId("60901b909232236ad8c4f0d6")},
+        {
+            "_id": ObjectId("60901b909232236ad8c4f0d6"),
+            "name": "국민대학교",
+            "point": 0,
+            "homepage": "http://kookmin.ac.kr/",
+            "phone": "02-910-4114",
+        },
+        upsert=True,
+    )
+    db.devices.update(
+        {"_id": ObjectId("10901b909232236ad8c4f0d6")},
+        {
+            "_id": ObjectId("10901b909232236ad8c4f0d6"),
+            "name": "국민쓰샘1호",
+            "model": "model_1",
+            "organization": ObjectId("60901b909232236ad8c4f0d6"),
+            "install_date": get_current_datetime_str(),
+            "latitude": 37.61090337619938,
+            "longitude": 126.99727816928652,
+            "location_description": "국민대학교 미래관 4층 자율주행스튜디오 앞",
+            "point": 377,
+        },
+        upsert=True,
+    )
+
     print(list(db.organizations.find()))
     print(list(db.devices.find()))
     return "ss"
-

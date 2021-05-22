@@ -21,7 +21,7 @@ class UserIn(User):
         schema_extra = {
             "example": {
                 "_id": "60901b909232236ad8c4f0d6",
-                "uid": "60901b909232236ad8c4f0d6",
+                "uid": "FUdQwmmu4gUGuEOm2UtGY0Hb9o71",
                 "user_name": "우주최강개발자 박정섭",
             }
         }
@@ -37,7 +37,7 @@ class UserOut(User):
         schema_extra = {
             "example": {
                 "_id": "60901b909232236ad8c4f0d6",
-                "uid": "60901b909232236ad8c4f0d6",
+                "uid": "FUdQwmmu4gUGuEOm2UtGY0Hb9o71",
                 "user_name": "우주최강개발자 박정섭",
                 "point": 0,
             }

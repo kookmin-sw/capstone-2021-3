@@ -23,6 +23,7 @@ class PointData(BaseModel):
                 "device": "12341b909232236a2314f0d6",
                 "user": "56781b909232236a2314f0d6",
                 "date": get_current_datetime_str(),
+                "reward_date": get_current_datetime_str(),
             }
         }
 
@@ -31,7 +32,8 @@ class CapacityData(BaseModel):
     """쓰샘 기기의 적재량 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    device: PyObjectId = Field(description="데이터의 디바이스 id")
+    device: Optional[PyObjectId] = Field(description="데이터의 디바이스 id")
+    organization: Optional[PyObjectId] = Field(description="데이터를 쌓은 organization 이름")
     sensor: str = Field(description="센서 타입 plastic/water")
     percentage: float = Field(description="적재량")
     state: str = Field(description="알림 상태 ON/OFF")
@@ -55,7 +57,7 @@ class TicketData(BaseModel):
     """사용자 추첨권 데이터 모델"""
 
     id: Optional[PyObjectId] = Field(alias="_id")
-    organization: PyObjectId = Field(description="데이터의 디바이스 id")
+    organization: PyObjectId = Field(description="추첨권을 발행한 기관 id")
     user: Optional[str] = Field(description="추첨권을 받은 유저 id")
     date: DateTime = Field(description="데이터 날짜")
     yearmonth: int = Field(default=0, description="추첨권의 해당년월 (데이터형태:  YYYYMM)")
@@ -71,4 +73,3 @@ class TicketData(BaseModel):
                 "yearmonth": 202101,
             }
         }
-
