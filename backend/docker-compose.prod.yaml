@@ -16,7 +16,6 @@ services:
       - APP_PORT
       - APP_TEST
       - APP_LOG_LEVEL
-      - APP_HTTPS_REDIRECT
     depends_on:
       - rabbitmq
     ports:

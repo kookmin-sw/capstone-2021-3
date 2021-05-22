@@ -7,7 +7,6 @@ class AppSettings(BaseSettings):
     port: int = 8000
     test: bool = True
     log_level: str = "DEBUG"
-    https_redirect: bool = False
 
     class Config:
         # env_file = ".env"
