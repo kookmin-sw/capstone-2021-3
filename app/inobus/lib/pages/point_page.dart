@@ -6,7 +6,7 @@ import 'package:inobus/routes.dart';
 import 'package:inobus/api/user.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
-import 'package:inobus/widgets/circle_button.dart';
+import 'package:inobus/widgets/circle_box.dart';
 import 'package:inobus/models/auth_service.dart';
 
 /// 추첨권-포인트
@@ -89,24 +89,13 @@ class _PointPage extends State<PointPage> {
             ),
           ),
           // 티켓 박스
-          Container(
+          OutlineRoundedRectangleBorderBox(
             height: screenHeight * 0.2,
-            margin: EdgeInsets.only(
-              left: marginRight * 0.8,
-              right: marginRight * 0.8,
-            ),
-            padding: EdgeInsets.only(
-              top: marginRight * 0.8,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.primary,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
-              ),
-            ),
+            padding: marginRight * 0.8,
+            sidmargin: marginRight * 0.8,
+            bordercolor: AppColors.primary,
+            borderwidth: 3,
+            radius: 30,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -194,25 +183,20 @@ class _PointPage extends State<PointPage> {
             ),
           ),
           // 사용자 누적 포인트
-          Container(
-            margin: EdgeInsets.only(top: 10.0),
-            child: OutlineCircleButton(
-              child: Center(
-                child: Text(
-                  AuthService.point.toString() + "P",
-                  style: TextStyle(
-                    color: Colors.yellow,
-                    fontSize: screenWidth * 0.1,
-                    fontWeight: FontWeight.bold,
-                  ),
+          OutlineCircleBox(
+            bordercolor: Colors.yellow,
+            radius: screenWidth * 0.2,
+            borderwidth: 5,
+            child: Center(
+              child: Text(
+                AuthService.point.toString() + "P",
+                style: TextStyle(
+                  color: Colors.yellow,
+                  fontSize: screenWidth * 0.1,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              borderColor: Colors.yellow,
-              foregroundColor: Colors.transparent,
-              borderSize: 5,
-              radius: screenWidth * 0.3,
             ),
-            width: screenWidth * 0.3,
           ),
           // 마켓 가기 박스
           Column(

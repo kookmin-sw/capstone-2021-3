@@ -7,7 +7,7 @@ import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_size.dart';
 import 'package:inobus/api/orgainzation.dart';
-import 'package:inobus/widgets/circle_button.dart';
+import 'package:inobus/widgets/circle_box.dart';
 
 double minFointSize = 12;
 double maxFointSize = 20;
@@ -88,6 +88,7 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CircleAvatar(
+                            radius: screenWidth * 0.08,
                             backgroundImage: NetworkImage(
                               AuthService.user.photoURL.toString(),
                             ),
@@ -127,36 +128,34 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                   child: Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 10.0),
+                        margin: const EdgeInsets.only(left: 20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            RoundedRectangleBorderButton(
+                            RoundedRectangleBorderBox(
                               child: Text(
                                 "월별 포인트 적립",
-                                style: TextStyle(fontSize: maxFointSize),
+                                style: TextStyle(
+                                  // fontSize: maxFointSize,
+                                  color: Colors.white,
+                                ),
                               ),
+                              width: screenWidth * 0.3,
+                              height: screenWidth * 0.1,
                               backgroudColor: AppColors.primary,
-                              textColor: Colors.white,
                               radius: 10.0,
                             )
                           ],
                         ),
                       ),
-                      Container(
+                      OutlineRoundedRectangleBorderBox(
+                        child: Chart(userPointList: userHistoryList),
                         height: screenHeight * 0.2,
                         width: screenWidth * 0.9,
-                        padding: const EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30.0),
-                          ),
-                          border: Border.all(
-                            width: 3,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        child: Chart(userPointList: userHistoryList),
+                        padding: 20.0,
+                        radius: 30,
+                        borderwidth: 3,
+                        bordercolor: AppColors.primary,
                       ),
                     ],
                   ),
@@ -167,35 +166,27 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                   child: Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 10.0),
+                        margin: const EdgeInsets.only(left: 20.0),
                         child: Row(
                           children: [
-                            RoundedRectangleBorderButton(
+                            RoundedRectangleBorderBox(
                               child: Text(
                                 "전체 기관별 순위",
-                                style: TextStyle(fontSize: maxFointSize),
+                                style: TextStyle(
+                                  // fontSize: maxFointSize,
+                                  color: Colors.white,
+                                ),
                               ),
+                              width: screenWidth * 0.3,
+                              height: screenWidth * 0.1,
                               backgroudColor: AppColors.primary,
-                              textColor: Colors.white,
                               radius: 10.0,
                             )
                           ],
                           mainAxisAlignment: MainAxisAlignment.start,
                         ),
                       ),
-                      Container(
-                        height: screenHeight * 0.2,
-                        width: screenWidth * 0.9,
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30.0),
-                          ),
-                          border: Border.all(
-                            width: 3,
-                            color: AppColors.primary,
-                          ),
-                        ),
+                      OutlineRoundedRectangleBorderBox(
                         child: rankText == null || rankText.length == 0
                             ? Center(
                                 child: CircularProgressIndicator(),
@@ -203,6 +194,12 @@ class _UserHistoryPage extends State<UserHistoryPage> {
                             : ListView(
                                 children: rankText,
                               ),
+                        height: screenHeight * 0.3,
+                        width: screenWidth * 0.9,
+                        padding: 10.0,
+                        radius: 30,
+                        borderwidth: 3,
+                        bordercolor: AppColors.primary,
                       ),
                     ],
                   ),
@@ -364,8 +361,6 @@ class RankRow extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      // onTap: () => {},
-      // enabled: false,
     );
   }
 }
@@ -383,15 +378,10 @@ class RankCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      padding: const EdgeInsets.all(5.0),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+    return CircleBox(
+      radius: 20,
+      padding: 5,
+      fillcolor: color,
       child: rank < 10
           ? Text(
               rank.toString() + "위",

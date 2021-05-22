@@ -8,6 +8,7 @@ import 'package:inobus/routes.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/api/device.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
+import 'package:inobus/widgets/circle_button.dart';
 import 'package:inobus/models/route_argument.dart';
 
 class MapPage extends StatefulWidget {
@@ -71,36 +72,31 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                     markers: Set.from(allMarkers),
                   ),
                   Positioned(
-                    bottom: screenHeight * 0.1,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Routes.barcode,
-                            arguments: RouteArgument(title: "바코드 열기"));
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 30,
-                            child: AppImages.barcode.image(),
-                          ),
-                          Text(
-                            "바코드 열기",
-                            style: TextStyle(
-                              fontSize: 20,
+                      bottom: screenHeight * 0.1,
+                      child: RoundedRectangleBorderButton(
+                        padding: 15,
+                        radius: 30,
+                        backgroudColor: AppColors.primary,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.barcode,
+                              arguments: RouteArgument(title: "바코드 열기"));
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 30,
+                              child: AppImages.barcode.image(),
                             ),
-                          ),
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(10),
-                        primary: AppColors.primary,
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                            Text(
+                              "바코드 열기",
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                  )
+                      ))
                 ],
               ),
             );
