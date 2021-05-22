@@ -3,9 +3,9 @@
 # https://www.rabbitmq.com/passwords.html#computing-password-hash
 
 import base64
-import os
-import hashlib
 import getpass
+import hashlib
+import os
 
 # This is the password we wish to encode
 password1 = getpass.getpass("password: ")

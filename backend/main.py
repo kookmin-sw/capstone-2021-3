@@ -6,7 +6,6 @@ from config import config
 from routes import devices, organizations, rewards, users
 from utils.logger import logger
 
-
 app = FastAPI(
     title="INOBUS API",
     description="INOBUS capstone project api",
