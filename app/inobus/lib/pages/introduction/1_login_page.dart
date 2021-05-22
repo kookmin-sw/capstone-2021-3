@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/widgets/login_button.dart';
@@ -55,22 +56,47 @@ class LoginPage extends StatelessWidget {
               outlinecolor: AppColors.primary,
               onpress: () {
                 // 로그인을 확인하면 다음 페이지로 넘어가기
-                onNextPage();
-                AuthService().loginGoogle();
+                AuthService().loginGoogle().then(
+                    (check) => check ? onNextPage() : showAlertDialog(context));
               },
               text: "구글 로그인",
             ),
           ),
-          Positioned(
-            top: screenHeight * 0.7,
-            child: LoginButtton(
-              logoloc: AppImages.appleLogo.path,
-              outlinecolor: AppColors.primary,
-              text: "애플 로그인",
+          if (Platform.isIOS)
+            Positioned(
+              top: screenHeight * 0.7,
+              child: LoginButtton(
+                logoloc: AppImages.appleLogo.path,
+                outlinecolor: AppColors.primary,
+                text: "애플 로그인",
+              ),
             ),
-          ),
         ],
       ),
+    );
+  }
+
+  void showAlertDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('로그인 실패'),
+          content: Text("로그인이 실패하였습니다.\n다른 아이디로 실행해 주세요."),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.pop(context, "Cancel");
+              },
+            ),
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        );
+      },
     );
   }
 }
