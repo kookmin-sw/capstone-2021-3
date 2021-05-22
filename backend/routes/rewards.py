@@ -62,16 +62,16 @@ async def person_reward(device_id: str, uid: str, data_id: str):
     # data_id 검사
     if not data:
         print("Access denied: data_id is invaild!")
-        raise HTTPException(status_code=404, detail="Access denied")
+        raise HTTPException(status_code=400, detail="Access denied")
     data = PointData.parse_obj(data)
     # device_id 검사
     if data.device != ObjectId(device_id):
         print("Access denied: device_id is not matched!")
-        raise HTTPException(status_code=404, detail="Access denied")
+        raise HTTPException(status_code=400, detail="Access denied")
     # 중복 요청 검사
     if data.user:
         print("Access denied: Already rewarded!")
-        raise HTTPException(status_code=404, detail="Access denied")
+        raise HTTPException(status_code=400, detail="Access denied")
     data.user = uid
     data.reward_date = get_current_datetime_str()
 
@@ -85,7 +85,7 @@ async def person_reward(device_id: str, uid: str, data_id: str):
 
     result, m_user = get_user(uid)
     if result != "success":
-        raise HTTPException(status_code=404, detail=result)
+        raise HTTPException(status_code=400, detail=result)
 
     if num_tickets < 3:
         # 추첨권 발행
