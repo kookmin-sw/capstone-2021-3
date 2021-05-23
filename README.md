@@ -83,7 +83,7 @@ Github : [@minoring](https://github.com/minoring)
 
 ### [Backend 문서](backend/)
 
-### [API 문서](backend/docs.html)
+### [API 문서](https://kookmin-sw.github.io/capstone-2021-3/backend/docs.html)
 
 ### [Deep Learning 문서](deep_learning/)
 
