@@ -25,7 +25,7 @@ sudo chmod 644 /etc/systemd/system/mqtt_client.service
 
 # Unit 파일 소유자 & 권한 설정
 sudo chown root:root /etc/systemd/system/mqtt_client.service
-sudo chmod 644 /lib/systemd/system/mqtt_client.service
+sudo chmod 644 /etc/systemd/system/mqtt_client.service
 
 # Systemd 설정
 sudo systemctl daemon-reload
