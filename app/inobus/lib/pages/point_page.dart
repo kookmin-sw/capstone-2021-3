@@ -24,8 +24,6 @@ class _PointPage extends State<PointPage> {
     super.initState();
     setState(() {
       nowDate = DateTime.now().toString();
-      print("일자");
-      print(nowDate);
       ticket = AuthService.ticket;
     });
   }
