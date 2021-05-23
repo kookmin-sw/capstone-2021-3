@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/pages/support/widgets/support_footer.dart';
@@ -16,6 +17,9 @@ class SupportMenu {
 class SupportPage extends StatelessWidget {
   final contentpadding = const EdgeInsets.all(0.5);
 
+  void launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+
   List<SupportMenu> getMenuList(BuildContext context, RouteArgument argument) {
     return [
       SupportMenu(
@@ -26,8 +30,12 @@ class SupportPage extends StatelessWidget {
           arguments: argument,
         ),
       ), // faq_page.dart
-      SupportMenu("Q&A\n게시판", () {}), // TODO:대체할 서비스 결정 후 연결
-      SupportMenu("고장 및 신고", () {}), // TODO:Google form url 연결
+      SupportMenu("INOBUS회사\n홈페이지", () {
+        launchURL("https://www.inobus.co.kr/");
+      }),
+      SupportMenu("고장 및 신고", () {
+        launchURL("https://open.kakao.com/o/gf3SgGed");
+      }),
       SupportMenu(
         "서비스\n이용약관",
         () => Navigator.pushNamed(

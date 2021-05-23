@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from fastapi import APIRouter, HTTPException
 
@@ -49,7 +49,7 @@ async def user_history(uid: str):
     result["user"] = uid
     result["history"] = dict()
 
-    imonth = datetime.date.today()
+    imonth = datetime.today()
     for i in range(6):
         imonth = imonth.replace(day=1)
         yyyymm = imonth.strftime("%Y%m")
@@ -61,6 +61,6 @@ async def user_history(uid: str):
                 count += 1
 
         result["history"][yyyymm] = count
-        imonth -= datetime.timedelta(days=1)
+        imonth -= timedelta(days=1)
 
     return result

@@ -4,8 +4,8 @@ class ApiUrl {
   final getOrganizations = "/api/v1/organizations";
   final getDevices = "/api/v1/devices";
   final getUser = "/api/v1/users/";
-  final getUserHistory1 = "/api/v1/users/";
-  final getUserHistory2 = "/history";
+  final history = "/history";
+  final tickets = "/tickets";
 
   String getOrganizationsUrl() {
     return url + getOrganizations;
@@ -20,6 +20,10 @@ class ApiUrl {
   }
 
   String getUserHistoryUrl(String uid) {
-    return url + getUserHistory1 + uid + getUserHistory2;
+    return url + getUser + uid + history;
+  }
+
+  String getUserTicketsUrl(String uid) {
+    return url + getUser + uid + tickets;
   }
 }
