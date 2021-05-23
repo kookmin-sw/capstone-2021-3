@@ -16,6 +16,7 @@
 
         function inserted() {
             console.log("컵이 투입되었습니다. function inserted()");
+            point_changed();
 
             reading_available = true;
             setTimeout("barcode_timeout();", reading_time * 1000); //10초
@@ -31,8 +32,9 @@
             document.getElementById('barcode2').style.animation = '';
         }
 
-        function point_changed(neew_point) {
-            // document.querySelector("#point").textContent = point + "p";
+        function point_changed() {
+            point++;
+            document.querySelector("#point").textContent = point + "p";
         }
 
         ws.onmessage = function (event) {
@@ -40,7 +42,7 @@
             if (event.data == "inserted") {
                 inserted();
             } else if (event.data == "point") {
-                inserted();
+                point_changed();
             }
         };
 
@@ -52,11 +54,6 @@
 
                     ws.send("reward:" + barcode_input);
                     barcode_timeout();
-
-                    //테스트
-                    point++;
-                    document.querySelector("#point").textContent = point + "p";
-                    //테스트
                     barcode_input.value = "";
                 };
             }
