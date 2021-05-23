@@ -1,22 +1,14 @@
-# 분리배출의 민족
+# 캡스톤 3조: K-분리배출
+## 플라스틱 컵 선순환 생태계 조성 프로젝트
 
 팀페이지 주소 : https://kookmin-sw.github.io/capstone-2021-3/
 
-- [분리배출의 민족](#분리배출의-민족)
-  - [1. 프로젝트 소개](#1-프로젝트-소개)
-  - [2. 소개](#2-소개)
-    - [애플리케이션 기능 소개](#애플리케이션-기능-소개)
-  - [3. 팀 소개](#3-팀-소개)
-  - [4. 사용법](#4-사용법)
-  - [5. 개발](#5-개발)
-    - [협업 규칙](#협업-규칙)
-      - [브랜치 명명 규칙](#브랜치-명명-규칙)
-      - [Pull request 명명 규칙](#pull-request-명명-규칙)
-      - [Commit 규칙](#commit-규칙)
-    - [Application 문서](#application-문서)
-    - [Backend 문서](#backend-문서)
-    - [API 문서](#api-문서)
-    - [Deep Learning 환경 설정](#deep-learning-환경-설정)
+## 목차
+1. ### 프로젝트 소개
+2. ### 팀 소개
+3. ### 파트별 문서
+4. ### 협업 규칙
+
 
 ## 1. 프로젝트 소개
 
@@ -39,11 +31,7 @@ Moreover, we develop a rewarding and donating system by installing IOT and displ
 
 Lastly, we develop a mobile application which provides services like finding the location of SS_SAM and checking reward points for user convenience.
 
-## 2. 소개
-
-### 애플리케이션 기능 소개
-
-## 3. 팀 소개
+## 2. 팀 소개
 
 ```
 
@@ -89,11 +77,18 @@ Github : [@minoring](https://github.com/minoring)
 
 ```
 
-## 4. 사용법
+## 3. 파트별 문서
 
-## 5. 개발
+### [Application 문서](app/)
 
-### 협업 규칙
+### [Backend 문서](backend/)
+
+### [API 문서](backend/docs.html)
+
+### [Deep Learning 문서](deep_learning/)
+
+
+## 4. 협업 규칙
 
 #### 브랜치 명명 규칙
 
@@ -123,13 +118,5 @@ Github : [@minoring](https://github.com/minoring)
 
   Issue #41, #36
   ```
-
-### [Application 문서](app/)
-
-### [Backend 문서](backend/)
-
-### [API 문서](backend/docs.html)
-
-### [Deep Learning 문서](deep_learning/)
 
 ### [중간발표 영상](https://www.youtube.com/watch?v=s_GYntMXemY)
