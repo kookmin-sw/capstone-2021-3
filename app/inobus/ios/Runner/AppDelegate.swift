@@ -11,18 +11,7 @@ import Firebase
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyDNbesA36jPmr8FTobafcNageY2EQ2vMao") //for google_maps_flutter.dart.dart
     GeneratedPluginRegistrant.register(with: self)
+    FirebaseApp.configure()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
-
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
-  func application(_ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions:
-      [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
-}
-

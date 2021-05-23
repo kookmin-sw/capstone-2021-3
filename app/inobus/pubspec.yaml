@@ -35,6 +35,7 @@ dependencies:
   google_sign_in:
   fl_chart:
   package_info:
+  double_back_to_close_app:
   flutter:
     sdk: flutter
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -52,7 +53,11 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
     return AppScaffold(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      body: FutureBuilder(
+      body: DoubleBackToCloseApp(
+        snackBar: SnackBar(
+          content: Text('뒤로 가기를 1번 더 누르면 종료 됩니다.'),
+        ),
+        child: FutureBuilder(
         future: locatePosition(),
         builder: (context, snapshot) {
           developer.log(snapshot.connectionState.toString());
@@ -87,7 +92,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                             Container(
                               height: 30,
                               child: AppImages.barcode.image(),
-                            ),
+                           ),
                             Text(
                               "바코드 열기",
                               style: TextStyle(
@@ -99,12 +104,12 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                       ))
                 ],
               ),
+            }
+            return Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }
