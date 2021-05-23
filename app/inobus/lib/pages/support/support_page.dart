@@ -30,10 +30,12 @@ class SupportPage extends StatelessWidget {
           arguments: argument,
         ),
       ), // faq_page.dart
-      SupportMenu("Q&A\n게시판", () {}), // TODO:대체할 서비스 결정 후 연결
+      SupportMenu("INOBUS회사\n홈페이지", () {
+        launchURL("https://www.inobus.co.kr/");
+      }),
       SupportMenu("고장 및 신고", () {
         launchURL("https://open.kakao.com/o/gf3SgGed");
-      }), // TODO:Google form url 연결
+      }),
       SupportMenu(
         "서비스\n이용약관",
         () => Navigator.pushNamed(
