@@ -36,6 +36,7 @@ dependencies:
   fl_chart:
   package_info:
   double_back_to_close_app:
+  sign_in_with_apple:
   flutter:
     sdk: flutter
 
