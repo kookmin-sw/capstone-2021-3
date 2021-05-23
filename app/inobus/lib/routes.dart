@@ -4,7 +4,8 @@ import 'package:inobus/pages/pages.dart';
 
 class Routes {
   // introduction
-  static const intro = '/intro';
+  static const intro_login = '/intor_login';
+  static const intro_welcome = '/intro_welcome';
   // 에코마켓
   static const point = '/point';
   // 에코마켓
@@ -30,7 +31,7 @@ class Routes {
   static const barcode = '/barcode';
 
   // 첫 페이지
-  static const initialRoute = intro;
+  static const initialRoute = intro_login;
 
   // Route builder : Animation 변경 가능
   static Route<T> fadeThrough<T>(RouteSettings settings, WidgetBuilder page,
@@ -51,8 +52,10 @@ class Routes {
       (context) {
         print(settings);
         switch (settings.name) {
-          case Routes.intro:
-            return IntroductionPage();
+          case Routes.intro_login:
+            return LoginPage();
+          case Routes.intro_welcome:
+            return AfterLoginPage();
           case Routes.point:
             return PointPage();
           case Routes.setting:
@@ -74,8 +77,9 @@ class Routes {
           case Routes.support_terms_of_service:
             return TermsOfServicePage();
           case Routes.map:
-          default:
             return MapPage();
+          default:
+            return LoginPage();
         }
       },
     );
