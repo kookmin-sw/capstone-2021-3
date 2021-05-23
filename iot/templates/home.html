@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쓰샘</title>
+    <script>
+        var point = {{ point }};
+
+        var ws = new WebSocket("ws://localhost:8000/ws");
+        var reading_available = false;
+        var reading_time = 20;
+        var barcode_input = "";
+
+        function inserted() {
+            console.log("컵이 투입되었습니다. function inserted()");
+
+            reading_available = true;
+            setTimeout("barcode_timeout();", reading_time * 1000); //10초
+            document.getElementById('barcode1').style.animation = 'leaves 0.5s ease-in-out infinite alternate';
+            document.getElementById('barcode2').style.animation = 'leaves 0.5s ease-in-out infinite alternate';
+
+            barcode_input = "";
+        }
+
+        function barcode_timeout() {
+            reading_available = false;
+            document.getElementById('barcode1').style.animation = '';
+            document.getElementById('barcode2').style.animation = '';
+        }
+
+        function point_changed(neew_point) {
+            // document.querySelector("#point").textContent = point + "p";
+        }
+
+        ws.onmessage = function (event) {
+            console.log("웹소켓 데이터 수신:" + event.data);
+            if (event.data == "inserted") {
+                inserted();
+            } else if (event.data == "point") {
+                inserted();
+            }
+        };
+
+        window.addEventListener("keydown", e => {
+            if (e.key.length == 1 & reading_available) {
+                barcode_input = barcode_input + e.key;
+                if (barcode_input.length == 28) {
+                    console.log("바코드 인식: " + barcode_input);
+
+                    ws.send("reward:" + barcode_input);
+                    barcode_timeout();
+
+                    //테스트
+                    point++;
+                    document.querySelector("#point").textContent = point + "p";
+                    //테스트
+                    barcode_input.value = "";
+                };
+            }
+
+        });
+
+    </script>
+    <style>
+        body {
+            background: #edeef0;
+            text-align: center;
+        }
+
+        #point {
+            left: 20%;
+            top: 42%;
+            font-size: 8em;
+            font-weight: bold;
+            position: absolute;
+            text-align: left;
+            color: white;
+            text-shadow: 2px 6px 2px darkred;
+        }
+
+        #ui {
+            max-width: 100vw;
+            max-height: 95vh;
+
+        }
+
+        video {
+            left: 50.8%;
+            top: 11.5%;
+            position: absolute;
+            text-align: left;
+            width: 43%;
+        }
+
+        #barcode1 {
+            left: 10%;
+            top: 14%;
+            position: absolute;
+            width: 13%;
+        }
+
+        #barcode2 {
+            left: 25%;
+            top: 16.5%;
+            position: absolute;
+            width: 18.3%;
+        }
+
+        #banner {
+            left: 50.8%;
+            top: 60.5%;
+            position: absolute;
+            width: 12%;
+            height: 28%;
+        }
+
+        .wrap {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 0;
+            margin: -3px;
+        }
+
+        #leftcloud {
+            left: 37%;
+            top: 60%;
+            position: absolute;
+            animation: lmotion 1s linear 0s infinite alternate;
+
+        }
+
+        @keyframes lmotion {
+            0% {
+                margin-top: 0px;
+            }
+
+            100% {
+                margin-top: 15px;
+            }
+        }
+
+        #rightcloud {
+            left: 42%;
+            top: 58%;
+            position: absolute;
+            animation: rmotion 1s linear 0s infinite alternate;
+        }
+
+        @keyframes rmotion {
+            0% {
+                margin-top: 15px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        @keyframes leaves {
+            0% {
+                transform: scale(1.0);
+                transform-origin: center;
+            }
+
+            100% {
+                transform: scale(1.05);
+                transform-origin: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img id="ui" src="static/ui.jpg" alt="">
+    <div id="point">{{point}}p</div>
+    <video src="static/video.mp4" loop autoplay muted></video>
+
+    <img class="barcode_banner" id="barcode1" src="static/barcode1.png" alt="">
+    <img class="barcode_banner" id="barcode2" src="static/barcode2.png" alt="">
+
+    <img id="banner" src="static/photo.png" alt="">
+    <div id="leftcloud" class="wrap">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+    <div id="rightcloud" class="wrap">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+</body>
+
+</html>
