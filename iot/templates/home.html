@@ -7,56 +7,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쓰샘</title>
     <script>
+        var point = {{ point }};
+
         var ws = new WebSocket("ws://localhost:8000/ws");
+        var reading_available = false;
+        var reading_time = 20;
         var barcode_input = "";
 
         function inserted() {
-            console.log("function inserted()");
+            console.log("컵이 투입되었습니다. function inserted()");
+
+            reading_available = true;
+            setTimeout("barcode_timeout();", reading_time * 1000); //10초
+            document.getElementById('barcode1').style.animation = 'leaves 0.5s ease-in-out infinite alternate';
+            document.getElementById('barcode2').style.animation = 'leaves 0.5s ease-in-out infinite alternate';
 
             barcode_input = "";
-
         }
 
-        async function load_point(organization) {
-            // const response1 = await fetch('https://api.inobus.co.kr/api/v1/organizations/%EA%B5%AD%EB%AF%BC%EB%8C%80%ED%95%99%EA%B5%90')
-            // const result1 = await response1.json()
-            // console.log(result1)
-            var point = 350;
-            document.querySelector("#point").textContent = point + "p";
-            
+        function barcode_timeout() {
+            reading_available = false;
+            document.getElementById('barcode1').style.animation = '';
+            document.getElementById('barcode2').style.animation = '';
         }
 
+        function point_changed(neew_point) {
+            // document.querySelector("#point").textContent = point + "p";
+        }
 
         ws.onmessage = function (event) {
-            console.log(event.data);
+            console.log("웹소켓 데이터 수신:" + event.data);
             if (event.data == "inserted") {
+                inserted();
+            } else if (event.data == "point") {
                 inserted();
             }
         };
 
-
-        // function sendMessage(event) {
-        //     var input = document.getElementById("messageText")
-        //     ws.send(input.value)
-        //     input.value = ''
-        //     event.preventDefault()
-        // }
-        var point = 350;
-
-        
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            load_point("국민대학교");
-        });
-
         window.addEventListener("keydown", e => {
+            if (e.key.length == 1 & reading_available) {
+                barcode_input = barcode_input + e.key;
+                if (barcode_input.length == 28) {
+                    console.log("바코드 인식: " + barcode_input);
 
+                    ws.send("reward:" + barcode_input);
+                    barcode_timeout();
 
-            const barcode_input = document.querySelector("#uid_barcode");
-            if (e.key.length == 1) {
-                barcode_input.value = barcode_input.value + e.key;
-                if (barcode_input.value.length == 28) {
-                    console.log("테스트" + barcode_input.value);
                     //테스트
                     point++;
                     document.querySelector("#point").textContent = point + "p";
@@ -73,7 +69,6 @@
             background: #edeef0;
             text-align: center;
         }
-
 
         #point {
             left: 20%;
@@ -122,7 +117,6 @@
             height: 28%;
         }
 
-
         .wrap {
             text-align: center;
             margin-top: 20px;
@@ -135,7 +129,7 @@
             border-radius: 50%;
             display: inline-block;
             margin-top: 0;
-            margin : -3px;
+            margin: -3px;
         }
 
         #leftcloud {
@@ -162,6 +156,7 @@
             position: absolute;
             animation: rmotion 1s linear 0s infinite alternate;
         }
+
         @keyframes rmotion {
             0% {
                 margin-top: 15px;
@@ -170,9 +165,6 @@
             100% {
                 margin-top: 0px;
             }
-        }
-        .barcode_banner {
-            animation: leaves 0.5s ease-in-out infinite alternate;
         }
 
         @keyframes leaves {
@@ -191,7 +183,7 @@
 
 <body>
     <img id="ui" src="static/ui.jpg" alt="">
-    <div id="point"></div>
+    <div id="point">{{point}}p</div>
     <video src="static/video.mp4" loop autoplay muted></video>
 
     <img class="barcode_banner" id="barcode1" src="static/barcode1.png" alt="">
@@ -209,10 +201,6 @@
         <span class="dot"></span>
     </div>
 
-
-    <form action="" method="post">
-        <input id="uid_barcode" type="text" hidden>
-    </form>
 </body>
 
 </html>
