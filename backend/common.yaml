@@ -9,18 +9,16 @@ services:
     build:
       dockerfile: docker/Dockerfile.api
       context: .
-    image: ghcr.io/aqudi/capstone_inobus_api
+    image: 573620237252.dkr.ecr.us-west-2.amazonaws.com/inobus/api
   rabbitmq:
     build:
-      dockerfile: docker/Dockerfile.rabbitmq
-      context: .
-    image: ghcr.io/aqudi/capstone_inobus_rabbitmq
+      dockerfile: ../Dockerfile.rabbitmq
+      context: docker/rabbitmq/
+    image: 573620237252.dkr.ecr.us-west-2.amazonaws.com/inobus/rabbitmq
     ports:
       - 15672:15672 # For management
       - 5672:5672 # For AMQP
       - 18820:18820 # For MQTT
-      - 9001:9001 # For websocket
   consumer:
     <<: *backend
     command: sh -c "./prestart.sh && python main_consumer.py"
-    restart: unless-stopped

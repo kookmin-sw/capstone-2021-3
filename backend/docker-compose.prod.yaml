@@ -1,11 +1,14 @@
 version: "3.8"
 
+x-aws-loadbalancer: "arn:aws:elasticloadbalancing:ap-northeast-2:573620237252:loadbalancer/net/inobus-load-blancer/3325e195cc30426f"
+
 services:
   api:
     extends:
       file: common.yaml
       service: api
     environment:
+      - WAIT_HOSTS
       - DB_NAME
       - DB_PASSWORD
       - DB_URL
@@ -15,24 +18,23 @@ services:
       - APP_LOG_LEVEL
     depends_on:
       - rabbitmq
-    networks:
-      - app
+    ports:
+      - 80:80
   rabbitmq:
     extends:
       file: common.yaml
       service: rabbitmq
-    ports:
-      - 80:80
     environment:
-      - RABBITMQ_DEFAULT_USER
-      - RABBITMQ_DEFAULT_PASS
-    networks:
-      - app
+      - RABBITMQ_ADMIN_USER
+      - RABBITMQ_ADMIN_PASS
+      - RABBITMQ_DATA_USER
+      - RABBITMQ_DATA_PASS
   consumer:
     extends:
       file: common.yaml
       service: consumer
     environment:
+      - WAIT_HOSTS
       - DB_NAME
       - DB_PASSWORD
       - DB_URL
@@ -47,9 +49,28 @@ services:
       - MQTT_PASSWORD
       - MQTT_HOST
       - MQTT_PORT
-    networks:
-      - app
+    depends_on:
+      - rabbitmq
 
-networks:
-  app:
-    driver: bridge
+# Http -> Https redirection
+x-aws-cloudformation:
+  Resources:
+    ApiTCP443Listener:
+      Type: AWS::ElasticLoadBalancingV2::Listener
+      Properties:
+        Port: 443
+        Protocol: TLS
+        Certificates:
+          - CertificateArn: arn:aws:acm:ap-northeast-2:573620237252:certificate/b874724b-0f7e-4b7f-881d-6c461d57beaa
+        DefaultActions:
+          - ForwardConfig:
+              TargetGroups:
+                - TargetGroupArn:
+                    Ref: ApiTCP80TargetGroup
+            Type: forward
+        LoadBalancerArn: arn:aws:elasticloadbalancing:ap-northeast-2:573620237252:loadbalancer/net/inobus-load-blancer/3325e195cc30426f
+    ApiTCP80TargetGroup:
+      Properties:
+        HealthCheckProtocol: HTTP
+        HealthCheckPort: 80
+        HealthCheckPath: /ping

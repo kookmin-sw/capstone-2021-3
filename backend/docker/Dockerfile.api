@@ -1,3 +1,15 @@
+# ---- Builder ----
+FROM python:3.8-alpine AS builder
+ENV PYTHONUNBU FFERED 1
+
+# Build 프로그램들 설치
+RUN apk add --no-cache linux-headers build-base libffi-dev \ 
+    && pip install --upgrade pip 
+
+# 패키지 설치 및 wheel 파일 생성
+COPY ./requirements/deployment.txt ./requirements.txt
+RUN pip wheel -w /root/wheels -r requirements.txt
+
 # ---- Runtime ----
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10 AS runtime
 
@@ -10,10 +22,13 @@ ENV GUNICORN_CONF="/app/gunicorn_conf.py"
 
 # App 폴더 생성
 WORKDIR /app
-COPY ./requirements/deployment.txt ./requirements.txt
 
 # 패키지 설치
-RUN pip install -r requirements.txt
+COPY --from=builder /root/wheels /root/wheels
+COPY ./requirements/deployment.txt ./requirements.txt
+RUN pip install --no-index --find-links=/root/wheels -r requirements.txt
+
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/service-account-file.json"
 
 # 소스 복사
 COPY . /app
