@@ -168,7 +168,7 @@ class AMQPConsumer:
 
                 # Point data 삽입
                 point = db.points.insert_one(json_data)
-                point_id = str(point.inserted_id)
+                point_id = point.inserted_id
                 # Organization의 Point + 1
                 db.organizations.update_one(
                     {"_id": organization},
@@ -184,7 +184,7 @@ class AMQPConsumer:
                 )
 
                 # 포인트 갱신 요청을 해당하는 기관에 속한 기기에 전달
-                self.publish_point_received(point_id, organization)
+                self.publish_point_received(point_id, organization, device)
 
             # Queue에 ACK 신호 송신
             self._channel.basic_ack(delivery_tag=method.delivery_tag)
@@ -237,8 +237,13 @@ class AMQPConsumer:
         """포인트 갱신 요청 topic"""
         return "device/point_received/#"
 
-    def publish_point_received(self, point_id: str, organization_id: PyObjectId):
-        topic = self.topic_point_received
+    def publish_point_received(
+        self,
+        point_id: PyObjectId,
+        organization_id: PyObjectId,
+        device_id: PyObjectId,
+    ):
+        topic = self.topic_to_routing_key(self.topic_point_received)
         topic = topic.replace("#", str(organization_id))
         organization = db.organizations.find_one({"_id": organization_id})
         organization = Organization.validate(organization)
@@ -246,7 +251,8 @@ class AMQPConsumer:
         organization_dict["_id"] = str(organization.id)
         result = json.dumps(
             {
-                "point_id": point_id,
+                "point_id": str(point_id),
+                "device_id": str(device_id),
                 "organization": organization_dict,
             },
             ensure_ascii=False,
