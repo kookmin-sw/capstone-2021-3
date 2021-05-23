@@ -35,7 +35,7 @@
         {
             "user": "${RABBITMQ_DATA_USER}",
             "vhost": "/",
-            "configure": "",
+            "configure": ".*",
             "write": ".*",
             "read": ".*"
         }

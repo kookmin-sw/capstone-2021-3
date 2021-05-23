@@ -9,7 +9,7 @@ from utils.logger import logger
 from iot_utils.database import DBType, db
 from iot_utils.publisher import *
 from mqtt_setting import *
-from routes import admin
+from routes import admin, home
 
 app = FastAPI(
     title="INOBUS IOT",
@@ -22,6 +22,11 @@ app.mount(
     "/static",
     StaticFiles(directory="static"),
     name="static",
+)
+app.include_router(
+    router=home.router,
+    prefix="",
+    tags=["home"],
 )
 app.include_router(
     router=admin.router,
@@ -41,17 +46,12 @@ if mqtt.initialized:
         logger.info("앱을 종료합니다.")
         await mqtt.app.client.disconnect()
 
-    @app.get("/")
-    def home():
-        """디바이스가 속한 Organization의 캐싱된 정보"""
-        return db.find_one(DBType.organization)
-
     @app.post(
         "/point",
         description="포인트 적립",
     )
-    async def point(user: str):
-        data = await send_point_data(user)
+    async def point():
+        data = await send_point_data()
         return HTTPException(201, data)
 
     @app.post(

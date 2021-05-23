@@ -110,7 +110,7 @@ class AMQPConsumer:
             self.config.queue,  # 큐 이름
             durable=True,  # 메시지가 중간에 소실되지 않도록 보장
             exclusive=False,  # 현재 연결 이외에도 수용
-            auto_delete=False,  # 사용하지 않아도 큐가 삭제되지 않음
+            auto_delete=True,  # 사용하지 않아도 큐가 삭제되지 않음
             callback=self.on_queue_declared,
         )
 
@@ -167,8 +167,8 @@ class AMQPConsumer:
                 PointData.validate(json_data)
 
                 # Point data 삽입
-                db.points.insert_one(json_data)
-
+                point = db.points.insert_one(json_data)
+                point_id = point.inserted_id
                 # Organization의 Point + 1
                 db.organizations.update_one(
                     {"_id": organization},
@@ -183,16 +183,8 @@ class AMQPConsumer:
                     upsert=True,  # 찾는 document가 없을 시 생성
                 )
 
-                # User의 Point + 1
-                if user:
-                    db.users.update_one(
-                        {"_id": user},
-                        {"$inc": {"point": 1}},
-                        upsert=True,  # 찾는 document가 없을 시 생성
-                    )
-
                 # 포인트 갱신 요청을 해당하는 기관에 속한 기기에 전달
-                self.publish_point_received(organization)
+                self.publish_point_received(point_id, organization, device)
 
             # Queue에 ACK 신호 송신
             self._channel.basic_ack(delivery_tag=method.delivery_tag)
@@ -245,14 +237,28 @@ class AMQPConsumer:
         """포인트 갱신 요청 topic"""
         return "device/point_received/#"
 
-    def publish_point_received(self, organization_id: PyObjectId):
-        topic = self.topic_point_received
+    def publish_point_received(
+        self,
+        point_id: PyObjectId,
+        organization_id: PyObjectId,
+        device_id: PyObjectId,
+    ):
+        topic = self.topic_to_routing_key(self.topic_point_received)
         topic = topic.replace("#", str(organization_id))
         organization = db.organizations.find_one({"_id": organization_id})
         organization = Organization.validate(organization)
-        organization_json = organization.json(by_alias=True)
-        self.mqtt.publish(topic, organization_json, qos=0, retain=True)
-        OnMessageLog(logging.INFO, "포인트 수신 신호 전달", topic, organization_json).report()
+        organization_dict = organization.dict(by_alias=True)
+        organization_dict["_id"] = str(organization.id)
+        result = json.dumps(
+            {
+                "point_id": str(point_id),
+                "device_id": str(device_id),
+                "organization": organization_dict,
+            },
+            ensure_ascii=False,
+        )
+        self.mqtt.publish(topic, result, qos=0, retain=True)
+        OnMessageLog(logging.INFO, "포인트 수신 신호 전달", topic, result).report()
 
 
 if __name__ == "__main__":
