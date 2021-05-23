@@ -9,6 +9,7 @@ from absl import app
 from absl import flags
 
 from augmentators.kernel import sharpen, box_blur, guassian_blur
+from augmentators.pixel_operator import contrast, brighten
 from utils import glob_jpeg_alike
 
 
@@ -48,6 +49,12 @@ def main(_):
     if flags.FLAGS.gaussian_blur:
       blurred_img = guassian_blur(img)
       save_augmented_img("gaussian_blurred", path, out_dir, blurred_img)
+    if flags.FLAGS.contrast:
+      contrasted_img = contrast(img)
+      save_augmented_img("contrasted", path, out_dir, contrasted_img)
+    if flags.FLAGS.brighten:
+      brightened_img = brighten(img)
+      save_augmented_img("brightened", path, out_dir, brightened_img)
 
 
 if __name__ == "__main__":
@@ -56,5 +63,7 @@ if __name__ == "__main__":
   flags.DEFINE_boolean("sharpen", False, "sharped filter 적용")
   flags.DEFINE_boolean("box_blur", False, "box blur filter 적용")
   flags.DEFINE_boolean("gaussian_blur", False, "gaussian blur filter 적용")
+  flags.DEFINE_boolean("contrast", False, "Contrast 적용")
+  flags.DEFINE_boolean("brighten", False, "Brighten 적용")
   flags.mark_flag_as_required('image_dir')
   app.run(main)
