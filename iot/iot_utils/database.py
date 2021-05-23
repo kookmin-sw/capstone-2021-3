@@ -10,6 +10,7 @@ class DBType(str, Enum):
     device_list = "dlist"
     organization = "o"
     device = "d"
+    last_point = "lp"
 
 
 class DB:

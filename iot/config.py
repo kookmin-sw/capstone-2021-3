@@ -32,6 +32,9 @@ class APISettings(BaseSettings):
 
 
 class Config:
+    def __init__(self) -> None:
+        self.ws = None
+
     @property
     @lru_cache()
     def app_settings(self):

@@ -1,4 +1,4 @@
-import logging
+import json
 
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
@@ -102,8 +102,22 @@ class Mqtt:
         async def handle_data_topics(client, topic, payload, qos, properties):
             """TOPIC_POINT_GROUP Handler"""
             logger.info(f"point received! {topic}, {payload}")
-            organization = payload.decode()
-            organization = Organization.parse_raw(organization)
+            response = payload.decode()
+            response = json.loads(response)
+
+            # 현재 기기에서 보낸 데이터면 유저의 바코드 입력을 처리
+            try:
+                device_id = response.get("device_id")
+                if device_id == self.device_id:
+                    point_id = response.get("point_id")
+                    db.upsert(DBType.last_point, point_id)
+                    await config.ws.send_text("inserted")
+                else:
+                    await config.ws.send_text("point")
+            except:
+                pass
+
+            organization = Organization.parse_obj(response.get("organization"))
             organization = organization.dict(by_alias=True)
             organization["_id"] = str(organization["_id"])
             db.upsert(DBType.organization, organization)
