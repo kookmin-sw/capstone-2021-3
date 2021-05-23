@@ -3,7 +3,6 @@ import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/routes.dart';
-import 'package:inobus/api/user.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/widgets/circle_box.dart';
@@ -17,20 +16,18 @@ class PointPage extends StatefulWidget {
 }
 
 class _PointPage extends State<PointPage> {
-  User lastMonth = User('000000', 0);
-
-  // 사용자 마지막 월의 포인트 값 가져오기
-  void getUserPointLastMonth() async {
-    final requesttUserPointHistoryList = await requesttUserPointHistory();
-    setState(() {
-      lastMonth = requesttUserPointHistoryList[0];
-    });
-  }
+  var nowDate;
+  var ticket;
 
   @override
   void initState() {
     super.initState();
-    getUserPointLastMonth();
+    setState(() {
+      nowDate = DateTime.now().toString();
+      print("일자");
+      print(nowDate);
+      ticket = AuthService.ticket;
+    });
   }
 
   @override
@@ -80,10 +77,7 @@ class _PointPage extends State<PointPage> {
           ),
           // 이번달 추첨권 개수 알려주기
           Text(
-            lastMonth.date.substring(0, 4) +
-                "년 " +
-                lastMonth.date.substring(lastMonth.date.length - 2) +
-                "월 추첨권",
+            nowDate.substring(0, 4) + "년 " + nowDate.substring(5, 7) + "월 추첨권",
             style: TextStyle(
               color: Colors.grey,
             ),
@@ -104,28 +98,26 @@ class _PointPage extends State<PointPage> {
                   children: [
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 0
+                      child: ticket > 0
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 1
+                      child: ticket > 1
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 2
+                      child: ticket > 2
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     )
                   ],
                 ),
                 Text(
-                  (3 - lastMonth.point >= 0 ? 3 - lastMonth.point : 0)
-                          .toString() +
-                      "개의 추첨권이 남았어요!",
+                  (3 - ticket).toString() + "개의 추첨권이 남았어요!",
                   style: TextStyle(
                     color: Colors.grey,
                   ),

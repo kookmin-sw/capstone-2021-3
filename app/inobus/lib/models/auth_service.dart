@@ -8,6 +8,7 @@ import 'package:inobus/api/api.dart';
 /// 사용자 정보 관련 클래스
 class AuthService {
   static User user;
+  static int ticket;
   static int point;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,8 +35,9 @@ class AuthService {
       if (user != null) {
         developer.log("Firebase user information verification success");
         developer.log(user.displayName.toString());
-        // 유저 포인트 가져오기
+        // 유저 정보 가져오기
         requesttUserPoint();
+        requesttUserTicket();
         return true;
       } else {
         developer.log("Firebase user information verification fail");
@@ -72,11 +74,23 @@ class AuthService {
       final responseBody = utf8.decode(response.bodyBytes); //String
       final data = json.decode(responseBody); //json
 
-      // 수정 요망
-      if (data == null)
-        point = 100;
-      else
-        point = data["point"];
+      point = data["point"];
+    } else {
+      point = 0;
+      developer.log("Can not access API");
+      developer.log(response.statusCode.toString());
+    }
+  }
+
+  // 사용자 티켓개수 가져오기
+  void requesttUserTicket() async {
+    String url = ApiUrl().getUserTicketsUrl(user.uid.toString());
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final responseBody = utf8.decode(response.bodyBytes); //String
+      final data = json.decode(responseBody); //json
+
+      ticket = data["ticket"];
     } else {
       point = 0;
       developer.log("Can not access API");
