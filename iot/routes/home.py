@@ -24,8 +24,6 @@ base_url = config.api_settings.base_url
 
 org_id = db.find_one(DBType.organization)
 device_id = db.find_one(DBType.device)
-org_id = "60901b909232116ad8c4f0d6"
-device_id = "609a71f5f76202373c88040a"
 
 
 @router.get("/", response_class=HTMLResponse)
@@ -57,48 +55,10 @@ async def websocket_endpoint(websocket: WebSocket):
             print("code: " + data.split(":")[1])
 
             uid = data.split(":")[1]
-            uid = "Mcw8DUx6mMRZRfJl3o1WzJRgqZK2"
-            # data_id = db.find_one(DBType.last_point)
-            data_id = "60a9f67f6dee8ef00ab0a4a4"
+            data_id = db.find_one(DBType.last_point)
 
             res = requests.post(
                 base_url + "/rewards/person_reward",
                 params={"device_id": device_id, "uid": uid, "data_id": data_id},
             )
-            print(res.url)
-            print(res.text)
         await websocket.send_text(f"Message text was: {res.text}")
-        # await websocket.send_text(f"Message text was: {data}")
-
-
-@router.get("/hello")
-async def home(request: Request):
-    await masterws[0].send_text("hellofrom")
-
-    return "hello"
-
-
-@router.get("/insert_cup")
-async def home(request: Request):
-    try:
-        await masterws[0].send_text("inserted")
-
-        return "hello"
-    except:
-        return "no"
-
-
-# @router.get("/insert_cup")
-# async def home(request: Request):
-#     res = requests.post(base_url+'/rewards/insert_cup', params = {'device_id': device_id})
-#     res = json.loads(res.text)
-#     if res['result'] == "success":
-#         insert_data_id[0] = res['data_id']
-#         try:
-#             await masterws[0].send_text("inserted")
-
-#             return "hello"
-#         except:
-#             return "no"
-#     else:
-#         return "device id error"
