@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:inobus/app_images.dart';
@@ -70,6 +71,7 @@ class LoginPage extends StatelessWidget {
                 text: "구글 로그인",
               ),
             ),
+            if (Platform.isIOS)
             Positioned(
               top: screenHeight * 0.7,
               child: LoginButtton(
