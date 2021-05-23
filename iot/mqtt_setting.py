@@ -107,6 +107,7 @@ class Mqtt:
 
             point_id = response.get("point_id")
             db.upsert(DBType.last_point, point_id)
+            config.ws.send('inserted')
 
             organization = Organization.parse_obj(response.get("organization"))
             organization = organization.dict(by_alias=True)

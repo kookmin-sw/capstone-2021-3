@@ -16,10 +16,6 @@ templates = Jinja2Templates(directory="templates")
 
 router = APIRouter()
 
-masterws = [None]
-
-insert_data_id = [None]
-
 base_url = config.api_settings.base_url
 
 org_id = db.find_one(DBType.organization)
@@ -46,7 +42,7 @@ async def home(request: Request):
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    masterws[0] = websocket
+    config.ws = websocket
     await websocket.accept()
     while True:
         data = await websocket.receive_text()
