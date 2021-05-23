@@ -30,10 +30,10 @@ services:
       service: rabbitmq
     env_file:
       - .env.example
-  mqtt:
+  consumer:
     extends:
       file: common.yaml
-      service: mqtt
+      service: consumer
     env_file:
       - .env.example
 
