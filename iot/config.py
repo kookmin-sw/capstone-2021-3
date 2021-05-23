@@ -1,4 +1,4 @@
-from functools import cached_property
+from functools import lru_cache
 
 from pydantic import BaseSettings
 
@@ -35,15 +35,18 @@ class Config:
     def __init__(self) -> None:
         self.ws = None
 
-    @cached_property
+    @property
+    @lru_cache()
     def app_settings(self):
         return AppSettings()
 
-    @cached_property
+    @property
+    @lru_cache()
     def mqtt_settings(self):
         return MQTTSettings()
 
-    @cached_property
+    @property
+    @lru_cache()
     def api_settings(self):
         return APISettings()
 
