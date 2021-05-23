@@ -37,7 +37,7 @@ class Mqtt:
 
         self.organization = self.get_organization_info()
         self.device = self.get_device_info()
-        
+
         self._mqtt = self.get_mqtt_app()
         self.add_handlers(self._mqtt)
         await self._mqtt.connection()
