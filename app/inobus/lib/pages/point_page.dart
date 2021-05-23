@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
@@ -18,6 +19,9 @@ class PointPage extends StatefulWidget {
 class _PointPage extends State<PointPage> {
   var nowDate;
   var ticket;
+
+  void launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
   @override
   void initState() {
@@ -128,12 +132,16 @@ class _PointPage extends State<PointPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "이달의 추첨상품 알아보기 >  ",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
+                TextButton(
+                    child: Text(
+                      "이달의 추첨상품 알아보기 >  ",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {
+                      launchURL("https://www.inobus.co.kr/");
+                    }),
               ],
             ),
           ),
@@ -248,7 +256,13 @@ class _PointPage extends State<PointPage> {
                     Container(
                       margin: EdgeInsets.only(left: 10.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            Routes.market,
+                            arguments: RouteArgument(title: "에코마켓"),
+                          );
+                        },
                         child: Text(
                           "마켓\n보기",
                           style: TextStyle(
