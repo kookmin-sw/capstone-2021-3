@@ -1,4 +1,4 @@
-import logging
+import json
 
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
@@ -37,7 +37,7 @@ class Mqtt:
 
         self.organization = self.get_organization_info()
         self.device = self.get_device_info()
-        
+
         self._mqtt = self.get_mqtt_app()
         self.add_handlers(self._mqtt)
         await self._mqtt.connection()
@@ -102,8 +102,13 @@ class Mqtt:
         async def handle_data_topics(client, topic, payload, qos, properties):
             """TOPIC_POINT_GROUP Handler"""
             logger.info(f"point received! {topic}, {payload}")
-            organization = payload.decode()
-            organization = Organization.parse_raw(organization)
+            response = payload.decode()
+            response = json.loads(response)
+
+            point_id = response.get("point_id")
+            db.upsert(DBType.last_point, point_id)
+
+            organization = Organization.parse_obj(response.get("organization"))
             organization = organization.dict(by_alias=True)
             organization["_id"] = str(organization["_id"])
             db.upsert(DBType.organization, organization)

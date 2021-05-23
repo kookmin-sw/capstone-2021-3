@@ -50,8 +50,8 @@ if mqtt.initialized:
         "/point",
         description="포인트 적립",
     )
-    async def point(user: str):
-        data = await send_point_data(user)
+    async def point():
+        data = await send_point_data()
         return HTTPException(201, data)
 
     @app.post(
