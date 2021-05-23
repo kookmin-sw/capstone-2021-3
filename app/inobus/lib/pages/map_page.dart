@@ -58,52 +58,53 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
           content: Text('뒤로 가기를 1번 더 누르면 종료 됩니다.'),
         ),
         child: FutureBuilder(
-        future: locatePosition(),
-        builder: (context, snapshot) {
-          developer.log(snapshot.connectionState.toString());
-          if (snapshot.connectionState == ConnectionState.done) {
-            final screenSize = MediaQuery.of(context).size;
-            final screenHeight = screenSize.height;
-            return Expanded(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  GoogleMap(
-                    mapType: MapType.normal,
-                    myLocationEnabled: currentPosition != null ? true : false,
-                    zoomGesturesEnabled: true,
-                    zoomControlsEnabled: true,
-                    initialCameraPosition: cameraPosition,
-                    markers: Set.from(allMarkers),
-                  ),
-                  Positioned(
-                      bottom: screenHeight * 0.1,
-                      child: RoundedRectangleBorderButton(
-                        padding: 15,
-                        radius: 30,
-                        backgroudColor: AppColors.primary,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.barcode,
-                              arguments: RouteArgument(title: "바코드 열기"));
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 30,
-                              child: AppImages.barcode.image(),
-                           ),
-                            Text(
-                              "바코드 열기",
-                              style: TextStyle(
-                                fontSize: 15,
+          future: locatePosition(),
+          builder: (context, snapshot) {
+            developer.log(snapshot.connectionState.toString());
+            if (snapshot.connectionState == ConnectionState.done) {
+              final screenSize = MediaQuery.of(context).size;
+              final screenHeight = screenSize.height;
+              return Expanded(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    GoogleMap(
+                      mapType: MapType.normal,
+                      myLocationEnabled: currentPosition != null ? true : false,
+                      zoomGesturesEnabled: true,
+                      zoomControlsEnabled: true,
+                      initialCameraPosition: cameraPosition,
+                      markers: Set.from(allMarkers),
+                    ),
+                    Positioned(
+                        bottom: screenHeight * 0.1,
+                        child: RoundedRectangleBorderButton(
+                          padding: 15,
+                          radius: 30,
+                          backgroudColor: AppColors.primary,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.barcode,
+                                arguments: RouteArgument(title: "바코드 열기"));
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 30,
+                                child: AppImages.barcode.image(),
                               ),
-                            ),
-                          ],
-                        ),
-                      ))
-                ],
-              ),
+                              Text(
+                                "바코드 열기",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ))
+                  ],
+                ),
+              );
             }
             return Center(
               child: CircularProgressIndicator(),
