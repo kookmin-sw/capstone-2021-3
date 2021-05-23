@@ -87,7 +87,7 @@ class _PointPage extends State<PointPage> {
           // 티켓 박스
           OutlineRoundedRectangleBorderBox(
             height: screenHeight * 0.2,
-            padding: marginRight * 0.8,
+            padding: marginRight * 0.7,
             sidmargin: marginRight * 0.8,
             bordercolor: AppColors.primary,
             borderwidth: 3,
