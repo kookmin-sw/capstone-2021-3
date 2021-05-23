@@ -72,14 +72,14 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             if (Platform.isIOS)
-            Positioned(
-              top: screenHeight * 0.7,
-              child: LoginButtton(
-                logoloc: AppImages.appleLogo.path,
-                outlinecolor: AppColors.primary,
-                text: "애플 로그인",
+              Positioned(
+                top: screenHeight * 0.7,
+                child: LoginButtton(
+                  logoloc: AppImages.appleLogo.path,
+                  outlinecolor: AppColors.primary,
+                  text: "애플 로그인",
+                ),
               ),
-            ),
           ],
         ),
       ),
