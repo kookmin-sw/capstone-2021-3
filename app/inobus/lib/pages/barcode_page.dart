@@ -8,6 +8,7 @@ import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/models/auth_service.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/widgets/circle_button.dart';
+import 'package:inobus/widgets/circle_box.dart';
 
 /// 바코드
 class BarcodePage extends StatelessWidget {
@@ -38,19 +39,27 @@ class BarcodePage extends StatelessWidget {
             // 바코드 생성
             Align(
               alignment: Alignment(0.0, -0.05),
-              child: Container(
-                child: BarcodeWidget(
-                  data: AuthService.user.uid,
-                  barcode: Barcode.code128(),
-                  drawText: false, //바코드값 보이지 않게
+              child: OutlineRoundedRectangleBorderBox(
+                child: Container(
+                  child: BarcodeWidget(
+                    data: AuthService.user.uid,
+                    barcode: Barcode.code128(),
+                    drawText: false, //바코드값 보이지 않게
+                  ),
+                  // height: screenHeight * 0.15,
+                  // width: screenHeight * 0.4,
                 ),
-                height: screenHeight * 0.15,
-                width: screenHeight * 0.4,
+                height: screenHeight * 0.2,
+                width: screenHeight * 0.42,
+                bordercolor: AppColors.primary,
+                borderwidth: 3,
+                padding: 20,
+                radius: 20,
               ),
             ),
             // 아래 동그란 버튼 2개
             Align(
-              alignment: Alignment(-0.4, 0.45),
+              alignment: Alignment(0.0, 0.5),
               child: OutlineCircleButton(
                 radius: 80.0,
                 child: Column(
@@ -85,36 +94,6 @@ class BarcodePage extends StatelessWidget {
                     selectList: 0, // 0:이용방법, 1:서비스 안내
                   ),
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment(0.4, 0.45),
-              child: OutlineCircleButton(
-                radius: 80.0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(
-                        AppIcons.block.path,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      child: Text(
-                        "이용불가",
-                        style: TextStyle(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                borderColor: Colors.grey,
-                borderSize: 1.0,
               ),
             ),
             // 아래 설명 텍스트

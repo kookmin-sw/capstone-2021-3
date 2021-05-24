@@ -78,6 +78,8 @@ class Routes {
             return TermsOfServicePage();
           case Routes.map:
             return MapPage();
+          case Routes.market:
+            return MarketPage();
           default:
             return LoginPage();
         }

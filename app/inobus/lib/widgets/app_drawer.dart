@@ -18,6 +18,7 @@ class AppDrawer extends StatelessWidget {
     DrawerItem(AppIcons.money.icon(), "추첨권/포인트", Routes.point),
     DrawerItem(AppIcons.document.icon(), "이용안내", Routes.information),
     DrawerItem(AppIcons.graph.icon(), "이용내역", Routes.history),
+    DrawerItem(AppIcons.cart.icon(), "에코마켓", Routes.market),
     DrawerItem(AppIcons.headset.icon(), "고객지원", Routes.support),
     DrawerItem(AppIcons.gear.icon(), "설정", Routes.setting),
   ];
