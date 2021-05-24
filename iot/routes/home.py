@@ -24,7 +24,7 @@ device_id = db.find_one(DBType.device)
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    point = -1
+    point = 0
     res = requests.get(base_url + "/organizations")
     res = json.loads(res.text)
     for i in res:
@@ -58,3 +58,19 @@ async def websocket_endpoint(websocket: WebSocket):
                 params={"device_id": device_id, "uid": uid, "data_id": data_id},
             )
         await websocket.send_text(f"Message text was: {res.text}")
+
+@router.get("/hello")
+async def hello(data:str):
+    op = data.split(":")[0]
+    if op == "reward":
+        print("code: " + data.split(":")[1])
+
+        uid = data.split(":")[1]
+        data_id = db.find_one(DBType.last_point)
+
+        res = requests.post(
+            base_url + "/rewards/person_reward",
+            params={"device_id": device_id, "uid": uid, "data_id": data_id},
+        )
+    await config.ws.send_text(f"Message text was: {res.text}")
+
