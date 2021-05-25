@@ -1,7 +1,7 @@
 # 캡스톤 3조: K-분리배출
-## 플라스틱 컵 선순환 생태계 조성 프로젝트
+## 플라스틱 컵 선순환 생태계 조성 프로젝트 ([이노버스](https://www.inobus.co.kr/) 산학협력)
 
-팀페이지 주소 : https://kookmin-sw.github.io/capstone-2021-3/
+팀페이지 주소 : https://kookmin-sw.github.io/capstone-2021-3/ 
 
 ## 목차
 1. ### 프로젝트 소개
