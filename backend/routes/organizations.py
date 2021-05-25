@@ -21,11 +21,21 @@ async def organization_list():
 
 
 @router.get(
+    "/{organization}",
+    response_model=Organization,
+    description="쓰샘이 설치된 기관의 포인트로 내림차순으로 정렬된 리스트 조회",
+)
+async def organization_detail(organization: PyObjectId):
+    res = db.organizations.find_one({"_id": organization})
+    return Organization.parse_obj(res)
+
+
+@router.get(
     "/{organization}/devices",
     response_model=List[Device],
     description="입력한 기관 이름으로 정보 조회",
 )
-async def organization_detail(organization: PyObjectId):
+async def organization_device_list(organization: PyObjectId):
     res = list(db.devices.find({"organization": organization}))
     return res
 

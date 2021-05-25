@@ -1,5 +1,6 @@
 import json
 
+import requests
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
 from models.organization import Organization
@@ -18,6 +19,9 @@ class Mqtt:
 
         self._mqtt = None
         if self.initialized:
+            self.fetch_organization_info()
+            self.organization = self.get_organization_info()
+
             self._mqtt: FastMQTT = self.get_mqtt_app()
             self.add_handlers(self._mqtt)
         else:
@@ -59,6 +63,21 @@ class Mqtt:
 
     def get_device_info(self):
         return db.find_one(DBType.device)
+
+    def fetch_organization_info(self):
+        response = requests.get(
+            f"{config.api_settings.base_url}/organizations/{self.organization_id}"
+        )
+        response = response.json()
+        try:
+            organization = Organization.parse_obj(response)
+            organization = organization.dict(by_alias=True)
+            organization["_id"] = str(organization["_id"])
+            if organization:
+                db.upsert(DBType.organization, organization)
+            logger.info("Success to fetch organization info")
+        except Exception as e:
+            logger.error(f"Failed to fetch organization info {e}")
 
     @property
     def device_id(self):
