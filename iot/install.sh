@@ -14,6 +14,7 @@ nano .env
 
 # 가상환경 실행
 python3 -m venv venv
+set -e
 source venv/bin/activate
 
 # 패키지 설치
@@ -31,3 +32,8 @@ sudo chmod 644 /etc/systemd/system/mqtt_client.service
 sudo systemctl daemon-reload
 sudo systemctl enable mqtt_client.service
 sudo systemctl start mqtt_client.service
+
+# # Deep learning 의존 패키지 설치
+# cd ~
+# wget -qO- https://github.com/kookmin-sw/capstone-2021-3/blob/master/deep_learning/pi/install.sh | bash
+

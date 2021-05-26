@@ -11,7 +11,7 @@
 아래 명령어를 raspberry pi의 터미널에서 실행한 후 [개발](#개발) 섹션의 설정을 진행해주세요.
 
 ```shell
-wget -qO- https://raw.githubusercontent.com/kookmin-sw/capstone-2021-3/master/iot/install.sh | sh
+wget -qO- https://raw.githubusercontent.com/kookmin-sw/capstone-2021-3/master/iot/install.sh | bash
 ```
 
 ## Topic 구조
