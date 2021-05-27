@@ -78,6 +78,13 @@ class LoginPage extends StatelessWidget {
                   logoloc: AppImages.appleLogo.path,
                   outlinecolor: AppColors.primary,
                   text: "애플 로그인",
+                  onpress: () {
+                    // 로그인을 확인하면 다음 페이지로 넘어가기
+                    // 로그인 불가시 로그인 불가 메세지 띄우기
+                    AuthService().loginApple().then((check) => check
+                        ? Navigator.pushNamed(context, Routes.intro_welcome)
+                        : showAlertDialog(context));
+                  },
                 ),
               ),
           ],

@@ -84,7 +84,7 @@ class AuthService {
   }
 
   //로그아웃
-  void logoutGoogle() {
+  void logout() {
     try {
       // 탈퇴
       // user.delete();
@@ -93,9 +93,9 @@ class AuthService {
       // Google 인증 흐름을 Trigger 해제
       _googleSignIn.signOut();
       _auth.signOut();
-      developer.log("Google Logout Success");
+      developer.log("Logout Success");
     } catch (err) {
-      developer.log("Google Logout Fail");
+      developer.log("Logout Fail");
       developer.log(err.toString());
     }
   }
@@ -107,12 +107,7 @@ class AuthService {
     if (response.statusCode == 200) {
       final responseBody = utf8.decode(response.bodyBytes); //String
       final data = json.decode(responseBody); //json
-
-      // 수정 요망
-      if (data == null)
-        point = 100;
-      else
-        point = data["point"];
+      point = data["point"];
     } else {
       point = 0;
       developer.log("Can not access API");
