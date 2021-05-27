@@ -1,7 +1,7 @@
 # 캡스톤 3조: K-분리배출
-## 플라스틱 컵 선순환 생태계 조성 프로젝트
+## 플라스틱 컵 선순환 생태계 조성 프로젝트 ([이노버스](https://www.inobus.co.kr/) 산학협력)
 
-팀페이지 주소 : https://kookmin-sw.github.io/capstone-2021-3/
+팀페이지 주소 : https://kookmin-sw.github.io/capstone-2021-3/ 
 
 ## 목차
 1. ### 프로젝트 소개
@@ -16,7 +16,8 @@
 
 이번 프로젝트의 목표는 [Inobus 쓰샘](https://www.inobus.co.kr/story) 기기에 우리가 개발한 소프트웨어를 융합해 플라스틱 컵 재활용 선순환 생태계를 조성하는 것이다.
 
-![ssam image](resources/SS_SAM.png)
+![쓰샘4_pet_](https://user-images.githubusercontent.com/41602422/119304871-e5bc9f80-bca2-11eb-93bd-9b648893d985.png)
+
 플라스틱 컵에는 다양한 재질이 있다 (PET, PP, PLA). 플라스틱 컵이 제대로 재활용 하기 위해서는 재질별로 분류되어야 한다. 하지만 사람의 노동력은 비용이 높다. 이번 캡스톤 프로젝트에서 우리는 컴퓨터 비전을 활용한 자동화된 플라스틱 컵 재질 선별기를 개발한다.
 
 또한, 기존 쓰샘 기기에 IOT 기기와 디스플레이를 장착해, 리워딩과 기부 시스템을 추가하여 컵 수거함을 이용하는 시민들의 참여를 유도한다.
@@ -83,7 +84,7 @@ Github : [@minoring](https://github.com/minoring)
 
 ### [Backend 문서](backend/)
 
-### [API 문서](backend/docs.html)
+### [API 문서](https://kookmin-sw.github.io/capstone-2021-3/backend/docs.html)
 
 ### [Deep Learning 문서](deep_learning/)
 
@@ -120,3 +121,12 @@ Github : [@minoring](https://github.com/minoring)
   ```
 
 ### [중간발표 영상](https://www.youtube.com/watch?v=s_GYntMXemY)
+
+### 애플리케이션 주요 기능
+### 주요 기능(4)
+| 쓰샘 기기 위치 정보 제공 | 사용자 고유 바코드 생성 | 사용자 포인트 조회 | 기관의 사용 랭킹 조회 |
+| :---------------------: | :---------------------: | :---------------: | :-------------------: |
+| ![Screenshot_20210522-220229](https://user-images.githubusercontent.com/41602422/119292287-0f69cc80-bc8b-11eb-899a-b40e16d1014e.jpg) |                                           ![Screenshot_20210523-212502](https://user-images.githubusercontent.com/41602422/119292306-15f84400-bc8b-11eb-90af-91382cd52949.jpg) |                                           ![Screenshot_20210523-212903](https://user-images.githubusercontent.com/41602422/119292390-3f18d480-bc8b-11eb-9f98-866fb19369f0.jpg) |                                           ![Screenshot_20210523-212455](https://user-images.githubusercontent.com/41602422/119292409-46d87900-bc8b-11eb-9d76-d897873d165d.jpg) |
+
+### 기말발표 영상
+- [모바일 애플리케이션 영상](https://youtu.be/_0m1UuL8_5k)

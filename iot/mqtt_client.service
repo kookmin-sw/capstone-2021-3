@@ -3,13 +3,12 @@ Description=MQTT Client
 After=multi-user.target
 
 [Service]
-Type=idle
-ExecStart=/home/pi/app/iot/venv/bin/uvicorn main:app --env-file .env
+ExecStart=/home/pi/app/iot/venv/bin/uvicorn main:app
 WorkingDirectory=/home/pi/app/iot
 StandardOutput=journal
 StandardError=journal
-EnvironmentFile=/home/pi/app/iot/.env
 Environment="PATH=/home/pi/app/iot/venv/bin"
+EnvironmentFile=-/home/pi/app/iot/.env
 User=pi
 Restart=on-failure
 

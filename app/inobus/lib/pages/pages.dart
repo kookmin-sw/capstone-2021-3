@@ -5,6 +5,7 @@ export 'introduction/2_after_login_page.dart';
 // Services
 export 'map_page.dart';
 export 'point_page.dart';
+export 'market_page.dart';
 export 'setting_page.dart';
 export 'barcode_page.dart';
 export 'information_page.dart';

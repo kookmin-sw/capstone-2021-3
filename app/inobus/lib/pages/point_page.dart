@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:inobus/app_colors.dart';
 import 'package:inobus/app_icons.dart';
 import 'package:inobus/app_images.dart';
 import 'package:inobus/routes.dart';
-import 'package:inobus/api/user.dart';
 import 'package:inobus/models/route_argument.dart';
 import 'package:inobus/widgets/app_scaffold.dart';
 import 'package:inobus/widgets/circle_box.dart';
@@ -17,20 +17,19 @@ class PointPage extends StatefulWidget {
 }
 
 class _PointPage extends State<PointPage> {
-  User lastMonth = User('000000', 0);
+  var nowDate;
+  var ticket;
 
-  // 사용자 마지막 월의 포인트 값 가져오기
-  void getUserPointLastMonth() async {
-    final requesttUserPointHistoryList = await requesttUserPointHistory();
-    setState(() {
-      lastMonth = requesttUserPointHistoryList[0];
-    });
-  }
+  void launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
   @override
   void initState() {
     super.initState();
-    getUserPointLastMonth();
+    setState(() {
+      nowDate = DateTime.now().toString();
+      ticket = AuthService.ticket;
+    });
   }
 
   @override
@@ -80,10 +79,7 @@ class _PointPage extends State<PointPage> {
           ),
           // 이번달 추첨권 개수 알려주기
           Text(
-            lastMonth.date.substring(0, 4) +
-                "년 " +
-                lastMonth.date.substring(lastMonth.date.length - 2) +
-                "월 추첨권",
+            nowDate.substring(0, 4) + "년 " + nowDate.substring(5, 7) + "월 추첨권",
             style: TextStyle(
               color: Colors.grey,
             ),
@@ -91,7 +87,7 @@ class _PointPage extends State<PointPage> {
           // 티켓 박스
           OutlineRoundedRectangleBorderBox(
             height: screenHeight * 0.2,
-            padding: marginRight * 0.8,
+            padding: marginRight * 0.7,
             sidmargin: marginRight * 0.8,
             bordercolor: AppColors.primary,
             borderwidth: 3,
@@ -104,28 +100,26 @@ class _PointPage extends State<PointPage> {
                   children: [
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 0
+                      child: ticket > 0
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 1
+                      child: ticket > 1
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     ),
                     Container(
                       width: screenWidth * 0.2,
-                      child: lastMonth.point > 2
+                      child: ticket > 2
                           ? AppImages.smilePurple.image()
                           : AppImages.smileGrey.image(),
                     )
                   ],
                 ),
                 Text(
-                  (3 - lastMonth.point >= 0 ? 3 - lastMonth.point : 0)
-                          .toString() +
-                      "개의 추첨권이 남았어요!",
+                  (3 - ticket).toString() + "개의 추첨권이 남았어요!",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -138,12 +132,16 @@ class _PointPage extends State<PointPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "이달의 추첨상품 알아보기 >  ",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
+                TextButton(
+                    child: Text(
+                      "이달의 추첨상품 알아보기 >  ",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {
+                      launchURL("https://www.inobus.co.kr/");
+                    }),
               ],
             ),
           ),
@@ -258,7 +256,13 @@ class _PointPage extends State<PointPage> {
                     Container(
                       margin: EdgeInsets.only(left: 10.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            Routes.market,
+                            arguments: RouteArgument(title: "에코마켓"),
+                          );
+                        },
                         child: Text(
                           "마켓\n보기",
                           style: TextStyle(

@@ -15,43 +15,6 @@ router = APIRouter()
 
 
 @router.post(
-    "/insert_cup",
-    description="쓰샘기기에 재활용컵 투입시 등록",
-)
-async def insert_cup(device_id: str):
-
-    # 기기 포인트 적립
-    device = db.devices.find_one({"_id": ObjectId(device_id)})
-    if device:
-        device = Device.parse_obj(device)
-        device.point += 1
-        db.devices.update({"_id": ObjectId(device_id)}, device.dict(by_alias=False))
-    else:
-        raise HTTPException(status_code=404, detail="Device not found")
-
-    # org_name = device.organization
-
-    # 단체 포인트 적립
-    organization = db.organizations.find_one({"_id": device.organization})
-    organization = Organization.parse_obj(organization)
-    organization.point += 1
-    db.organizations.update(
-        {"_id": device.organization}, organization.dict(by_alias=False)
-    )
-
-    # 적립 기록 레코드 생성
-    res = db.points.insert_one(
-        {"device": ObjectId(device_id), "date": get_current_datetime_str()}
-    )
-
-    ret = dict()
-    ret["result"] = "success"
-    ret["data_id"] = str(res.inserted_id)
-
-    return ret
-
-
-@router.post(
     "/person_reward",
     response_model=UserOut,
     description="쓰샘기기에서 코드를 통해 포인트 적립",

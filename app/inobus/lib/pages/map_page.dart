@@ -80,7 +80,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                         bottom: screenHeight * 0.1,
                         child: RoundedRectangleBorderButton(
                           padding: 15,
-                          radius: 30,
+                          radius: 20,
                           backgroudColor: AppColors.primary,
                           textColor: Colors.white,
                           onPressed: () {
@@ -90,6 +90,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                           child: Column(
                             children: [
                               Container(
+                                margin: EdgeInsets.only(bottom: 10),
                                 height: 30,
                                 child: AppImages.barcode.image(),
                               ),
