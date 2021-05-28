@@ -17,6 +17,7 @@ class BarcodePage extends StatelessWidget {
     final RouteArgument argument = ModalRoute.of(context).settings.arguments;
     final screenSize = MediaQuery.of(context).size;
     final screenHeight = screenSize.height;
+    final screenWidth = screenSize.width;
     return AppScaffold(
       title: argument.title,
       body: Expanded(
@@ -46,8 +47,6 @@ class BarcodePage extends StatelessWidget {
                     barcode: Barcode.code128(),
                     drawText: false, //바코드값 보이지 않게
                   ),
-                  // height: screenHeight * 0.15,
-                  // width: screenHeight * 0.4,
                 ),
                 height: screenHeight * 0.2,
                 width: screenHeight * 0.42,
@@ -57,26 +56,27 @@ class BarcodePage extends StatelessWidget {
                 radius: 20,
               ),
             ),
-            // 아래 동그란 버튼 2개
+            // 아래 동그란 버튼
             Align(
               alignment: Alignment(0.0, 0.5),
               child: OutlineCircleButton(
-                radius: 80.0,
+                radius: screenWidth * 0.25,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 50,
-                      width: 50,
+                      height: screenWidth * 0.15,
+                      width: screenWidth * 0.15,
                       child: Image.asset(
                         AppIcons.document.path,
                         color: AppColors.primary,
                       ),
                     ),
                     Container(
-                      width: 50,
+                      width: screenWidth * 0.2,
                       child: Text(
                         "이용안내",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.primary,
                         ),

@@ -11,7 +11,7 @@ class LotteryFirstPage extends StatelessWidget {
       textList: TextSpan(
         children: <TextSpan>[
           TextSpan(
-            text: '추천권은 최대 3번!\n',
+            text: '추첨권은 최대 3번!\n',
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 25,

@@ -237,7 +237,7 @@ class Chart extends StatelessWidget {
       result.add(
         FlSpot(
           i.toDouble(),
-          userPointList[i].point.toDouble(),
+          userPointList[listLength - i].point.toDouble(),
         ),
       );
     }
@@ -303,7 +303,7 @@ class Chart extends StatelessWidget {
                 // Y축 label
                 leftTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 10,
+                  reservedSize: 20,
                   getTextStyles: (value) => TextStyle(
                     color: AppColors.primary,
                     fontSize: minFointSize,
@@ -311,13 +311,17 @@ class Chart extends StatelessWidget {
                   ),
                   getTitles: (value) {
                     // 기존 0~ 값 대신 적힐 내용
-                    if (maxNum() > 10) {
-                      if (value.toInt() % 10 == 5) {
+                    if (maxNum() > 50) {
+                      if (value.toInt() % 50 == 0) {
                         return value.toInt().toString() + 'P';
                       } else
                         return '';
-                    } else
-                      return value.toInt().toString() + 'P';
+                    } else {
+                      if (value.toInt() % 10 == 0) {
+                        return value.toInt().toString() + 'P';
+                      } else
+                        return '';
+                    }
                   },
                 ),
               ),
