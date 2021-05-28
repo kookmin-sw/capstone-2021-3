@@ -109,8 +109,6 @@ class AMQPConsumer:
         self._channel.queue_declare(
             self.config.queue,  # 큐 이름
             durable=True,  # 메시지가 중간에 소실되지 않도록 보장
-            exclusive=False,  # 현재 연결 이외에도 수용
-            auto_delete=True,  # 사용하지 않아도 큐가 삭제되지 않음
             callback=self.on_queue_declared,
         )
 
@@ -257,7 +255,7 @@ class AMQPConsumer:
             },
             ensure_ascii=False,
         )
-        self.mqtt.publish(topic, result, qos=0, retain=True)
+        self.mqtt.publish(topic, result, qos=2, retain=False)
         OnMessageLog(logging.INFO, "포인트 수신 신호 전달", topic, result).report()
 
 

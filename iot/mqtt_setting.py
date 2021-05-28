@@ -1,8 +1,8 @@
 import json
 
-import requests
 from fastapi_mqtt import FastMQTT, MQTTConfig
 from gmqtt.mqtt.constants import MQTTv311
+import requests
 from models.organization import Organization
 from utils.logger import logger
 
@@ -108,8 +108,11 @@ class Mqtt:
         def connect(client, flags, rc, properties):
             """MQTT Broker에 연결이 되었을 때 동작하는 Handler"""
             logger.info(f"Connected: {client}, {flags}, {rc}, {properties}")
+
+            # qos 1로 최소 1번은 변경을 수신할 수 있도록 한다.
             app.client.subscribe(
                 self.topic_point_group,
+                qos=1,
             )
 
         @app.on_disconnect()
