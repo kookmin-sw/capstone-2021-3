@@ -8,6 +8,7 @@ from utils.logger import logger
 
 from config import config
 from iot_utils.database import DBType, db
+from websocket_manager import websocket_manager
 
 
 class Mqtt:
@@ -112,7 +113,7 @@ class Mqtt:
             # qos 1로 최소 1번은 변경을 수신할 수 있도록 한다.
             app.client.subscribe(
                 self.topic_point_group,
-                qos=1,
+                qos=0,
             )
 
         @app.on_disconnect()
@@ -128,16 +129,13 @@ class Mqtt:
             response = json.loads(response)
 
             # 현재 기기에서 보낸 데이터면 유저의 바코드 입력을 처리
-            try:
-                device_id = response.get("device_id")
-                if device_id == self.device_id:
-                    point_id = response.get("point_id")
-                    db.upsert(DBType.last_point, point_id)
-                    await config.ws.send_text("inserted")
-                else:
-                    await config.ws.send_text("point")
-            except:
-                pass
+            device_id = response.get("device_id")
+            if device_id == self.device_id:
+                point_id = response.get("point_id")
+                db.upsert(DBType.last_point, point_id)
+                await websocket_manager.broadcast("inserted")
+            else:
+                await websocket_manager.broadcast("point")
 
             organization = Organization.parse_obj(response.get("organization"))
             organization = organization.dict(by_alias=True)
