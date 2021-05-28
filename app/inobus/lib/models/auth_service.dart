@@ -109,7 +109,7 @@ class AuthService {
     if (response.statusCode == 200) {
       final responseBody = utf8.decode(response.bodyBytes); //String
       final data = json.decode(responseBody); //json
-      
+
       point = data["point"];
     } else {
       point = 0;
