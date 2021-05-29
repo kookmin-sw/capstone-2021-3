@@ -1,3 +1,6 @@
+## [데모 영상](https://www.youtube.com/watch?v=LlmhgZJv-nE&t=50s)
+
+
 ## Deep Learning 환경설정
 Python 3.8 Virtual Environments 설정
 `pip install -r requirements.txt` 실행
