@@ -121,7 +121,7 @@ Github : [@minoring](https://github.com/minoring)
   ```
 
 ### [중간발표 영상](https://www.youtube.com/watch?v=s_GYntMXemY)
-
+### [최종 시연 영상](https://www.youtube.com/watch?v=LlmhgZJv-nE)
 ### 애플리케이션 주요 기능
 ### 주요 기능(4)
 | 쓰샘 기기 위치 정보 제공 | 사용자 고유 바코드 생성 | 사용자 포인트 조회 | 기관의 사용 랭킹 조회 |
