@@ -1,0 +1,16 @@
+[Unit]
+Description=MQTT Client
+After=multi-user.target
+
+[Service]
+ExecStart=/home/pi/app/iot/venv/bin/uvicorn main:app
+WorkingDirectory=/home/pi/app/iot
+StandardOutput=journal
+StandardError=journal
+Environment="PATH=/home/pi/app/iot/venv/bin"
+EnvironmentFile=-/home/pi/app/iot/.env
+User=pi
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

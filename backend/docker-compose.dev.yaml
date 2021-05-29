@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  mongodb:
+    extends:
+      file: common.yaml
+      service: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin1234!
+      - MONGO_INITDB_DATABASE=next_generation
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    extends:
+      file: common.yaml
+      service: api
+    ports:
+      - 80:80
+    env_file:
+      - .env.example
+    volumes:
+      - .:/app
+    command: "/start-reload.sh"
+  rabbitmq:
+    extends:
+      file: common.yaml
+      service: rabbitmq
+    env_file:
+      - .env.example
+  consumer:
+    extends:
+      file: common.yaml
+      service: consumer
+    env_file:
+      - .env.example
+
+volumes:
+  mongodb:

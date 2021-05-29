@@ -1,0 +1,17 @@
+FROM rabbitmq:3-management-alpine
+
+# mqtt 플러그인 사용
+RUN rabbitmq-plugins enable rabbitmq_mqtt
+
+# RabbitMQ config
+ADD rabbitmq.config /etc/rabbitmq/
+ADD definitions_template.json /etc/rabbitmq/
+
+# Add package 
+RUN apk update --no-cache \
+    && apk add gettext
+
+# Generate configuration file and Update permissions
+ADD init.sh /init.sh
+RUN chmod +x /init.sh
+CMD ["/init.sh"]
