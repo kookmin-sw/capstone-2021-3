@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inobus/api/api.dart';
@@ -12,6 +13,41 @@ class AuthService {
   static int point;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //애플 로그인
+  Future<bool> loginApple() async {
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+
+      await _auth.signInWithCredential(oauthCredential);
+      user = _auth.currentUser;
+
+      // 정보 확인
+      if (user != null) {
+        developer.log("Firebase user information verification success");
+        developer.log(user.displayName.toString());
+        // 유저 포인트 가져오기
+        requesttUserPoint();
+        return true;
+      } else {
+        developer.log("Firebase user information verification fail");
+      }
+    } catch (err) {
+      developer.log("Google Login Fail");
+      developer.log(err.toString());
+    }
+    return false;
+  }
 
   // 구글 로그인
   Future<bool> loginGoogle() async {
@@ -49,8 +85,8 @@ class AuthService {
     return false;
   }
 
-  // 구글 로그아웃
-  void logoutGoogle() {
+  //로그아웃
+  void logout() {
     try {
       // 탈퇴
       // user.delete();
@@ -59,9 +95,9 @@ class AuthService {
       // Google 인증 흐름을 Trigger 해제
       _googleSignIn.signOut();
       _auth.signOut();
-      developer.log("Google Logout Success");
+      developer.log("Logout Success");
     } catch (err) {
-      developer.log("Google Logout Fail");
+      developer.log("Logout Fail");
       developer.log(err.toString());
     }
   }

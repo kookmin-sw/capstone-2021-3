@@ -70,7 +70,7 @@ class UnderLineButton extends StatelessWidget {
         child: MaterialButton(
           onPressed: () {
             if (mainText == '로그아웃') {
-              AuthService().logoutGoogle();
+              AuthService().logout();
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.intro_login, (route) => false);
             }
